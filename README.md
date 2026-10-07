@@ -1,4 +1,5 @@
 # WoW Forever — Class Chooser
+    This project is entirely AI written. Idea and prompted by me. 
 
 A fan-made tool for **World of Warcraft: Forever** (launching November 4). Two pages, styled like classic 2004 World of Warcraft meets Warcraft 2:
 
@@ -7,6 +8,6 @@ A fan-made tool for **World of Warcraft: Forever** (launching November 4). Two p
 
 ## Try it yourself here
     https://hedstrommen.github.io/wowforever-class-chooser/index.html
-```
-
-*WoW Forever is a fan project and is not affiliated with Blizzard Entertainment.*
+    
+## Disclamer
+    *WoW Forever is a fan project and is not affiliated with Blizzard Entertainment.*
