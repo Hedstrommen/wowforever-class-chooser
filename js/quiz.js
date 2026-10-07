@@ -1,161 +1,88 @@
 // ============================================================
-// WoW Forever — 20-question quiz + result engine
-// Each answer adds weights to class scores and race traits.
+// WoW Forever — 10-question quiz + result engine
+// Questions describe playstyle mechanics; scoring maps answers
+// to the 9 real WoW Forever classes and their playable races.
 // ============================================================
 
 (function () {
   const QUESTIONS = [
-    { text: "A dragon swoops down at your party. What do you do?",
+    { text: "When a fight starts, where do you want to be standing?",
       answers: [
-        { text: "Stand your ground and take the hits", class: { Warrior: 3, Paladin: 2, DeathKnight: 2, Warlock: 1 }, traits: ["tanky", "melee"] },
-        { text: "Shield your allies and mend their wounds", class: { Priest: 3, Paladin: 2, DeathKnight: 1 }, traits: ["support"] },
-        { text: "Strike from the shadows before it sees you", class: { Rogue: 3, DemonHunter: 2 }, traits: ["aggressive", "melee"] },
-        { text: "Blast it out of the sky with spells", class: { Mage: 3, Warlock: 2, Shaman: 1 }, traits: ["magic", "ranged"] }
+        { text: "In front of the enemy, taking the hits", roles: { tank: 3, melee: 1 }, cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
+        { text: "In the enemy's face, dealing damage", roles: { melee: 3 }, cls: { Rogue: 2, Warrior: 1 }, traits: ["aggressive"] },
+        { text: "At range, shooting or casting", roles: { ranged: 3 }, cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
+        { text: "Behind my allies, keeping them alive", roles: { healer: 3 }, cls: { Priest: 2, Shaman: 1 }, traits: ["support"] }
       ] },
-    { text: "Which weapon feels right in your hands?",
+    { text: "How do you feel about managing a resource that builds up during combat?",
       answers: [
-        { text: "A massive two-handed blade", class: { Warrior: 3, DeathKnight: 2, Paladin: 1 }, traits: ["melee", "tanky"] },
-        { text: "Daggers, fast and poisoned", class: { Rogue: 3 }, traits: ["aggressive", "melee"] },
-        { text: "A staff crackling with energy", class: { Mage: 3, Shaman: 2, Priest: 1 }, traits: ["magic", "ranged"] },
-        { text: "My own two fists", class: { Monk: 3, DemonHunter: 2 }, traits: ["melee", "aggressive"] }
+        { text: "I like it — rage or energy building as I fight", roles: {}, cls: { Warrior: 2, Rogue: 2 }, traits: ["melee"] },
+        { text: "I prefer managing mana over a long fight", roles: {}, cls: { Mage: 2, Priest: 2 }, traits: ["magic"] },
+        { text: "I like timing cooldowns and procs more than resources", roles: {}, cls: { Hunter: 2, Shaman: 2 }, traits: ["ranged"] },
+        { text: "I want to switch between resources as the fight changes", roles: {}, cls: { Druid: 3 }, traits: ["versatile"] }
       ] },
-    { text: "In a group of adventures, you are the one who…",
+    { text: "A pull goes badly and three enemies are loose. What's your instinct?",
       answers: [
-        { text: "Leads from the front", class: { Warrior: 2, Paladin: 3 }, traits: ["tanky"] },
-        { text: "Keeps everyone alive", class: { Priest: 3, Shaman: 2, Monk: 1 }, traits: ["support"] },
-        { text: "Deals the most damage", class: { Rogue: 2, Mage: 2, Hunter: 2, Warlock: 2 }, traits: ["aggressive"] },
-        { text: "Reads the situation and adapts", class: { Druid: 3, Monk: 2 }, traits: ["versatile"] }
+        { text: "Pick them all up and hold them", roles: { tank: 3 }, cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
+        { text: "Polymorph, Sap, Banish — lock one down first", roles: { cc: 2, ranged: 1 }, cls: { Mage: 2, Rogue: 2 }, traits: ["ranged"] },
+        { text: "Damage the one the tank is on; trust the plan", roles: {}, cls: { Rogue: 1, Mage: 1, Hunter: 1, Warlock: 1 }, traits: ["ranged"] },
+        { text: "Heal through the chaos", roles: { healer: 3 }, cls: { Priest: 2, Shaman: 1 }, traits: ["support"] }
       ] },
-    { text: "What kind of magic calls to you?",
+    { text: "How do you feel about pets or companions?",
       answers: [
-        { text: "Fire and destruction", class: { Mage: 2, Warlock: 3 }, traits: ["magic", "aggressive"] },
-        { text: "The Light and holiness", class: { Paladin: 3, Priest: 2 }, traits: ["support", "magic"] },
-        { text: "Nature and the elements", class: { Shaman: 3, Druid: 2 }, traits: ["nature"] },
-        { text: "Shadow and the void", class: { Priest: 2, Warlock: 2, DeathKnight: 2 }, traits: ["magic"] }
+        { text: "A pet is core to my play — I manage it constantly", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Useful, but I don't want to depend on one", cls: { Mage: 2, Priest: 1 }, traits: ["magic"] },
+        { text: "I fight alone, up close", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee", "aggressive"] },
+        { text: "My companions are the spirits and elements", cls: { Shaman: 3 }, traits: ["nature"] }
       ] },
-    { text: "Your ally is at half health mid-fight. You…",
+    { text: "Which sounds more satisfying in a long dungeon run?",
       answers: [
-        { text: "Cast a healing spell immediately", class: { Priest: 3, Shaman: 2, Monk: 1 }, traits: ["support"] },
-        { text: "Kill the enemy faster than it can hurt them", class: { Rogue: 2, Mage: 3, DemonHunter: 2 }, traits: ["aggressive"] },
-        { text: "Taunt the enemy onto yourself", class: { Warrior: 2, Paladin: 3, DeathKnight: 2 }, traits: ["tanky"] },
-        { text: "Buff them so they can handle it", class: { Paladin: 2, Mage: 2, Shaman: 1 }, traits: ["support"] }
+        { text: "A big critical hit number appearing", cls: { Rogue: 2, Mage: 2, Warrior: 1 }, traits: ["aggressive"] },
+        { text: "A perfectly timed crowd control", cls: { Mage: 2, Rogue: 1 }, traits: ["ranged"] },
+        { text: "Keeping everyone alive through a bad pull", cls: { Priest: 3, Paladin: 1 }, traits: ["support"] },
+        { text: "Holding threat while everything hits me", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] }
       ] },
-    { text: "Choose a fighting style:",
+    { text: "Do you prefer a set rotation or reacting to procs?",
       answers: [
-        { text: "Up close and personal", class: { Warrior: 2, Rogue: 2, Monk: 2, DemonHunter: 1 }, traits: ["melee"] },
-        { text: "From a safe distance", class: { Hunter: 3, Mage: 2, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Shapeshifting between forms", class: { Druid: 4 }, traits: ["versatile", "nature"] },
-        { text: "With a loyal companion at my side", class: { Hunter: 3, Warlock: 2, DeathKnight: 1 }, traits: ["ranged"] }
+        { text: "A strict rotation, executed perfectly", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee"] },
+        { text: "Reacting to random procs keeps it fresh", cls: { Mage: 3, Shaman: 2 }, traits: ["magic"] },
+        { text: "Priority lists — flexible but planned", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
+        { text: "It changes with the situation entirely", cls: { Druid: 3 }, traits: ["versatile"] }
       ] },
-    { text: "Do you prefer a pet or companion fighting beside you?",
+    { text: "How important is being able to solo content efficiently?",
       answers: [
-        { text: "Yes, a beast of the wild", class: { Hunter: 4 }, traits: ["nature"] },
-        { text: "Yes, a demon or undead servant", class: { Warlock: 3, DeathKnight: 2 }, traits: ["magic"] },
-        { text: "No, I fight alone", class: { Rogue: 3, Warrior: 2, DemonHunter: 1 }, traits: ["aggressive"] },
-        { text: "My companions are the spirits", class: { Shaman: 3, Priest: 1 }, traits: ["nature", "support"] }
+        { text: "Very — I want to quest and farm without help", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Somewhat — group content is my main goal", cls: { Priest: 1, Paladin: 2 }, traits: ["support"] },
+        { text: "I mostly play in groups anyway", cls: { Warrior: 1, Priest: 1 }, traits: ["support"] },
+        { text: "I want options for both", cls: { Druid: 3, Shaman: 2 }, traits: ["versatile"] }
       ] },
-    { text: "You find treasure in a dungeon. What do you hope it is?",
+    { text: "Threat and aggro management — how much do you want to think about it?",
       answers: [
-        { text: "A gleaming set of plate armor", class: { Warrior: 2, Paladin: 3 }, traits: ["tanky"] },
-        { text: "An ancient enchanted blade", class: { Warrior: 2, DeathKnight: 3 }, traits: ["melee"] },
-        { text: "A staff of pure arcane power", class: { Mage: 3 }, traits: ["magic"] },
-        { text: "Gold. Just gold.", class: { Rogue: 3 }, traits: ["aggressive"] }
+        { text: "It's my job — I manage what everyone attacks", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
+        { text: "I watch my own threat and back off when needed", cls: { Rogue: 2, Mage: 1 }, traits: ["aggressive"] },
+        { text: "I want tools like threat reduction or fade", cls: { Priest: 2, Warlock: 1 }, traits: ["support"] },
+        { text: "Rarely a concern for how I play", cls: { Hunter: 2, Mage: 1 }, traits: ["ranged"] }
       ] },
-    { text: "Which do you value most in battle?",
+    { text: "Which do you enjoy more in PvP?",
       answers: [
-        { text: "Survivability", class: { Warrior: 2, Paladin: 2, DeathKnight: 2 }, traits: ["tanky"] },
-        { text: "Raw damage", class: { Rogue: 2, Mage: 2, DemonHunter: 2 }, traits: ["aggressive"] },
-        { text: "Helping the group", class: { Priest: 3, Shaman: 1 }, traits: ["support"] },
-        { text: "Versatility", class: { Druid: 4, Monk: 2 }, traits: ["versatile"] }
+        { text: "Locking someone down with stuns and poisons", cls: { Rogue: 3 }, traits: ["aggressive", "melee"] },
+        { text: "Kiting them around while I stay safe", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
+        { text: "Outlasting them with healing and armor", cls: { Paladin: 2, Priest: 1 }, traits: ["support", "tanky"] },
+        { text: "Fear, curses and damage over time", cls: { Warlock: 3 }, traits: ["magic"] }
       ] },
-    { text: "What terrain do you feel most at home in?",
+    { text: "Finally: which class identity draws you most?",
       answers: [
-        { text: "Snowy mountain peaks", class: { Shaman: 2, DeathKnight: 2 }, traits: ["tanky"] },
-        { text: "Dark, haunted forests", class: { Druid: 2, Warlock: 2, DemonHunter: 1 }, traits: ["nature", "magic"] },
-        { text: "Bustling city streets", class: { Rogue: 3, Monk: 1 }, traits: ["aggressive"] },
-        { text: "Open plains under the sun", class: { Hunter: 3, Shaman: 1 }, traits: ["nature", "ranged"] }
-      ] },
-    { text: "The battle is won. How did you contribute?",
-      answers: [
-        { text: "I never fell, and neither did my allies", class: { Paladin: 3, Warrior: 2 }, traits: ["tanky", "support"] },
-        { text: "I out-damaged everyone", class: { Mage: 2, Rogue: 2, Hunter: 2 }, traits: ["aggressive"] },
-        { text: "My heals turned the tide", class: { Priest: 3, Shaman: 2 }, traits: ["support"] },
-        { text: "I did a bit of everything", class: { Druid: 4, Monk: 2 }, traits: ["versatile"] }
-      ] },
-    { text: "Choose a mentor:",
-      answers: [
-        { text: "A grizzled old knight", class: { Warrior: 3, Paladin: 2 }, traits: ["melee", "tanky"] },
-        { text: "A wise old wizard", class: { Mage: 3, Priest: 1 }, traits: ["magic"] },
-        { text: "A shadowy assassin", class: { Rogue: 4 }, traits: ["aggressive"] },
-        { text: "A wandering monk", class: { Monk: 4 }, traits: ["melee", "support"] }
-      ] },
-    { text: "What is your view on the Void and shadow magic?",
-      answers: [
-        { text: "It is a tool like any other", class: { Warlock: 2, Priest: 2, DeathKnight: 2 }, traits: ["magic"] },
-        { text: "Tempting, but dangerous", class: { Mage: 2, DemonHunter: 2 }, traits: ["magic"] },
-        { text: "An abomination to be purged", class: { Paladin: 3, Priest: 2 }, traits: ["support"] },
-        { text: "I prefer the balance of nature", class: { Druid: 3, Shaman: 2 }, traits: ["nature"] }
-      ] },
-    { text: "Pick a color for your banner:",
-      answers: [
-        { text: "Gold and white", class: { Paladin: 3 }, traits: ["support"] },
-        { text: "Blood red", class: { DeathKnight: 3, Warrior: 1 }, traits: ["aggressive"] },
-        { text: "Deep arcane blue", class: { Mage: 3, Shaman: 1 }, traits: ["magic"] },
-        { text: "Earthy green", class: { Druid: 3, Hunter: 2 }, traits: ["nature"] }
-      ] },
-    { text: "How do you handle a wild beast?",
-      answers: [
-        { text: "Tame it as my companion", class: { Hunter: 4 }, traits: ["nature"] },
-        { text: "Track it and take it down", class: { Hunter: 2, Rogue: 2 }, traits: ["aggressive"] },
-        { text: "Become it", class: { Druid: 4 }, traits: ["nature", "versatile"] },
-        { text: "Command it with dark magic", class: { Warlock: 3 }, traits: ["magic"] }
-      ] },
-    { text: "Choose a drink at the tavern:",
-      answers: [
-        { text: "A whole keg of ale", class: { Warrior: 3, Monk: 1 }, traits: ["melee"] },
-        { text: "A fine elven wine", class: { Priest: 2, Mage: 2 }, traits: ["magic"] },
-        { text: "Something brewed from moonwell water", class: { Druid: 3, Mage: 1 }, traits: ["nature"] },
-        { text: "Whatever gets the job done", class: { Rogue: 3, DemonHunter: 1 }, traits: ["aggressive"] }
-      ] },
-    { text: "What role do you want to play in a raid?",
-      answers: [
-        { text: "Main tank", class: { Warrior: 2, Paladin: 2, DeathKnight: 2, DemonHunter: 1 }, traits: ["tanky"] },
-        { text: "Healer", class: { Priest: 3, Shaman: 1, Monk: 1 }, traits: ["support"] },
-        { text: "Top damage dealer", class: { Rogue: 2, Mage: 2, Hunter: 2 }, traits: ["aggressive"] },
-        { text: "Whatever the raid needs", class: { Druid: 3, Paladin: 1, Monk: 1 }, traits: ["versatile"] }
-      ] },
-    { text: "Are you a leader or a loner?",
-      answers: [
-        { text: "A leader — I protect my people", class: { Paladin: 3, Warrior: 2 }, traits: ["tanky", "support"] },
-        { text: "A loner — I work best unseen", class: { Rogue: 4 }, traits: ["aggressive"] },
-        { text: "A follower of ancient traditions", class: { Druid: 2, Shaman: 2, Monk: 2 }, traits: ["nature"] },
-        { text: "A scholar — knowledge is power", class: { Mage: 3, Warlock: 1 }, traits: ["magic"] }
-      ] },
-    { text: "Finally: what draws you to adventure?",
-      answers: [
-        { text: "Glory in battle", class: { Warrior: 2, DemonHunter: 2 }, traits: ["aggressive", "melee"] },
-        { text: "Protecting the innocent", class: { Paladin: 3, Priest: 2 }, traits: ["support"] },
-        { text: "Uncovering forbidden secrets", class: { Warlock: 3, Mage: 1 }, traits: ["magic"] },
-        { text: "The wild, untamed world", class: { Hunter: 2, Druid: 2, Shaman: 2 }, traits: ["nature"] }
+        { text: "Weapons, armor and martial discipline", cls: { Warrior: 3, Rogue: 1 }, traits: ["melee"] },
+        { text: "The Light — protection and holy power", cls: { Paladin: 3 }, traits: ["support"] },
+        { text: "Elements, spirits and nature", cls: { Shaman: 3, Druid: 2, Hunter: 1 }, traits: ["nature"] },
+        { text: "Arcane, shadow or fel — knowledge as power", cls: { Mage: 2, Warlock: 2, Priest: 1 }, traits: ["magic"] }
       ] }
   ];
 
-  const RACE_QUESTIONS = [
-    { text: "Which homeland calls you home?",
-      answers: [
-        { text: "Stormwind's stone halls", traits: ["alliance", "melee"] },
-        { text: "Ironforge's deep mines", traits: ["alliance", "tanky"] },
-        { text: "Teldrassil's shadowed glades", traits: ["alliance", "nature"] },
-        { text: "Orgrimmar's war camps", traits: ["horde", "aggressive"] },
-        { text: "The Undercity's dark depths", traits: ["horde", "magic"] },
-        { text: "Mulgore's open plains", traits: ["horde", "nature"] }
-      ] }
-  ];
-
-  const TOTAL = QUESTIONS.length + RACE_QUESTIONS.length;
+  const TOTAL = QUESTIONS.length;
   let step = 0;
   const classScores = {};
   const traitScores = {};
+  const history = [];
 
   const quizContainer = document.getElementById("quizContainer");
   const resultContainer = document.getElementById("resultContainer");
@@ -163,22 +90,21 @@
   const progressFill = document.getElementById("progressFill");
   const progressText = document.getElementById("progressText");
 
-  function allQuestions() { return QUESTIONS.concat(RACE_QUESTIONS); }
-
   function record(answer) {
-    if (answer.class) {
-      Object.keys(answer.class).forEach(function (name) {
-        classScores[name] = (classScores[name] || 0) + answer.class[name];
+    if (answer.cls) {
+      Object.keys(answer.cls).forEach(function (name) {
+        classScores[name] = (classScores[name] || 0) + answer.cls[name];
       });
     }
     (answer.traits || []).forEach(function (t) {
       traitScores[t] = (traitScores[t] || 0) + 1;
     });
+    history.push(answer);
   }
 
   function renderQuestion() {
-    const q = allQuestions()[step];
-    progressFill.style.width = ((step) / TOTAL * 100) + "%";
+    const q = QUESTIONS[step];
+    progressFill.style.width = (step / TOTAL * 100) + "%";
     progressText.textContent = "Question " + (step + 1) + " of " + TOTAL;
 
     questionBox.innerHTML =
@@ -197,31 +123,37 @@
     });
   }
 
-  function topClass() {
-    let best = null, score = -1;
-    WOW_DATA.classes.forEach(function (c) {
-      const s = classScores[c.name] || 0;
-      if (s > score) { score = s; best = c; }
-    });
-    return best;
+  function topClasses() {
+    return WOW_DATA.classes.map(function (c) {
+      return { c: c, score: classScores[c.name] || 0 };
+    }).sort(function (a, b) { return b.score - a.score; });
   }
 
-  function topRace(matchClass) {
+  function pickRace(cls) {
+    const candidates = WOW_DATA.races.filter(function (r) {
+      return r.playableClasses.indexOf(cls.name) !== -1;
+    });
     let best = null, score = -1;
-    WOW_DATA.races.forEach(function (r) {
+    candidates.forEach(function (r) {
       let s = 0;
-      r.traits.forEach(function (t) { s += traitScores[t] || 0; });
-      if (matchClass && r.newRoleUnlocks.indexOf(matchClass.name) !== -1) s += 2;
+      (r.traits || []).forEach(function () {});
+      // score race by trait overlap with quiz traits
+      (r.matchTraits || []).forEach(function (t) { s += traitScores[t] || 0; });
+      // new-combo bonus: recommend the new November options
+      if ((r.newCombos || []).indexOf(cls.name) !== -1) s += 3;
       if (s > score) { score = s; best = r; }
     });
+    if (!best && candidates.length) best = candidates[0];
     return best;
   }
 
-  function roleFromTraits() {
-    if ((traitScores["support"] || 0) >= (traitScores["aggressive"] || 0) &&
-        (traitScores["support"] || 0) >= (traitScores["tanky"] || 0)) return "Healer";
-    if ((traitScores["tanky"] || 0) >= (traitScores["aggressive"] || 0)) return "Tank";
-    return "Damage Dealer";
+  function roleOf(cls) {
+    const t = traitScores;
+    if ((t["support"] || 0) > (t["tanky"] || 0) && (t["support"] || 0) > (t["aggressive"] || 0)) {
+      return (cls.roles.indexOf("Healer") !== -1) ? "Healer" : cls.roles[0];
+    }
+    if ((t["tanky"] || 0) >= (t["aggressive"] || 0) && cls.roles.indexOf("Tank") !== -1) return "Tank";
+    return cls.roles.filter(function (r) { return r !== "Tank"; })[0] || cls.roles[0];
   }
 
   function showResult() {
@@ -229,25 +161,28 @@
     quizContainer.classList.add("hidden");
     resultContainer.classList.remove("hidden");
 
-    const cls = topClass();
-    const race = topRace(cls);
-    const role = roleFromTraits();
-    const roleKnown = cls.roles.old.concat(cls.roles.new).indexOf(role) !== -1;
-    const roleText = roleKnown ? role : cls.roles.old.concat(cls.roles.new)[0];
+    const ranked = topClasses();
+    const cls = ranked[0].c;
+    const runnerUp = ranked[1].c;
+    const race = pickRace(cls);
+    const role = roleOf(cls);
 
     const reasons = [];
-    reasons.push("You scored highest for <strong>" + cls.name + "</strong> — " + cls.summary.toLowerCase());
-    reasons.push("Your answers point toward a <strong>" + roleText + "</strong> playstyle" +
-      (cls.roles.new.length && cls.roles.new.indexOf(roleText) !== -1
-        ? ", a role newly unlocked for " + cls.name + " in November!" : "."));
-    reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
-    reasons.push("November change for " + cls.name + ": " + cls.changes[0].ability + " — " + cls.changes[0].note);
+    reasons.push("Your answers scored highest for <strong>" + cls.name + "</strong> — " + cls.summary);
+    reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit" +
+      ((race && (race.newCombos || []).indexOf(cls.name) !== -1)
+        ? " — and " + race.name + " " + cls.name + " is one of November's brand-new combinations." : "."));
+    if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
+    reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
+    if (runnerUp && ranked[1].score > 0) {
+      reasons.push("Close second: <strong>" + runnerUp.name + "</strong>, if you want a different flavor of the same playstyle.");
+    }
 
     document.getElementById("resultBox").innerHTML =
-      '<p class="result-icons">' + race.icon + " " + cls.icon + "</p>" +
-      '<p class="result-verdict">' + race.name + " " + cls.name + "</p>" +
-      '<p class="result-sub">Recommended role: ' + roleText + "</p>" +
-      '<div class="result-why"><h3>Why this is your destiny</h3><ul class="ability-list">' +
+      '<p class="result-icons">' + (race ? race.icon + " " : "") + cls.icon + "</p>" +
+      '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
+      '<p class="result-sub">Recommended role: ' + role + "</p>" +
+      '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
       reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
       "</ul></div>";
 

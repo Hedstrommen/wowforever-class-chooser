@@ -1,230 +1,281 @@
 // ============================================================
 // WoW Forever — game data
-// Edit this file when official expansion changes are confirmed.
-// Everything the site displays comes from this file.
+// Sources: Blizzard Forever Deep Dive panels, class deep dives,
+// Method.gg combination matrix, ConquestCapped class changes,
+// wowclassicforever.info. Updated for the Nov 4 launch.
+// Edit this file when official changes are confirmed.
 // ============================================================
 
 const WOW_DATA = {
 
+  globalChanges: [
+    "Hit is now one stat for spells, melee and ranged attacks; critical strike is merged the same way.",
+    "Healing power adds a third of its value as damage, so healer gear works while soloing.",
+    "Talent trees keep 7 rows and add a key talent at 16 points; 141 of 466 talents are new.",
+    "Raid buffs moved out of the trees: Divine Spirit, Blessing of Kings, Consecration, Improved Mark of the Wild and Omen of Clarity are baseline.",
+    "Dual Specialization unlocks at level 40, changed at class trainers in major cities.",
+    "Riding training includes the mount — no separate mount purchase.",
+    "Racial weapon bonuses now add critical strike chance instead of weapon skill."
+  ],
+
+  newCombos: [
+    { race: "Human", cls: "Hunter" },
+    { race: "Dwarf", cls: "Shaman" },
+    { race: "Gnome", cls: "Priest" },
+    { race: "Orc", cls: "Mage" },
+    { race: "Troll", cls: "Warlock" },
+    { race: "Undead", cls: "Paladin" }
+  ],
+
   // ----------------------------------------------------------
-  // CLASSES — changes summary + the roles each class can now play.
-  // "roles.new" = roles unlocked by the November expansion.
+  // CLASSES — real WoW Forever changes.
   // ----------------------------------------------------------
   classes: [
     {
       name: "Warrior",
       color: "#C79C6E",
       icon: "⚔",
-      roles: { old: ["Tank", "Melee DPS"], new: [] },
+      races: ["Human", "Dwarf", "Night Elf", "Gnome", "Orc", "Undead", "Tauren", "Troll", "Skyborne"],
+      roles: ["Tank", "Melee DPS"],
       changes: [
-        { ability: "Charge", note: "Now usable in combat without talents; stun component removed." },
-        { ability: "Stances", note: "Stance dancing no longer resets rage; stance bars are unified." },
-        { ability: "Shield Slam", note: "Baseline for all Warriors, no longer Protection-only." }
+        { ability: "Weaponmaster", note: "One talent replaces all four weapon specialization talents — bonuses adapt to the weapon you hold." },
+        { ability: "Spearing Strike", note: "New Arms strike: extra 80% weapon damage against Giants, Dragonkin and mounted targets, and knocks riders off mounts." },
+        { ability: "Vanguard", note: "New Protection talent lets you Charge in Defensive Stance — open pulls without stance dancing." },
+        { ability: "Battle Shout", note: "Its boosting talent is gone; the improved version is baseline for every Warrior." },
+        { ability: "Enrage", note: "Now any damaging hit has a 30% chance to trigger it, not just critical strikes against you." },
+        { ability: "Victory Rush", note: "Baseline for every Warrior." },
+        { ability: "Shield Block", note: "Two charges over 7 sec baseline (Classic had one 5 sec block)." }
       ],
-      summary: "The classic frontliner. Fewer restrictions, same blunt force."
+      summary: "One of the lightest reworks: the big attacks stay, clutter is cleared, tanks open pulls in Defensive Stance."
     },
     {
       name: "Paladin",
       color: "#F58CBA",
       icon: "✚",
-      roles: { old: ["Tank", "Healer", "Melee DPS"], new: ["Ranged DPS"] },
+      races: ["Human", "Dwarf", "Undead"],
+      roles: ["Tank", "Healer", "Melee DPS"],
       changes: [
-        { ability: "Seal of Wrath", note: "NEW: converts melee strikes into ranged Holy damage." },
-        { ability: "Blessings", note: "No longer overwrite other Paladins' blessings in a raid." },
-        { ability: "Lay on Hands", note: "No longer consumes all mana." }
+        { ability: "Holy Strike", note: "NEW baseline at level 6 — the attack cut from the 2004 beta. 40% weapon damage plus Holy damage on a 12 sec cooldown." },
+        { ability: "Seal of Fury", note: "NEW tank seal: adds Holy damage per swing, turns half into an absorb with a shield, and its Judgement taunts from 10 yards." },
+        { ability: "Judgement", note: "No longer consumes your Seal." },
+        { ability: "Consecration", note: "Baseline at level 20; heavy damage and threat hit only the first four enemies." },
+        { ability: "Twist of Light", note: "New Retribution capstone: swap Seals mid-fight and your next swing still applies the old one." },
+        { ability: "Holy Shock", note: "Moved to 20 points in Holy (was 30) with a shorter cooldown." },
+        { ability: "Templar's Bulwark", note: "New Protection talent: shield for 100% of max health for 8 sec on a 5 min cooldown." },
+        { ability: "Blessing of Kings", note: "No longer a talent — learned from the trainer." }
       ],
-      summary: "Now a true ranged Holy damage dealer on top of the tank/healer toolkit."
+      summary: "The biggest rework of any class: Paladins can actually tank now, with a real taunt. Undead can be Paladins — the headline new combo."
     },
     {
       name: "Hunter",
       color: "#ABD473",
       icon: "🏹",
-      roles: { old: ["Ranged DPS"], new: ["Tank", "Healer"] },
+      races: ["Human", "Dwarf", "Night Elf", "Orc", "Tauren", "Troll", "Skyborne"],
+      roles: ["Ranged DPS", "Melee DPS (Survival)"],
       changes: [
-        { ability: "Pet Roles", note: "Pets can now be specced as tanking or support-healing companions." },
-        { ability: "Aspect of the Wild", note: "NEW: party-wide nature damage bonus while active." },
-        { ability: "Tranquilizing Focus", note: "NEW: long-cooldown pet ability that heals the party." }
+        { ability: "Aimed Shot", note: "No longer a talent — every Hunter learns it: 2 sec cast, cooldown shared with Multi-Shot." },
+        { ability: "Lone Wolf", note: "New Marksmanship talent: 20% more damage with no pet out." },
+        { ability: "Sniper Shot", note: "New Marksmanship capstone: a 4 sec cast that hits from up to 35 yards." },
+        { ability: "Survival rework", note: "Survival is now a melee tree: full-weapon-damage kick on 8 sec cooldown, Mongoose Bite bleed, 50% more off-hand damage." },
+        { ability: "Summon Hawk", note: "New Beast Mastery talent: hawk dive-bombs the target for 18 sec (shares cooldown with Arcane Shot)." },
+        { ability: "Traps", note: "Cheaper, faster cooldowns, and they now root everything they catch." },
+        { ability: "Human Hunters", note: "NEW: Humans can be Hunters — a strong pick with Sword Specialization." }
       ],
-      summary: "Pet-focused tanking and support healing join the classic ranged marksman."
+      summary: "Three distinct playstyles: pet master, petless sniper, or melee trapper. Humans join the hunt."
     },
     {
       name: "Rogue",
       color: "#FFF569",
       icon: "🗡",
-      roles: { old: ["Melee DPS"], new: ["Ranged DPS"] },
+      races: ["Human", "Dwarf", "Night Elf", "Gnome", "Orc", "Undead", "Troll", "Skyborne"],
+      roles: ["Melee DPS"],
       changes: [
-        { ability: "Thrown Weaponry", note: "NEW spec: fight entirely at range with poisons and thrown blades." },
-        { ability: "Stealth", note: "Movement speed penalty removed while stealthed." },
-        { ability: "Sap", note: "Now works on all enemy types, not just humanoids." }
+        { ability: "Mutilate", note: "New Assassination talent at 20 points: strikes with both weapons at once, harder on poisoned targets, awards 2 Combo Points." },
+        { ability: "Venom", note: "New Assassination capstone: finisher that raises poison damage by 30% for up to 21 sec." },
+        { ability: "Weapon talents merged", note: "Combat's four weapon talents become one adaptive talent, like the Warrior's Weaponmaster." },
+        { ability: "Hemorrhage", note: "Now boosts only your own Rupture instead of everyone's damage." },
+        { ability: "Thousand Cuts", note: "New Subtlety capstone replacing Premeditation: Hemorrhage and Backstab cost less each time Rupture ticks." },
+        { ability: "Kidney Shot synergy", note: "Stunned targets take 10% more damage from your poisons and attacks." },
+        { ability: "Cold Blood", note: "Earlier in the tree and now works with Mutilate." }
       ],
-      summary: "A full ranged assassin build is now viable, poisons and all."
+      summary: "Fewest new talents of any class, but Assassination becomes a real poison tree with Mutilate at its heart."
     },
     {
       name: "Priest",
       color: "#FFFFFF",
       icon: "✦",
-      roles: { old: ["Healer", "Ranged DPS"], new: ["Melee DPS"] },
+      races: ["Human", "Dwarf", "Night Elf", "Gnome", "Undead", "Troll"],
+      roles: ["Healer", "Ranged DPS"],
       changes: [
-        { ability: "Void Slash", note: "NEW: melee Shadow spellchain with lifesteal." },
-        { ability: "Inner Fire", note: "No longer dispelled on hit — becomes a toggle." },
-        { ability: "Fade", note: "Now also reduces threat of nearby allies." }
+        { ability: "Penance", note: "New Discipline talent: 2 sec channel that hits an enemy or heals an ally three times, 12 sec cooldown." },
+        { ability: "Prayer of Mending", note: "New Holy capstone: a heal that waits on the target until they take damage, then bounces up to 5 times." },
+        { ability: "Shadowform", note: "Halves Mana cost of Shadow spells, cuts Physical damage taken by 15%, blocks only healing spells." },
+        { ability: "Shadow Word: Death", note: "Baseline for all Priests at level 32; backlash is 10% of your max health." },
+        { ability: "Racial spells refreshed", note: "Every race has its own pair of racial Priest spells — Gnome's Confounding Flash confuses up to 5 enemies for 3 sec. Fear Ward is open to every Priest." },
+        { ability: "Divine Aegis", note: "Critical heals leave a shield worth 15% of the heal." },
+        { ability: "Shadowform lifesteal", note: "Your Shadow damage now heals your party — the spec trades raid utility for staying power." }
       ],
-      summary: "Shadow melee weaving — cloth-wearing scythe of the Void."
+      summary: "Each tree gets a clear job: Discipline damages and heals, Holy gets a smart group heal, Shadow gets cheap self-sufficient damage."
     },
     {
       name: "Shaman",
       color: "#0070DD",
       icon: "⚡",
-      roles: { old: ["Healer", "Ranged DPS", "Melee DPS"], new: ["Tank"] },
+      races: ["Dwarf", "Orc", "Tauren", "Troll", "Skyborne"],
+      roles: ["Healer", "Ranged DPS", "Melee DPS", "Off-tank (experimental)"],
       changes: [
-        { ability: "Rockbiter Bulwark", note: "NEW: Earth Shield-based tanking stance with block value from shields." },
-        { ability: "Totems", note: "Now persist and move with the Shaman." },
-        { ability: "Ghost Wolf", note: "Usable indoors; no longer dispelled by shapeshift effects." }
+        { ability: "Lava Burst", note: "New Elemental capstone: big Fire nuke, 10 sec cooldown, hits 20% harder with Flame Shock on the target." },
+        { ability: "Riptide", note: "New Restoration capstone: instant heal plus heal over 15 sec, makes Chain Heal on that target 25% stronger." },
+        { ability: "Rage of the Farseer", note: "New Enhancement capstone replacing Stormstrike at 31 points." },
+        { ability: "Maelstrom Weapon", note: "Melee hits build stacks that make your next Lightning Bolt faster and cheaper, up to 5." },
+        { ability: "Totem management", note: "Totems can be recalled for part of their Mana or moved without recasting." },
+        { ability: "Enhancement tanking", note: "Parry returns as a talent with raised threat while Rockbiter Weapon is on; Stormstrike resets on dodge or parry." },
+        { ability: "Ghost Wolf", note: "Improved Ghost Wolf lets you use it indoors." },
+        { ability: "Dwarf Shamans", note: "NEW: Dwarves can be Shamans — the Alliance finally gets the class." }
       ],
-      summary: "Earth Shield tanking: granite-hard, storm-powered."
+      summary: "Four new headline abilities and totems you can actually manage. Dwarves bring Shaman to the Alliance."
     },
     {
       name: "Mage",
       color: "#69CCF0",
       icon: "✧",
-      roles: { old: ["Ranged DPS"], new: ["Healer"] },
+      races: ["Human", "Gnome", "Orc", "Undead", "Troll", "Skyborne"],
+      roles: ["Ranged DPS"],
       changes: [
-        { ability: "Temporal Mending", note: "NEW: heals damage retroactively by rewinding it before it lands." },
-        { ability: "Conjure Mana Strudel", note: "Restores both health and mana." },
-        { ability: "Arcane Ward", note: "NEW: absorbs damage and converts it to party mana." }
+        { ability: "Frostfire Bolt", note: "NEW baseline spell for every Mage — feeds both the Fire and Arcane procs like Fireball." },
+        { ability: "Arcane Blast", note: "New Arcane talent: each cast makes your other spells hit 10% harder while Arcane Blast gets more expensive, up to 4 stacks." },
+        { ability: "Heating Up", note: "New Fire talent: Fire crits speed up your next Pyroblast 25% per stack, up to 3 — takes well over half off the 6 sec cast." },
+        { ability: "Fingers of Frost", note: "New Frost talent: your slows can make your next 2 spells treat the target as frozen (Ice Lance hits frozen targets 300% harder)." },
+        { ability: "Ice Lance", note: "Joins the Frost tree as a key ability." },
+        { ability: "Improved Counterspell", note: "First point is now a guaranteed 2 sec silence instead of a 50% chance at 4 sec." },
+        { ability: "Orc Mages", note: "NEW: Orcs can be Mages — Blood Fury on a caster is a serious cooldown." }
       ],
-      summary: "Time-mending: healing by undoing wounds before they happen."
+      summary: "The fewest removed talents of any class; each tree gains a proc to react to and a fresh rotation anchor."
     },
     {
       name: "Warlock",
       color: "#9482C9",
       icon: "☠",
-      roles: { old: ["Ranged DPS"], new: ["Tank"] },
+      races: ["Human", "Gnome", "Orc", "Undead", "Troll"],
+      roles: ["Ranged DPS", "Off-tank (Voidwalker)"],
       changes: [
-        { ability: "Metamorphosis", note: "NEW tanking form: demonic armor scales with Stamina." },
-        { ability: "Drain Essence", note: "NEW: generates high threat while draining health." },
-        { ability: "Soul Link", note: "Baseline for all Warlocks and their pets." }
+        { ability: "Banes", note: "Curse of Agony is now Bane of Agony; Banes and Curses have separate limits — one of each on the same target." },
+        { ability: "Wrack", note: "New Affliction capstone: channel dealing Shadow damage every second, boosting your other DoTs on the target 10%." },
+        { ability: "Demonic Sacrifice", note: "Moved to 10 points, lasts 2 hours, each demon gives a different buff (Imp: 15% Shadow damage, Voidwalker: Mana regen...)." },
+        { ability: "Demonic Pact", note: "New Demonology capstone: summoning a different demon no longer cancels your Demonic Sacrifice buff." },
+        { ability: "Incinerate", note: "New Destruction capstone; Fire and Shadow spells now feed each other 10% more damage for 20 sec." },
+        { ability: "Bane of Havoc", note: "Copies 15% of your damage on other targets onto one marked enemy." },
+        { ability: "Decimation", note: "Below 35% health, Shadow Bolt and Searing Pain make your next Soul Fire 40% faster and Soul Shard-free." },
+        { ability: "Troll Warlocks", note: "NEW: Trolls can be Warlocks — Berserking plus demons is a dark new path." }
       ],
-      summary: "The demon tank is here — take the hits, drain them back."
-    },
-    {
-      name: "Monk",
-      color: "#00FF96",
-      icon: "☯",
-      roles: { old: ["Tank", "Healer", "Melee DPS"], new: ["Ranged DPS"] },
-      changes: [
-        { ability: "Chi Burst Volley", note: "NEW: ranged rotation built from Chi spenders." },
-        { ability: "Roll", note: "No cooldown reduction needed; baseline two charges." },
-        { ability: "Mistweaver", note: "Melee-healing hybrid playstyle fully supported." }
-      ],
-      summary: "Ranged Chi throwing joins the brew-swilling brawler toolkit."
+      summary: "The deepest rework: 22 new talents, 20 removed, and a Bane system that doubles your curse uptime."
     },
     {
       name: "Druid",
       color: "#FF7D0A",
       icon: "🐾",
-      roles: { old: ["Tank", "Healer", "Melee DPS", "Ranged DPS"], new: [] },
+      races: ["Night Elf", "Tauren", "Skyborne"],
+      roles: ["Tank", "Healer", "Melee DPS", "Ranged DPS"],
       changes: [
-        { ability: "Travel Form", note: "Adapts to terrain automatically (land/water/air)." },
-        { ability: "Glyph of the Guardian", note: "NEW: Moonkin form now usable as a tanking form." },
-        { ability: "Mark of the Wild", note: "Now covers all stats in one cast." }
+        { ability: "Eclipse", note: "New Balance talent: each Wrath cuts 0.5 sec off your next 2 Starfires, up to 4 charges — a real alternating rotation." },
+        { ability: "Berserk", note: "New Feral capstone: 15 sec where Mangle hits up to 3 targets, no cooldown, and builders get 100% more crit." },
+        { ability: "Wild Growth", note: "New Restoration capstone: instant heal over time on the target and their whole party." },
+        { ability: "Powershifting removed", note: "Furor no longer hands you 40 Energy on shift-in — only what you had plus 10 per second away." },
+        { ability: "Tiger's Fury", note: "New talent turns it into an instant 60 Energy — burst instead of powershifting." },
+        { ability: "Revive", note: "Every Druid gets an out-of-combat resurrection; Rebirth stays as the combat brez." },
+        { ability: "Snake form", note: "Hidden in beta: the Wailing Caverns Embrace of the Viper set transforms a Druid into a serpent." },
+        { ability: "Skyborne Druids", note: "NEW race option with unique sky-blue shapeshift forms built around an owlbear fantasy." }
       ],
-      summary: "Still the jack-of-all-roles — now Moonkin can literally tank."
-    },
-    {
-      name: "Death Knight",
-      color: "#C41F3B",
-      icon: "🜸",
-      roles: { old: ["Tank", "Melee DPS"], new: ["Healer"] },
-      changes: [
-        { ability: "Death Coil Mend", note: "NEW: heals allies instead of harming enemies." },
-        { ability: "Blood Presence", note: "Split into Tank presence and Healing presence." },
-        { ability: "Raise Ally", note: "No longer requires reagents." }
-      ],
-      summary: "Necromantic healing: stitching allies back together with stolen life."
-    },
-    {
-      name: "Demon Hunter",
-      color: "#A330C9",
-      icon: "🜂",
-      roles: { old: ["Tank", "Melee DPS"], new: ["Ranged DPS", "Healer"] },
-      changes: [
-        { ability: "Fel Lash", note: "NEW: long-range fel whip ability enabling ranged DPS." },
-        { ability: "Soul Barrier Mend", note: "NEW: converts absorbed souls into healing for allies." },
-        { ability: "Double Jump", note: "Baseline glide now works in all zones." }
-      ],
-      summary: "Fel magic turned outward — now ranged damage and soul-healing."
+      summary: "Powershifting is dead; real cat burst, a Wrath/Starfire rhythm, and a third druid race with its own forms."
     }
   ],
 
   // ----------------------------------------------------------
-  // RACES — "newRoleUnlocks" = what November changed.
-  // "traits" feed the quiz result reasoning.
+  // RACES — real WoW Forever race changes.
+  // "playableClasses" drives both the changes page and the quiz.
   // ----------------------------------------------------------
   races: [
     {
       name: "Human",
       faction: "Alliance",
+      matchTraits: ["aggressive", "melee", "ranged"],
       icon: "🛡",
-      newRoleUnlocks: "Can now be Priests, Druids, and Shaman.",
-      traits: ["versatile", "alliance", "melee", "magic"],
-      why: "Humans adapt to anything — every class path suits their ambition."
+      playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Mage", "Warlock"],
+      newCombos: ["Hunter"],
+      why: "The flexible all-rounder: Sword Specialization makes Human Hunters and Warriors natural weapon masters, and Every Man for Himself breaks crowd control."
     },
     {
       name: "Dwarf",
       faction: "Alliance",
+      matchTraits: ["tanky", "support", "nature"],
       icon: "⛏",
-      newRoleUnlocks: "Can now be Mages, Druids, and Demon Hunters.",
-      traits: ["alliance", "melee", "tanky", "ranged"],
-      why: "Sturdy as the mountain itself, at home with steel or gunpowder."
+      playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Shaman"],
+      newCombos: ["Shaman"],
+      why: "Stoneform sheds bleed, poison and disease — on a Shaman it pairs with the elements for a tanky, unshakeable supporter."
     },
     {
       name: "Night Elf",
       faction: "Alliance",
+      matchTraits: ["melee", "aggressive", "nature"],
       icon: "🌙",
-      newRoleUnlocks: "Can now be Paladins, Mages, and Warlocks.",
-      traits: ["alliance", "magic", "ranged", "nature"],
-      why: "Ancient, shadowed, attuned to both Elune's magic and the wild."
+      playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Druid"],
+      newCombos: [],
+      why: "Shadowmeld and Quickness: dodge for tanks, stealth synergy for the ambush-minded, and the classic Druid homeland."
     },
     {
       name: "Gnome",
       faction: "Alliance",
+      matchTraits: ["magic", "support", "ranged"],
       icon: "⚙",
-      newRoleUnlocks: "Can now be Priests, Druids, and Hunters.",
-      traits: ["alliance", "magic", "ranged", "support"],
-      why: "Small hands, enormous intellect — arcane tinkerers without equal."
+      playableClasses: ["Warrior", "Rogue", "Mage", "Warlock", "Priest"],
+      newCombos: ["Priest"],
+      why: "Expansive Mind grows the biggest mana pool in the game — on a Priest it means more heals per bar, and Escape Artist counters roots for melee builds."
     },
     {
       name: "Orc",
       faction: "Horde",
+      matchTraits: ["aggressive", "melee", "magic"],
       icon: "🪓",
-      newRoleUnlocks: "Can now be Priests, Mages, and Druids.",
-      traits: ["horde", "melee", "aggressive", "tanky"],
-      why: "Blood fury incarnate — the first through the breach, always."
+      playableClasses: ["Warrior", "Hunter", "Rogue", "Shaman", "Mage", "Warlock"],
+      newCombos: ["Mage"],
+      why: "Blood Fury is a flat damage cooldown that works on spells too — an Orc Mage trades tradition for raw destructive output, and Hardiness resists stuns."
     },
     {
       name: "Undead",
       faction: "Horde",
+      matchTraits: ["magic", "aggressive", "support"],
       icon: "💀",
-      newRoleUnlocks: "Can now be Paladins, Druids, Monks, and Shaman.",
-      traits: ["horde", "magic", "aggressive", "support"],
-      why: "Will unbroken by death — shadow and plague at their command."
+      playableClasses: ["Warrior", "Rogue", "Priest", "Mage", "Warlock", "Paladin"],
+      newCombos: ["Paladin"],
+      why: "Will of the Forsaken breaks Fear and Charm — the headline combo of Forever: an Undead Paladin wielding the Light against the darkness that raised it, with a dedicated Forsaken storyline."
     },
     {
       name: "Tauren",
       faction: "Horde",
+      matchTraits: ["tanky", "nature", "support"],
       icon: "🐄",
-      newRoleUnlocks: "Can now be Rogues, Mages, and Warlocks.",
-      traits: ["horde", "nature", "tanky", "support"],
-      why: "Gentle giants of the plains — earth magic and raw strength."
+      playableClasses: ["Warrior", "Hunter", "Shaman", "Druid"],
+      newCombos: [],
+      why: "War Stomp interrupts a whole pack of enemies and extra health makes Tauren the sturdiest tanks and the classic Druid."
     },
     {
       name: "Troll",
       faction: "Horde",
+      matchTraits: ["aggressive", "ranged", "magic"],
       icon: "🔱",
-      newRoleUnlocks: "Can now be Paladins, Druids, and Warlocks.",
-      traits: ["horde", "aggressive", "ranged", "nature"],
-      why: "Regenerating berserkers — voodoo, haste, and no mercy."
+      playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Mage", "Shaman", "Warlock"],
+      newCombos: ["Warlock"],
+      why: "Berserking is haste that scales as you get hurt — a Troll Warlock stacks voodoo on demonic power, and Regeneration keeps you in the fight."
+    },
+    {
+      name: "Skyborne",
+      faction: "Both",
+      matchTraits: ["versatile", "ranged", "nature"],
+      icon: "🌪",
+      playableClasses: ["Warrior", "Hunter", "Rogue", "Druid", "Shaman", "Mage"],
+      newCombos: ["Entire race is new"],
+      why: "The new race of Zephras Isle, choosing either faction at character creation. Walk on Air glides you through the world, Wind Blessed adds permanent Haste, and their Druid forms are unique sky-blue creations built on an owlbear fantasy. Windshaper (Horde) gets Shaman; High Order (Alliance) gets Mage.",
+      factionNote: "Horde Windshaper adds Shaman; Alliance High Order adds Mage."
     }
   ]
 };

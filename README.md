@@ -1,9 +1,9 @@
 # WoW Forever — Class Chooser
 
-A fan-made tool for the November expansion. Two pages, styled like classic 2004 World of Warcraft meets Warcraft 2:
+A fan-made tool for **World of Warcraft: Forever** (launching November 4). Two pages, styled like classic 2004 World of Warcraft meets Warcraft 2:
 
-- **Changes** (`index.html`) — every class's new roles, reworked abilities, and every race's new class unlocks, in plain view.
-- **Quiz** (`quiz.html`) — 20 questions that determine which race and class you should play, with an explanation of why.
+- **Changes** (`index.html`) — the global changes affecting every class, the six new race/class combinations (Human Hunter, Dwarf Shaman, Gnome Priest, Orc Mage, Troll Warlock, Undead Paladin), every class's reworked abilities, and every race's playable classes — including the new Skyborne.
+- **Quiz** (`quiz.html`) — 10 playstyle questions that determine which race and class you should play, with an explanation of why.
 
 ## Launch on GitHub Pages
 
@@ -16,12 +16,14 @@ No build step, no dependencies. Pure HTML, CSS, and JavaScript.
 
 ## Updating the data
 
-All game data lives in **`js/data.js`** — one editable file:
+All game data lives in **`js/data.js`** — one editable file, sourced from Blizzard's Forever Deep Dive panels and class deep dives:
 
-- `classes` — each class's old roles, newly unlocked roles (`roles.new`), ability changes, and a summary.
-- `races` — each race's new class unlocks and the traits used by the quiz result reasoning.
+- `globalChanges` — systems changes affecting every class (merged hit/crit stats, baseline buffs, dual spec).
+- `newCombos` — the six new race/class combinations.
+- `classes` — each class's playable races, roles, and real ability/talent changes.
+- `races` — each race's playable classes, new combos, racials, and the `matchTraits` used by the quiz.
 
-When official expansion changes are announced, edit that file and both pages update automatically. The quiz questions and scoring live in `js/quiz.js` and can be tuned the same way.
+When Blizzard confirms more changes, edit that file and both pages update automatically. The quiz questions and scoring live in `js/quiz.js` and can be tuned the same way.
 
 ## Files
 
