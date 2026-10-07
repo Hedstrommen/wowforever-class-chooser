@@ -6,75 +6,75 @@
 
 (function () {
   const QUESTIONS = [
-    { text: "When a fight starts, where do you want to be standing?",
+    { text: "In a group activity, do you prefer to be the one doing, enabling, or protecting?",
       answers: [
-        { text: "In front of the enemy, taking the hits", roles: { tank: 3, melee: 1 }, cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
-        { text: "In the enemy's face, dealing damage", roles: { melee: 3 }, cls: { Rogue: 2, Warrior: 1 }, traits: ["aggressive"] },
-        { text: "At range, shooting or casting", roles: { ranged: 3 }, cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
-        { text: "Behind my allies, keeping them alive", roles: { healer: 3 }, cls: { Priest: 2, Shaman: 1 }, traits: ["support"] }
+        { text: "Doing — the outcome depends on my performance", cls: { Rogue: 2, Mage: 2, Hunter: 2, Warlock: 2 }, traits: ["aggressive"] },
+        { text: "Enabling — I multiply what others can achieve", cls: { Priest: 2, Shaman: 2 }, traits: ["support"] },
+        { text: "Protecting — I absorb pressure so others can work", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
+        { text: "Whatever the situation is missing at the moment", cls: { Druid: 3 }, traits: ["versatile"] }
       ] },
-    { text: "How do you feel about managing a resource that builds up during combat?",
+    { text: "How do you like your primary resource to behave?",
       answers: [
-        { text: "I like it — rage or energy building as I fight", roles: {}, cls: { Warrior: 2, Rogue: 2 }, traits: ["melee"] },
-        { text: "I prefer managing mana over a long fight", roles: {}, cls: { Mage: 2, Priest: 2 }, traits: ["magic"] },
-        { text: "I like timing cooldowns and procs more than resources", roles: {}, cls: { Hunter: 2, Shaman: 2 }, traits: ["ranged"] },
-        { text: "I want to switch between resources as the fight changes", roles: {}, cls: { Druid: 3 }, traits: ["versatile"] }
+        { text: "Builds up through action — momentum rewarded", cls: { Warrior: 2, Rogue: 2 }, traits: ["melee"] },
+        { text: "A fixed pool that depletes and must be rationed", cls: { Mage: 2, Priest: 2 }, traits: ["magic"] },
+        { text: "Mostly cooldown-driven; the resource matters less", cls: { Hunter: 2, Paladin: 1 }, traits: ["ranged"] },
+        { text: "Several resources I convert between on the fly", cls: { Druid: 3, Shaman: 1 }, traits: ["versatile"] }
       ] },
-    { text: "A pull goes badly and three enemies are loose. What's your instinct?",
+    { text: "Something unexpected goes wrong mid-task. Your first instinct is to…",
       answers: [
-        { text: "Pick them all up and hold them", roles: { tank: 3 }, cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
-        { text: "Polymorph, Sap, Banish — lock one down first", roles: { cc: 2, ranged: 1 }, cls: { Mage: 2, Rogue: 2 }, traits: ["ranged"] },
-        { text: "Damage the one the tank is on; trust the plan", roles: {}, cls: { Rogue: 1, Mage: 1, Hunter: 1, Warlock: 1 }, traits: ["ranged"] },
-        { text: "Heal through the chaos", roles: { healer: 3 }, cls: { Priest: 2, Shaman: 1 }, traits: ["support"] }
+        { text: "Take control of the situation yourself", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
+        { text: "Reduce the problem to a manageable size", cls: { Mage: 2, Rogue: 2 }, traits: ["ranged"] },
+        { text: "Stick to the plan and trust the structure", cls: { Rogue: 1, Hunter: 1, Warlock: 1 }, traits: ["ranged"] },
+        { text: "Patch the damage and keep everyone going", cls: { Priest: 3, Shaman: 2 }, traits: ["support"] }
       ] },
-    { text: "How do you feel about pets or companions?",
+    { text: "Do you like managing a second entity alongside yourself?",
       answers: [
-        { text: "A pet is core to my play — I manage it constantly", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Useful, but I don't want to depend on one", cls: { Mage: 2, Priest: 1 }, traits: ["magic"] },
-        { text: "I fight alone, up close", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee", "aggressive"] },
-        { text: "My companions are the spirits and elements", cls: { Shaman: 3 }, traits: ["nature"] }
+        { text: "Yes — a companion is central to how I operate", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Occasionally useful, but never required", cls: { Mage: 2, Priest: 1 }, traits: ["magic"] },
+        { text: "No — I want full personal control at all times", cls: { Rogue: 2, Warrior: 2 }, traits: ["aggressive", "melee"] },
+        { text: "Only if it's an extension of my own decisions", cls: { Shaman: 3 }, traits: ["nature"] }
       ] },
-    { text: "Which sounds more satisfying in a long dungeon run?",
+    { text: "Which feels better at the end of a long session?",
       answers: [
-        { text: "A big critical hit number appearing", cls: { Rogue: 2, Mage: 2, Warrior: 1 }, traits: ["aggressive"] },
-        { text: "A perfectly timed crowd control", cls: { Mage: 2, Rogue: 1 }, traits: ["ranged"] },
-        { text: "Keeping everyone alive through a bad pull", cls: { Priest: 3, Paladin: 1 }, traits: ["support"] },
-        { text: "Holding threat while everything hits me", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] }
+        { text: "A single decisive peak moment I created", cls: { Rogue: 2, Mage: 2, Warrior: 1 }, traits: ["aggressive"] },
+        { text: "A near-invisible intervention that saved everything", cls: { Priest: 3, Paladin: 1 }, traits: ["support"] },
+        { text: "Sustained high output, start to finish", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Being the reason nothing collapsed", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] }
       ] },
-    { text: "Do you prefer a set rotation or reacting to procs?",
+    { text: "Fixed routine or improvisation?",
       answers: [
-        { text: "A strict rotation, executed perfectly", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee"] },
-        { text: "Reacting to random procs keeps it fresh", cls: { Mage: 3, Shaman: 2 }, traits: ["magic"] },
-        { text: "Priority lists — flexible but planned", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
-        { text: "It changes with the situation entirely", cls: { Druid: 3 }, traits: ["versatile"] }
+        { text: "A fixed sequence I execute consistently", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee"] },
+        { text: "Random events I react to as they come", cls: { Mage: 3, Shaman: 2 }, traits: ["magic"] },
+        { text: "A priority list — structure with judgment calls", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Fully improvised; every situation is different", cls: { Druid: 3 }, traits: ["versatile"] }
       ] },
-    { text: "How important is being able to solo content efficiently?",
+    { text: "How much do you value being able to operate completely alone?",
       answers: [
-        { text: "Very — I want to quest and farm without help", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Somewhat — group content is my main goal", cls: { Priest: 1, Paladin: 2 }, traits: ["support"] },
-        { text: "I mostly play in groups anyway", cls: { Warrior: 1, Priest: 1 }, traits: ["support"] },
-        { text: "I want options for both", cls: { Druid: 3, Shaman: 2 }, traits: ["versatile"] }
+        { text: "Essential — I need to be self-sufficient by default", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
+        { text: "Nice, but groups are where I shine", cls: { Priest: 2, Paladin: 2 }, traits: ["support"] },
+        { text: "Rarely relevant to how I choose to play", cls: { Warrior: 1, Rogue: 1 }, traits: ["aggressive"] },
+        { text: "I want both, switchable at will", cls: { Druid: 3, Shaman: 2 }, traits: ["versatile"] }
       ] },
-    { text: "Threat and aggro management — how much do you want to think about it?",
+    { text: "How do you relate to attention and pressure on you?",
       answers: [
-        { text: "It's my job — I manage what everyone attacks", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
-        { text: "I watch my own threat and back off when needed", cls: { Rogue: 2, Mage: 1 }, traits: ["aggressive"] },
-        { text: "I want tools like threat reduction or fade", cls: { Priest: 2, Warlock: 1 }, traits: ["support"] },
-        { text: "Rarely a concern for how I play", cls: { Hunter: 2, Mage: 1 }, traits: ["ranged"] }
+        { text: "I deliberately draw it toward myself", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
+        { text: "I stay under it and out of sight", cls: { Rogue: 3 }, traits: ["aggressive"] },
+        { text: "I shed it with the right tools when it comes", cls: { Priest: 2, Warlock: 1 }, traits: ["support"] },
+        { text: "I keep distance so it rarely reaches me", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] }
       ] },
-    { text: "Which do you enjoy more in PvP?",
+    { text: "Against a difficult opponent, which approach do you trust?",
       answers: [
-        { text: "Locking someone down with stuns and poisons", cls: { Rogue: 3 }, traits: ["aggressive", "melee"] },
-        { text: "Kiting them around while I stay safe", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
-        { text: "Outlasting them with healing and armor", cls: { Paladin: 2, Priest: 1 }, traits: ["support", "tanky"] },
-        { text: "Fear, curses and damage over time", cls: { Warlock: 3 }, traits: ["magic"] }
+        { text: "Deny them options until they can't act", cls: { Rogue: 3 }, traits: ["aggressive", "melee"] },
+        { text: "Stay out of reach and win on attrition", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
+        { text: "Simply last longer than they can", cls: { Paladin: 2, Priest: 1 }, traits: ["support", "tanky"] },
+        { text: "Slow, accumulating pressure that wins late", cls: { Warlock: 3 }, traits: ["magic"] }
       ] },
-    { text: "Finally: which class identity draws you most?",
+    { text: "When you learn something new, you most enjoy the moment when…",
       answers: [
-        { text: "Weapons, armor and martial discipline", cls: { Warrior: 3, Rogue: 1 }, traits: ["melee"] },
-        { text: "The Light — protection and holy power", cls: { Paladin: 3 }, traits: ["support"] },
-        { text: "Elements, spirits and nature", cls: { Shaman: 3, Druid: 2, Hunter: 1 }, traits: ["nature"] },
-        { text: "Arcane, shadow or fel — knowledge as power", cls: { Mage: 2, Warlock: 2, Priest: 1 }, traits: ["magic"] }
+        { text: "The fundamentals click and never waver", cls: { Warrior: 3, Rogue: 1 }, traits: ["melee"] },
+        { text: "The rules bend and I find the exception", cls: { Mage: 2, Warlock: 1 }, traits: ["magic"] },
+        { text: "The pieces connect into a bigger system", cls: { Shaman: 3, Druid: 2 }, traits: ["nature", "versatile"] },
+        { text: "I can protect what I'm building", cls: { Paladin: 3, Priest: 1 }, traits: ["support"] }
       ] }
   ];
 
