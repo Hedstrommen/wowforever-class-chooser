@@ -21,7 +21,7 @@
     return (
       '<div class="race-card parchment">' +
         '<div class="card-header">' +
-          '<span class="race-icon">' + r.icon + "</span>" +
+          '<span class="race-icon">' + WowIcon.icon(r.icon, 36) + "</span>" +
           '<span class="card-title" style="color:#4a3512">' + r.name + "</span>" +
           '<span class="faction-tag ' + factionClass + '">' + r.faction + "</span>" +
         "</div>" +

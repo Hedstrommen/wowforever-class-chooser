@@ -34,8 +34,8 @@ const WOW_DATA = {
   classes: [
     {
       name: "Warrior",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg",
       color: "#C79C6E",
-      icon: "⚔",
       races: ["Human", "Dwarf", "Night Elf", "Gnome", "Orc", "Undead", "Tauren", "Troll", "Skyborne"],
       roles: ["Tank", "Melee DPS"],
       changes: [
@@ -57,8 +57,8 @@ const WOW_DATA = {
     },
     {
       name: "Paladin",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_paladin.jpg",
       color: "#F58CBA",
-      icon: "✚",
       races: ["Human", "Dwarf", "Undead"],
       roles: ["Tank", "Healer", "Melee DPS"],
       changes: [
@@ -78,8 +78,8 @@ const WOW_DATA = {
     },
     {
       name: "Hunter",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_hunter.jpg",
       color: "#ABD473",
-      icon: "🏹",
       races: ["Human", "Dwarf", "Night Elf", "Orc", "Tauren", "Troll", "Skyborne"],
       roles: ["Ranged DPS", "Melee DPS (Survival)"],
       changes: [
@@ -98,8 +98,8 @@ const WOW_DATA = {
     },
     {
       name: "Rogue",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_rogue.jpg",
       color: "#FFF569",
-      icon: "🗡",
       races: ["Human", "Dwarf", "Night Elf", "Gnome", "Orc", "Undead", "Troll", "Skyborne"],
       roles: ["Melee DPS"],
       changes: [
@@ -116,8 +116,8 @@ const WOW_DATA = {
     },
     {
       name: "Priest",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_priest.jpg",
       color: "#FFFFFF",
-      icon: "✦",
       races: ["Human", "Dwarf", "Night Elf", "Gnome", "Undead", "Troll"],
       roles: ["Healer", "Ranged DPS"],
       changes: [
@@ -136,8 +136,8 @@ const WOW_DATA = {
     },
     {
       name: "Shaman",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_shaman.jpg",
       color: "#0070DD",
-      icon: "⚡",
       races: ["Dwarf", "Orc", "Tauren", "Troll", "Skyborne"],
       roles: ["Healer", "Ranged DPS", "Melee DPS", "Off-tank (experimental)"],
       changes: [
@@ -160,8 +160,8 @@ const WOW_DATA = {
     },
     {
       name: "Mage",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_mage.jpg",
       color: "#69CCF0",
-      icon: "✧",
       races: ["Human", "Gnome", "Orc", "Undead", "Troll", "Skyborne"],
       roles: ["Ranged DPS"],
       changes: [
@@ -179,8 +179,8 @@ const WOW_DATA = {
     },
     {
       name: "Warlock",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_warlock.jpg",
       color: "#9482C9",
-      icon: "☠",
       races: ["Human", "Gnome", "Orc", "Undead", "Troll"],
       roles: ["Ranged DPS", "Off-tank (Voidwalker)"],
       changes: [
@@ -200,8 +200,8 @@ const WOW_DATA = {
     },
     {
       name: "Druid",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_druid.jpg",
       color: "#FF7D0A",
-      icon: "🐾",
       races: ["Night Elf", "Tauren", "Skyborne"],
       roles: ["Tank", "Healer", "Melee DPS", "Ranged DPS"],
       changes: [
@@ -228,90 +228,90 @@ const WOW_DATA = {
   races: [
     {
       name: "Human",
-      color: "#9fa4ff",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_human_male.jpg",
+      color: "#a49ebc",
       faction: "Alliance",
       matchTraits: ["aggressive", "melee", "ranged"],
-      icon: "🛡",
       playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Mage", "Warlock"],
       newCombos: ["Hunter"],
       why: "The flexible all-rounder: Sword Specialization makes Human Hunters and Warriors natural weapon masters, and Every Man for Himself breaks crowd control."
     },
     {
       name: "Dwarf",
-      color: "#a8785a",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_dwarf_male.jpg",
+      color: "#9c7a5f",
       faction: "Alliance",
       matchTraits: ["tanky", "support", "nature"],
-      icon: "⛏",
       playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Shaman"],
       newCombos: ["Shaman"],
       why: "Stoneform sheds bleed, poison and disease — on a Shaman it pairs with the elements for a tanky, unshakeable supporter."
     },
     {
       name: "Night Elf",
-      color: "#7a8bff",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_nightelf_male.jpg",
+      color: "#8087b8",
       faction: "Alliance",
       matchTraits: ["melee", "aggressive", "nature"],
-      icon: "🌙",
       playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Druid"],
       newCombos: [],
       why: "Shadowmeld and Quickness: dodge for tanks, stealth synergy for the ambush-minded, and the classic Druid homeland."
     },
     {
       name: "Gnome",
-      color: "#8ee63f",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_gnome_male.jpg",
+      color: "#8ea86a",
       faction: "Alliance",
       matchTraits: ["magic", "support", "ranged"],
-      icon: "⚙",
       playableClasses: ["Warrior", "Rogue", "Mage", "Warlock", "Priest"],
       newCombos: ["Priest"],
       why: "Expansive Mind grows the biggest mana pool in the game — on a Priest it means more heals per bar, and Escape Artist counters roots for melee builds."
     },
     {
       name: "Orc",
-      color: "#68a02c",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_orc_male.jpg",
+      color: "#6d8a45",
       faction: "Horde",
       matchTraits: ["aggressive", "melee", "magic"],
-      icon: "🪓",
       playableClasses: ["Warrior", "Hunter", "Rogue", "Shaman", "Mage", "Warlock"],
       newCombos: ["Mage"],
       why: "Blood Fury is a flat damage cooldown that works on spells too — an Orc Mage trades tradition for raw destructive output, and Hardiness resists stuns."
     },
     {
       name: "Undead",
-      color: "#93a29a",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_undead_male.jpg",
+      color: "#8b958e",
       faction: "Horde",
       matchTraits: ["magic", "aggressive", "support"],
-      icon: "💀",
       playableClasses: ["Warrior", "Rogue", "Priest", "Mage", "Warlock", "Paladin"],
       newCombos: ["Paladin"],
       why: "Will of the Forsaken breaks Fear and Charm — the headline combo of Forever: an Undead Paladin wielding the Light against the darkness that raised it, with a dedicated Forsaken storyline."
     },
     {
       name: "Tauren",
-      color: "#a52a2a",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_tauren_male.jpg",
+      color: "#a05252",
       faction: "Horde",
       matchTraits: ["tanky", "nature", "support"],
-      icon: "🐄",
       playableClasses: ["Warrior", "Hunter", "Shaman", "Druid"],
       newCombos: [],
       why: "War Stomp interrupts a whole pack of enemies and extra health makes Tauren the sturdiest tanks and the classic Druid."
     },
     {
       name: "Troll",
-      color: "#38b53f",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_troll_male.jpg",
+      color: "#4e8f5c",
       faction: "Horde",
       matchTraits: ["aggressive", "ranged", "magic"],
-      icon: "🔱",
       playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Mage", "Shaman", "Warlock"],
       newCombos: ["Warlock"],
       why: "Berserking is haste that scales as you get hurt — a Troll Warlock stacks voodoo on demonic power, and Regeneration keeps you in the fight."
     },
     {
       name: "Skyborne",
-      color: "#59c3e8",
+      icon: "https://wow.zamimg.com/images/wow/icons/large/spell_nature_cyclone.jpg",
+      color: "#6fa8c4",
       faction: "Both",
       matchTraits: ["versatile", "ranged", "nature"],
-      icon: "🌪",
       playableClasses: ["Warrior", "Hunter", "Rogue", "Druid", "Shaman", "Mage"],
       newCombos: ["Entire race is new"],
       why: "The new race of Zephras Isle, choosing either faction at character creation. Walk on Air glides you through the world, Wind Blessed adds permanent Haste, and their Druid forms are unique sky-blue creations built on an owlbear fantasy. Windshaper (Horde) gets Shaman; High Order (Alliance) gets Mage.",
@@ -343,18 +343,18 @@ const WOW_DATA = {
       { name: "Artisan", level: 35, skill: "200–300" }
     ],
     list: [
-      { name: "Alchemy", type: "Primary", icon: "⚗", newRecipes: 72, note: "Overhauled low-level recipes; Healing Potions moved out to First Aid." },
-      { name: "Blacksmithing", type: "Primary", icon: "🔨", newRecipes: 203, note: "The biggest recipe addition of any profession; meaningful gear from the earliest levels." },
-      { name: "Enchanting", type: "Primary", icon: "✨", newRecipes: 63, note: "Reworked enchants that support the merged hit and crit stats." },
-      { name: "Engineering", type: "Primary", icon: "🔧", newRecipes: 80, note: "Specializations return; campsite gadgets and Blueprint drops." },
-      { name: "Leatherworking", type: "Primary", icon: "🧵", newRecipes: 289, note: "The second-largest recipe pool; profession-specific campsite objects." },
-      { name: "Tailoring", type: "Primary", icon: "🪡", newRecipes: 186, note: "Cloth crafting expanded; reagent bags are crafted by tailors." },
-      { name: "Herbalism", type: "Primary (gathering)", icon: "🌿", newRecipes: 3, note: "Feeds the Alchemy and Cooking rework; gathering perks in the Legacy Professions tree." },
-      { name: "Mining", type: "Primary (gathering)", icon: "⛏", newRecipes: 5, note: "Mining for Dummies manual available from starting-zone quests." },
-      { name: "Skinning", type: "Primary (gathering)", icon: "🔪", newRecipes: 3, note: "Pelt Collecting for Beginners manual; feeds the huge Leatherworking rework." },
-      { name: "Cooking", type: "Secondary", icon: "🍳", newRecipes: 44, note: "Now very useful while leveling; upgraded campfires allow more campsite objects." },
-      { name: "First Aid", type: "Secondary", icon: "🩹", newRecipes: 17, note: "Healing Potions moved here from Alchemy; bandages reworked." },
-      { name: "Fishing", type: "Secondary", icon: "🎣", newRecipes: 3, note: "Tackle reworked; feeds the expanded Cooking recipe list." }
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_alchemy.jpg", name: "Alchemy", type: "Primary", newRecipes: 72, note: "Overhauled low-level recipes; Healing Potions moved out to First Aid." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_blacksmithing.jpg", name: "Blacksmithing", type: "Primary", newRecipes: 203, note: "The biggest recipe addition of any profession; meaningful gear from the earliest levels." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engraving.jpg", name: "Enchanting", type: "Primary", newRecipes: 63, note: "Reworked enchants that support the merged hit and crit stats." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engineering.jpg", name: "Engineering", type: "Primary", newRecipes: 80, note: "Specializations return; campsite gadgets and Blueprint drops." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_leatherworking.jpg", name: "Leatherworking", type: "Primary", newRecipes: 289, note: "The second-largest recipe pool; profession-specific campsite objects." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_tailoring.jpg", name: "Tailoring", type: "Primary", newRecipes: 186, note: "Cloth crafting expanded; reagent bags are crafted by tailors." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_herbalism.jpg", name: "Herbalism", type: "Primary (gathering)", newRecipes: 3, note: "Feeds the Alchemy and Cooking rework; gathering perks in the Legacy Professions tree." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_mining.jpg", name: "Mining", type: "Primary (gathering)", newRecipes: 5, note: "Mining for Dummies manual available from starting-zone quests." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_armorkit_17.jpg", name: "Skinning", type: "Primary (gathering)", newRecipes: 3, note: "Pelt Collecting for Beginners manual; feeds the huge Leatherworking rework." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_food_15.jpg", name: "Cooking", type: "Secondary", newRecipes: 44, note: "Now very useful while leveling; upgraded campfires allow more campsite objects." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_sealofsacrifice.jpg", name: "First Aid", type: "Secondary", newRecipes: 17, note: "Healing Potions moved here from Alchemy; bandages reworked." },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_fishing.jpg", name: "Fishing", type: "Secondary", newRecipes: 3, note: "Tackle reworked; feeds the expanded Cooking recipe list." }
     ]
   },
 

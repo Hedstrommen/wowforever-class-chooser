@@ -35,7 +35,7 @@
     return (
       '<div class="class-card parchment" id="class-' + c.name.toLowerCase() + '">' +
         '<div class="card-header">' +
-          '<span class="class-icon">' + c.icon + "</span>" +
+          '<span class="class-icon">' + WowIcon.icon(c.icon, 36) + "</span>" +
           '<span class="card-title" style="color:' + c.color + '">' + c.name + "</span>" +
           '<span class="role-row" style="margin-left:auto">' + roles + "</span>" +
         "</div>" +

@@ -268,7 +268,7 @@
         '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
           (winner ? '<span class="podium-crown">👑</span>' : "") +
           '<span class="podium-rank">#' + (i + 1) + "</span>" +
-          '<span class="podium-icon">' + (spotRace ? spotRace.icon + " " : "") + r.c.icon + "</span>" +
+          '<span class="podium-icon">' + (spotRace ? WowIcon.icon(spotRace.icon, 34) + " " : "") + WowIcon.icon(r.c.icon, 44) + "</span>" +
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
           (spotRace ? '<span class="podium-race" style="color:' + spotRace.color + '">' + spotRace.name + " " + r.c.name + "</span>" : "") +
           '<div class="podium-bar-track"><div class="podium-bar-fill" style="' + barFill + '"></div></div>' +
@@ -310,7 +310,7 @@
 
     document.getElementById("resultBox").innerHTML =
       '<div class="result-hero">' +
-        '<span class="result-icons">' + (race ? race.icon + " " : "") + cls.icon + "</span>" +
+        '<span class="result-icons">' + (race ? WowIcon.icon(race.icon, 52) + " " : "") + WowIcon.icon(cls.icon, 64) + "</span>" +
         '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
         '<p class="result-role-line">RECOMMENDED ROLE</p>' +
         '<span class="result-role-tag">' + role + "</span>" +
