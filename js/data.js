@@ -234,7 +234,7 @@ const WOW_DATA = {
       matchTraits: ["aggressive", "melee", "ranged"],
       playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Mage", "Warlock"],
       newCombos: ["Hunter"],
-      why: "The flexible all-rounder: Sword Specialization makes Human Hunters and Warriors natural weapon masters, and Every Man for Himself breaks crowd control."
+      why: "Ambitious and adaptable, humans build their own path rather than inheriting one — the race for players who want their choices, not their bloodline, to define them."
     },
     {
       name: "Dwarf",
@@ -244,7 +244,7 @@ const WOW_DATA = {
       matchTraits: ["tanky", "support", "nature"],
       playableClasses: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Shaman"],
       newCombos: ["Shaman"],
-      why: "Stoneform sheds bleed, poison and disease — on a Shaman it pairs with the elements for a tanky, unshakeable supporter."
+      why: "Steadfast and grounded, dwarves hold their ground and keep their word — the race for players who value loyalty, endurance and a good story over speed."
     },
     {
       name: "Night Elf",
@@ -254,7 +254,7 @@ const WOW_DATA = {
       matchTraits: ["melee", "aggressive", "nature"],
       playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Druid"],
       newCombos: [],
-      why: "Shadowmeld and Quickness: dodge for tanks, stealth synergy for the ambush-minded, and the classic Druid homeland."
+      why: "Watchful and independent, night elves prefer to act from the shadows on their own terms — the race for players who are patient, observant and self-reliant."
     },
     {
       name: "Gnome",
@@ -264,7 +264,7 @@ const WOW_DATA = {
       matchTraits: ["magic", "support", "ranged"],
       playableClasses: ["Warrior", "Rogue", "Mage", "Warlock", "Priest"],
       newCombos: ["Priest"],
-      why: "Expansive Mind grows the biggest mana pool in the game — on a Priest it means more heals per bar, and Escape Artist counters roots for melee builds."
+      why: "Curious and inventive, gnomes question everything and tinker with the answer — the race for players who enjoy clever solutions and never stop experimenting."
     },
     {
       name: "Orc",
@@ -274,7 +274,7 @@ const WOW_DATA = {
       matchTraits: ["aggressive", "melee", "magic"],
       playableClasses: ["Warrior", "Hunter", "Rogue", "Shaman", "Mage", "Warlock"],
       newCombos: ["Mage"],
-      why: "Blood Fury is a flat damage cooldown that works on spells too — an Orc Mage trades tradition for raw destructive output, and Hardiness resists stuns."
+      why: "Direct and driven, orcs meet every challenge head-on and honor strength of will — the race for players who trust action over deliberation."
     },
     {
       name: "Undead",
@@ -284,7 +284,7 @@ const WOW_DATA = {
       matchTraits: ["magic", "aggressive", "support"],
       playableClasses: ["Warrior", "Rogue", "Priest", "Mage", "Warlock", "Paladin"],
       newCombos: ["Paladin"],
-      why: "Will of the Forsaken breaks Fear and Charm — the headline combo of Forever: an Undead Paladin wielding the Light against the darkness that raised it, with a dedicated Forsaken storyline."
+      why: "Unbound by expectation, the Forsaken answer to no one and owe nothing to the world that abandoned them — the race for players who chart their own course, consequences be damned."
     },
     {
       name: "Tauren",
@@ -294,7 +294,7 @@ const WOW_DATA = {
       matchTraits: ["tanky", "nature", "support"],
       playableClasses: ["Warrior", "Hunter", "Shaman", "Druid"],
       newCombos: [],
-      why: "War Stomp interrupts a whole pack of enemies and extra health makes Tauren the sturdiest tanks and the classic Druid."
+      why: "Calm and deliberate, tauren move with the patience of the plains and believe in balance — the race for players who prefer quiet conviction to bravado."
     },
     {
       name: "Troll",
@@ -304,7 +304,7 @@ const WOW_DATA = {
       matchTraits: ["aggressive", "ranged", "magic"],
       playableClasses: ["Warrior", "Hunter", "Rogue", "Priest", "Mage", "Shaman", "Warlock"],
       newCombos: ["Warlock"],
-      why: "Berserking is haste that scales as you get hurt — a Troll Warlock stacks voodoo on demonic power, and Regeneration keeps you in the fight."
+      why: "Unpredictable and proud, trolls adapt to anything and never stop pushing forward — the race for players who like improvising their way out of trouble."
     },
     {
       name: "Skyborne",
@@ -314,7 +314,7 @@ const WOW_DATA = {
       matchTraits: ["versatile", "ranged", "nature"],
       playableClasses: ["Warrior", "Hunter", "Rogue", "Druid", "Shaman", "Mage"],
       newCombos: ["Entire race is new"],
-      why: "The new race of Zephras Isle, choosing either faction at character creation. Walk on Air glides you through the world, Wind Blessed adds permanent Haste, and their Druid forms are unique sky-blue creations built on an owlbear fantasy. Windshaper (Horde) gets Shaman; High Order (Alliance) gets Mage.",
+      why: "Free-spirited and far-sighted, the Skyborne live between earth and sky and choose their own allegiance — the race for players who want the wind at their back and every door left open.",
       factionNote: "Horde Windshaper adds Shaman; Alliance High Order adds Mage."
     }
   ],

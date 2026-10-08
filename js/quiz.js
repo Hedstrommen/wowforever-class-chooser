@@ -157,7 +157,7 @@
     });
     let best = null, bestAlign = -1;
     candidates.forEach(function (r) {
-      const a = raceAlignment(r, cls.name);
+      const a = raceAlignment(r);
       if (a > bestAlign) { bestAlign = a; best = r; }
     });
     if (!best && candidates.length) best = candidates[0];
@@ -185,13 +185,9 @@
     return matched / TOTAL;
   }
 
-  // small visible bonus for November's new race/class combos,
-  // applied in both the recommendation and the stats chart
-  var COMBO_BONUS = 0.05;
-
-  function raceAlignment(race, clsName) {
-    // average across all answers: how much of each answer's trait
-    // picks this race's matchTraits cover (1 = full match)
+  function raceAlignment(race) {
+    // purely how well the race's identity matches the traits behind
+    // the answers — no class synergy or stat reasoning involved
     let sum = 0, counted = 0;
     history.forEach(function (a) {
       const traits = a.traits || [];
@@ -203,9 +199,7 @@
       sum += matched / traits.length;
       counted++;
     });
-    const base = counted > 0 ? sum / counted : 0;
-    const bonus = clsName && (race.newCombos || []).indexOf(clsName) !== -1 ? COMBO_BONUS : 0;
-    return Math.min(1, base + bonus);
+    return counted > 0 ? sum / counted : 0;
   }
 
   function statBar(label, fraction, highlight, color, dimmed) {
@@ -253,7 +247,7 @@
       });
       let best = null, bestAlign = -1;
       candidates.forEach(function (r) {
-        const a = raceAlignment(r, className);
+        const a = raceAlignment(r);
         if (a > bestAlign) { bestAlign = a; best = r; }
       });
       return best;
@@ -287,9 +281,10 @@
     // ---- why ----
     const reasons = [];
     reasons.push("Your answers scored highest for <strong>" + cls.name + "</strong> — " + cls.summary);
-    reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit" +
-      ((race && (race.newCombos || []).indexOf(cls.name) !== -1)
-        ? " — and " + race.name + " " + cls.name + " is one of November's brand-new combinations." : "."));
+    reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit.");
+    if (race && (race.newCombos || []).indexOf(cls.name) !== -1) {
+      reasons.push("<strong>" + race.name + " " + cls.name + "</strong> is one of November's brand-new combinations.");
+    }
     if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
     reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
 
@@ -301,7 +296,7 @@
     // ---- race stats: ALL races, playable ones first, the rest dimmed ----
     const raceCandidates = WOW_DATA.races.map(function (r) {
       const playable = r.playableClasses.indexOf(cls.name) !== -1;
-      return { r: r, playable: playable, align: raceAlignment(r, cls.name) };
+      return { r: r, playable: playable, align: raceAlignment(r) };
     }).sort(function (a, b) {
       if (a.playable !== b.playable) return a.playable ? -1 : 1;
       return b.align - a.align;
