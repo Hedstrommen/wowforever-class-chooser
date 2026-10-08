@@ -150,18 +150,15 @@
   }
 
   function pickRace(cls) {
+    // pick by the same raceAlignment metric shown in the stats,
+    // so the recommended race is always the top of the race chart
     const candidates = WOW_DATA.races.filter(function (r) {
       return r.playableClasses.indexOf(cls.name) !== -1;
     });
-    let best = null, score = -1;
+    let best = null, bestAlign = -1;
     candidates.forEach(function (r) {
-      let s = 0;
-      (r.traits || []).forEach(function () {});
-      // score race by trait overlap with quiz traits
-      (r.matchTraits || []).forEach(function (t) { s += traitScores[t] || 0; });
-      // new-combo bonus: recommend the new November options
-      if ((r.newCombos || []).indexOf(cls.name) !== -1) s += 3;
-      if (s > score) { score = s; best = r; }
+      const a = raceAlignment(r);
+      if (a > bestAlign) { bestAlign = a; best = r; }
     });
     if (!best && candidates.length) best = candidates[0];
     return best;
