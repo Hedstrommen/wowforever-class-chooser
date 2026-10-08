@@ -157,7 +157,7 @@
     });
     let best = null, bestAlign = -1;
     candidates.forEach(function (r) {
-      const a = raceAlignment(r);
+      const a = raceAlignment(r, cls.name);
       if (a > bestAlign) { bestAlign = a; best = r; }
     });
     if (!best && candidates.length) best = candidates[0];
@@ -185,7 +185,11 @@
     return matched / TOTAL;
   }
 
-  function raceAlignment(race) {
+  // small visible bonus for November's new race/class combos,
+  // applied in both the recommendation and the stats chart
+  var COMBO_BONUS = 0.05;
+
+  function raceAlignment(race, clsName) {
     // average across all answers: how much of each answer's trait
     // picks this race's matchTraits cover (1 = full match)
     let sum = 0, counted = 0;
@@ -199,7 +203,9 @@
       sum += matched / traits.length;
       counted++;
     });
-    return counted > 0 ? sum / counted : 0;
+    const base = counted > 0 ? sum / counted : 0;
+    const bonus = clsName && (race.newCombos || []).indexOf(clsName) !== -1 ? COMBO_BONUS : 0;
+    return Math.min(1, base + bonus);
   }
 
   function statBar(label, fraction, highlight, color) {
@@ -240,17 +246,31 @@
     const role = roleOf(cls);
 
     // ---- podium: 2nd left, 1st center, 3rd right ----
+    function bestRaceFor(className) {
+      const candidates = WOW_DATA.races.filter(function (r) {
+        return r.playableClasses.indexOf(className) !== -1;
+      });
+      let best = null, bestAlign = -1;
+      candidates.forEach(function (r) {
+        const a = raceAlignment(r, className);
+        if (a > bestAlign) { bestAlign = a; best = r; }
+      });
+      return best;
+    }
+
     function podiumSpot(r, i) {
       const alignPct = Math.round(classAlignment(r.c.name) * 100);
       const barPct = alignPct;
+      const spotRace = bestRaceFor(r.c.name);
       const winner = i === 0;
       const barFill = "width:" + barPct + "%;background:linear-gradient(180deg," + r.c.color + "," + shade(r.c.color) + ")";
       return (
         '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
           (winner ? '<span class="podium-crown">👑</span>' : "") +
           '<span class="podium-rank">#' + (i + 1) + "</span>" +
-          '<span class="podium-icon">' + r.c.icon + "</span>" +
+          '<span class="podium-icon">' + (spotRace ? spotRace.icon + " " : "") + r.c.icon + "</span>" +
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
+          (spotRace ? '<span class="podium-race" style="color:' + spotRace.color + '">' + spotRace.name + " " + r.c.name + "</span>" : "") +
           '<div class="podium-bar-track"><div class="podium-bar-fill" style="' + barFill + '"></div></div>' +
           '<span class="podium-score">' + alignPct + "% aligned</span>" +
         "</div>"
@@ -281,7 +301,7 @@
     const raceCandidates = WOW_DATA.races.filter(function (r) {
       return r.playableClasses.indexOf(cls.name) !== -1;
     }).map(function (r) {
-      return { r: r, align: raceAlignment(r) };
+      return { r: r, align: raceAlignment(r, cls.name) };
     }).sort(function (a, b) { return b.align - a.align; });
 
     const raceStats = raceCandidates.map(function (rc, i) {

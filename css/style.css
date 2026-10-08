@@ -527,6 +527,13 @@ main { padding: 24px 28px 0; }
 
 .podium-winner .podium-bar-fill { background: linear-gradient(180deg, #b08a3e, #8a6d3b); }
 
+.podium-race {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: 1px;
+}
+
 .podium-score { font-size: .95rem; font-weight: bold; color: #5a4212; }
 
 /* ---------- Stats blocks ---------- */
