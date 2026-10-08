@@ -182,7 +182,8 @@
     return traitTotal > 0 ? matched / traitTotal : 0;
   }
 
-  function statBar(label, percent, highlight) {
+  function statBar(label, fraction, highlight) {
+    const percent = Math.round(fraction * 100);
     return (
       '<div class="stat-row' + (highlight ? " stat-top" : "") + '">' +
         '<span class="stat-label">' + label + "</span>" +
@@ -204,17 +205,27 @@
     const race = pickRace(cls);
     const role = roleOf(cls);
 
-    // ---- podium ----
-    const podium = ranked.slice(0, 3).map(function (r, i) {
+    // ---- podium: 2nd left, 1st center, 3rd right ----
+    const maxScore = ranked[0].score || 1;
+    function podiumSpot(r, i) {
+      const alignPct = Math.round(classAlignment(r.c.name) * 100);
+      const barPct = Math.max(8, Math.round((r.score / maxScore) * 100));
       return (
         '<div class="podium-spot podium-' + (i + 1) + '">' +
           '<span class="podium-rank">#' + (i + 1) + "</span>" +
           '<span class="podium-icon">' + r.c.icon + "</span>" +
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
-          '<span class="podium-score">' + r.score + " pts</span>" +
+          '<div class="podium-bar-track"><div class="podium-bar-fill" style="width:' + barPct + '%"></div></div>' +
+          '<span class="podium-score">' + alignPct + "% aligned</span>" +
         "</div>"
       );
-    }).join("");
+    }
+    const podium =
+      '<div class="podium">' +
+        podiumSpot(ranked[1], 1) +
+        podiumSpot(ranked[0], 0) +
+        podiumSpot(ranked[2], 2) +
+      "</div>";
 
     // ---- why ----
     const reasons = [];
