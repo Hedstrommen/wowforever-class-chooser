@@ -15,6 +15,10 @@
     </header>
 
     <main>
+      <div class="quiz-top-row">
+        <a class="btn btn-home" href="index.html">← Back to Home</a>
+      </div>
+
       <section id="quizContainer" class="quiz-container parchment">
         <div id="progressWrap">
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
@@ -26,7 +30,10 @@
       <section id="resultContainer" class="result-container parchment hidden">
         <h2 class="section-heading">Your Destiny Awaits</h2>
         <div id="resultBox"></div>
-        <button class="btn" id="restartBtn">Take the Quiz Again</button>
+        <div class="result-actions">
+          <button class="btn" id="restartBtn">Take the Quiz Again</button>
+          <a class="btn btn-home" href="index.html">← Back to Home</a>
+        </div>
       </section>
     </main>
 
