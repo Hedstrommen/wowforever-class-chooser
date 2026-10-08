@@ -566,6 +566,12 @@ main { padding: 24px 28px 0; }
 
 .stat-top .stat-label { font-weight: bold; }
 
+.stat-dimmed { opacity: .55; }
+
+.stat-dimmed .stat-track { background: rgba(110,90,54,.1); }
+
+.stat-note { font-size: .75rem; font-style: italic; color: #6b5426; }
+
 .stat-track {
   flex: 1;
   height: 22px;

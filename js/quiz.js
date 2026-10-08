@@ -208,17 +208,18 @@
     return Math.min(1, base + bonus);
   }
 
-  function statBar(label, fraction, highlight, color) {
+  function statBar(label, fraction, highlight, color, dimmed) {
     const percent = Math.round(fraction * 100);
     const fillStyle = color
       ? "width:" + percent + "%;background:linear-gradient(180deg," + color + "," + shade(color) + ")"
       : "width:" + percent + "%";
     const labelStyle = color ? "color:" + shade(color, -30) : "";
     return (
-      '<div class="stat-row' + (highlight ? " stat-top" : "") + '">' +
-        '<span class="stat-label"' + (labelStyle ? ' style="' + labelStyle + '"' : "") + ">" + label + "</span>" +
+      '<div class="stat-row' + (highlight ? " stat-top" : "") + (dimmed ? " stat-dimmed" : "") + '">' +
+        '<span class="stat-label"' + (labelStyle ? ' style="' + labelStyle + '"' : "") + ">" + label +
+          (dimmed ? '<span class="stat-note"> — not playable</span>' : "") + "</span>" +
         '<div class="stat-track"><div class="stat-fill" style="' + fillStyle + '"></div></div>' +
-        '<span class="stat-value">' + percent + "%</span>" +
+        '<span class="stat-value">' + percent + "%" + "</span>" +
       "</div>"
     );
   }
@@ -297,15 +298,18 @@
       return statBar(r.c.name, r.align, i === 0, r.c.color);
     }).join("");
 
-    // ---- race stats: ALL races playable by the winning class ----
-    const raceCandidates = WOW_DATA.races.filter(function (r) {
-      return r.playableClasses.indexOf(cls.name) !== -1;
-    }).map(function (r) {
-      return { r: r, align: raceAlignment(r, cls.name) };
-    }).sort(function (a, b) { return b.align - a.align; });
+    // ---- race stats: ALL races, playable ones first, the rest dimmed ----
+    const raceCandidates = WOW_DATA.races.map(function (r) {
+      const playable = r.playableClasses.indexOf(cls.name) !== -1;
+      return { r: r, playable: playable, align: raceAlignment(r, cls.name) };
+    }).sort(function (a, b) {
+      if (a.playable !== b.playable) return a.playable ? -1 : 1;
+      return b.align - a.align;
+    });
 
     const raceStats = raceCandidates.map(function (rc, i) {
-      return statBar(rc.r.name, rc.align, i === 0, rc.r.color);
+      const top = rc.playable && i === 0;
+      return statBar(rc.r.name, rc.align, top, rc.r.color, !rc.playable);
     }).join("");
 
     document.getElementById("resultBox").innerHTML =
@@ -323,7 +327,7 @@
       '<p class="stats-desc">Percentage of your 10 answers that match each class.</p>' +
       classStats + "</div>" +
       '<div class="stats-block"><h3>Race Alignment</h3>' +
-      '<p class="stats-desc">How well each playable race for ' + cls.name + " matches the traits behind your answers.</p>" +
+      '<p class="stats-desc">How well every race matches the traits behind your answers. Dimmed races cannot play ' + cls.name + ".</p>" +
       raceStats + "</div>";
 
     document.getElementById("restartBtn").addEventListener("click", function () {
