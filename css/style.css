@@ -597,7 +597,11 @@ main { padding: 24px 28px 0; }
   height: 100%;
   background: linear-gradient(180deg, #8a6d3b, #6b5426);
   transition: width .6s ease;
+  min-width: 0;
 }
+
+/* a 0% row renders no fill at all — the empty track says it plainly */
+.stat-fill[style*="width:0%"] { display: none; }
 
 .stat-top .stat-fill { background: linear-gradient(180deg, #b08a3e, #8a6d3b); }
 
