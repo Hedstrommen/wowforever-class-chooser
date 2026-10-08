@@ -3,38 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WoW Forever — Class &amp; Race Changes</title>
+  <title>WoW Forever — Class &amp; Race Chooser</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="stone-frame">
     <header class="banner">
       <h1 class="game-title">WoW Forever</h1>
-      <p class="subtitle">Class &amp; Race Changes — The New Expansion</p>
-      <nav class="nav-links">
-        <a class="nav-link active" href="index.html">Changes</a>
-        <a class="nav-link" href="quiz.html">Quiz</a>
-      </nav>
+      <p class="subtitle">Class &amp; Race Chooser — launching November 4</p>
+      <nav class="nav-links" data-nav="index.html"></nav>
     </header>
 
     <main>
       <section class="intro parchment">
-        <p><strong>World of Warcraft: Forever</strong> launches November 4, keeping the nine classic
-        classes but rebuilding how each of them plays — with new race and class combinations that
-        were never possible in 2004. Below is a summary of every confirmed change.</p>
-      </section>
-
-      <section id="globalChanges"></section>
-      <section id="newCombos"></section>
-
-      <section>
-        <div class="tabs" id="classTabs"></div>
-        <div id="classList"></div>
+        <p><strong>World of Warcraft: Forever</strong> is Blizzard's official take on Classic Plus —
+        a permanent level-60 Azeroth with the nine original classes, reworked from head to toe,
+        and six race/class combinations that were impossible in 2004. This tool shows every change
+        and helps you pick what to play.</p>
       </section>
 
       <section>
-        <h2 class="section-heading">Race Changes</h2>
-        <div id="raceList"></div>
+        <h2 class="section-heading">Explore the Changes</h2>
+        <div class="home-grid">
+          <a class="home-card" href="classes.html">
+            <span class="home-icon">⚔</span>
+            <span class="home-title">Classes</span>
+            <span class="home-desc">All 9 classes reworked — new talents, new spells, tanking Paladins and more.</span>
+          </a>
+          <a class="home-card" href="races.html">
+            <span class="home-icon">🛡</span>
+            <span class="home-title">Races</span>
+            <span class="home-desc">Reworked racials, 6 new class combos and the new Skyborne race.</span>
+          </a>
+          <a class="home-card" href="professions.html">
+            <span class="home-icon">🔧</span>
+            <span class="home-title">Professions</span>
+            <span class="home-desc">600+ new recipes, Waylaid Supplies, campsite tools and titles.</span>
+          </a>
+          <a class="home-card" href="world.html">
+            <span class="home-icon">🗺</span>
+            <span class="home-title">World</span>
+            <span class="home-desc">New zones, 9 dungeons, revamped raids, Camping and the Legacy system.</span>
+          </a>
+          <a class="home-card" href="quiz.html">
+            <span class="home-icon">🔮</span>
+            <span class="home-title">Quiz</span>
+            <span class="home-desc">Answer 10 questions and see what race and class you should play.</span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-heading">The Headlines</h2>
+        <div class="parchment intro"><ul class="ability-list">
+          <li>Six new race/class combos: <strong>Human Hunter, Dwarf Shaman, Gnome Priest, Orc Mage, Troll Warlock, Undead Paladin</strong>.</li>
+          <li>Paladins can finally tank — <strong>Seal of Fury</strong> with a taunting Judgement, plus Undead can be Paladins.</li>
+          <li>Hit and crit merged into single stats; healing gear now adds damage.</li>
+          <li>113 new talents, 300 changed talents and 264 changed spells datamined vs Classic.</li>
+          <li>New zones, 9 new dungeons, Camping, the Legacy system and optional transmog.</li>
+        </ul></div>
       </section>
     </main>
 
@@ -44,6 +71,6 @@
   </div>
 
   <script src="js/data.js"></script>
-  <script src="js/changes.js"></script>
+  <script src="js/nav.js"></script>
 </body>
 </html>

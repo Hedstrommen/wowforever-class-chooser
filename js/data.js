@@ -308,7 +308,82 @@ const WOW_DATA = {
       why: "The new race of Zephras Isle, choosing either faction at character creation. Walk on Air glides you through the world, Wind Blessed adds permanent Haste, and their Druid forms are unique sky-blue creations built on an owlbear fantasy. Windshaper (Horde) gets Shaman; High Order (Alliance) gets Mage.",
       factionNote: "Horde Windshaper adds Shaman; Alliance High Order adds Mage."
     }
-  ]
+  ],
+
+  // ----------------------------------------------------------
+  // PROFESSIONS — real WoW Forever profession changes.
+  // ----------------------------------------------------------
+  professions: {
+    globalChanges: [
+      "No new professions — the original 12 return, but every one of them is overhauled to matter while leveling, not just at endgame.",
+      "600+ new recipes added across all professions, based on beta datamining.",
+      "The Waylaid Supplies system from Season of Discovery returns: completed supply crates reward Merchant's Favor, spent on recipes via the Azeroth Commerce Authority or Durotar Supply and Logistics.",
+      "Each profession gains three profession-specific campsite recipes: the first at skill 20, advanced ones drop from dungeon bosses as Blueprints.",
+      "At skill 300, crafting professions can obtain a Certification that permanently unlocks an account-wide profession title.",
+      "Gathering Manuals: early starting-zone quests offer Mining for Dummies, Wild Harvest, or Pelt Collecting for Beginners — each teaches the profession and grants +2 skill, up to 15.",
+      "Healing Potions have moved from Alchemy into First Aid.",
+      "Reagent bags are crafted items with a dedicated bag slot; combined bag support is built in.",
+      "The Auction House uses the modern layout with search and commodity-style listings.",
+      "Professions feed into the Legacy system's Professions tree with account-wide perks.",
+      "Mages get a Research system that appears in the professions interface — a Mage-only feature, not a new profession."
+    ],
+    ranks: [
+      { name: "Apprentice", level: 5, skill: "1–75" },
+      { name: "Journeyman", level: 10, skill: "50–150" },
+      { name: "Expert", level: 20, skill: "125–225" },
+      { name: "Artisan", level: 35, skill: "200–300" }
+    ],
+    list: [
+      { name: "Alchemy", type: "Primary", icon: "⚗", newRecipes: 72, note: "Overhauled low-level recipes; Healing Potions moved out to First Aid." },
+      { name: "Blacksmithing", type: "Primary", icon: "🔨", newRecipes: 203, note: "The biggest recipe addition of any profession; meaningful gear from the earliest levels." },
+      { name: "Enchanting", type: "Primary", icon: "✨", newRecipes: 63, note: "Reworked enchants that support the merged hit and crit stats." },
+      { name: "Engineering", type: "Primary", icon: "🔧", newRecipes: 80, note: "Specializations return; campsite gadgets and Blueprint drops." },
+      { name: "Leatherworking", type: "Primary", icon: "🧵", newRecipes: 289, note: "The second-largest recipe pool; profession-specific campsite objects." },
+      { name: "Tailoring", type: "Primary", icon: "🪡", newRecipes: 186, note: "Cloth crafting expanded; reagent bags are crafted by tailors." },
+      { name: "Herbalism", type: "Primary (gathering)", icon: "🌿", newRecipes: 3, note: "Feeds the Alchemy and Cooking rework; gathering perks in the Legacy Professions tree." },
+      { name: "Mining", type: "Primary (gathering)", icon: "⛏", newRecipes: 5, note: "Mining for Dummies manual available from starting-zone quests." },
+      { name: "Skinning", type: "Primary (gathering)", icon: "🔪", newRecipes: 3, note: "Pelt Collecting for Beginners manual; feeds the huge Leatherworking rework." },
+      { name: "Cooking", type: "Secondary", icon: "🍳", newRecipes: 44, note: "Now very useful while leveling; upgraded campfires allow more campsite objects." },
+      { name: "First Aid", type: "Secondary", icon: "🩹", newRecipes: 17, note: "Healing Potions moved here from Alchemy; bandages reworked." },
+      { name: "Fishing", type: "Secondary", icon: "🎣", newRecipes: 3, note: "Tackle reworked; feeds the expanded Cooking recipe list." }
+    ]
+  },
+
+  // ----------------------------------------------------------
+  // WORLD — zones, dungeons, raids, systems and ruleset changes.
+  // ----------------------------------------------------------
+  world: {
+    overview: [
+      "WoW Forever is Blizzard's official take on Classic Plus: a permanent level-60 version of the original Azeroth that keeps growing horizontally instead of moving to expansions.",
+      "The original continents of Eastern Kingdoms and Kalimdor remain the center of the experience — expanded with new content rather than replaced.",
+      "More than 1,000 new quests are planned across the level 1–60 journey, including new starting-zone quests. There is no level scaling and no flying.",
+      "Updated rendering: fog, better lighting and environments, with modern and Classic visual presets, HD/SD character models and Classic animations for HD models.",
+      "Official gamepad support is included."
+    ],
+    zones: [
+      { name: "Mount Hyjal", note: "One of the new regions named in Blizzard's What's Next recap — also home to the 20-player Hyjal Summit raid." },
+      { name: "Shen'dralas", note: "New region expanding the ancient elven lands of the original game." },
+      { name: "Riverglades", note: "New region among the launch zones." },
+      { name: "Zephras Isle", note: "Starting zone of the new Skyborne race, with its own questing storyline." }
+    ],
+    dungeons: [
+      { name: "Nine new dungeons", note: "Added from level 13 to 60, including the Hall of Thanes, Ruins of Lordaeron, City of Dalaran, the Drowned City, and the Excavation Site in the Wetlands." },
+      { name: "Wailing Caverns secret", note: "The revamped Wailing Caverns hides the Embrace of the Viper set that transforms Druids into a serpent form." },
+      { name: "Quest-first design", note: "Dungeon design is quest-driven; every dungeon drop has been re-examined with hundreds of new or adjusted items." }
+    ],
+    raids: [
+      { name: "Barrow Deeps", note: "10-player raid, unlocking December 9 after launch." },
+      { name: "Hyjal Summit", note: "20-player raid at launch window on the December 9 roadmap." },
+      { name: "Onyxia's Lair", note: "Revamped as a 40-player raid." }
+    ],
+    systems: [
+      { name: "Camping", note: "Cooking Fire expands into a Basic Campfire that creates a campsite: rest, vendors, repairs, profession workspaces and one-hour buffs. Nearby players can add up to three profession-created objects; matching camp and class buffs don't stack." },
+      { name: "Legacy system", note: "Account-wide progression with three trees: Professions, Adventure and Resourcefulness. At launch you can spend up to 16 points per character, earning up to 65 account-wide; excess points feed a cosmetic reward track. Unlocks around level 25, earlier via profession mastery (150+) or full world exploration." },
+      { name: "Rulesets replace realms", note: "Choose Normal, PvP or Roleplaying instead of a named realm — realmless, but friends still need the same ruleset and faction to group. Hardcore is a separate ecosystem planned after launch, with one-way progression out." },
+      { name: "Transmog", note: "Optional — disabled via NPC. Classic Mode hides other players' transmogs. Green and blue BoP dungeon appearances go to all eligible looters; epic raid appearances only to the binder." },
+      { name: "No boosts, no token", note: "No WoW Token and no character boosts. Included with a normal WoW subscription; the Skyborne race requires an optional upgrade pack." }
+    ]
+  }
 };
 
 if (typeof module !== "undefined") module.exports = WOW_DATA;
