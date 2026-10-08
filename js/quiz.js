@@ -69,6 +69,41 @@
         { text: "Simply last longer than they can", cls: { Paladin: 2, Priest: 1 }, traits: ["support", "tanky"] },
         { text: "Slow, accumulating pressure that wins late", cls: { Warlock: 3 }, traits: ["magic"] }
       ] },
+    { text: "How do you prefer to spend the quiet stretches between the exciting parts?",
+      answers: [
+        { text: "Preparing — organizing tools and resources for what's next", cls: { Paladin: 2, Shaman: 1 }, traits: ["support", "tanky"] },
+        { text: "Exploring — wandering off to see what else is out there", cls: { Hunter: 2, Druid: 2 }, traits: ["nature", "versatile"] },
+        { text: "Practicing — refining the skills I already have", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee", "aggressive"] },
+        { text: "Studying — reading, researching, understanding the system", cls: { Mage: 2, Warlock: 1 }, traits: ["magic"] }
+      ] },
+    { text: "A group needs someone to step up, but nobody volunteers. You…",
+      answers: [
+        { text: "Take charge immediately — hesitation costs more than mistakes", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky", "melee"] },
+        { text: "Offer a quiet word to whoever looks most capable", cls: { Priest: 2, Shaman: 1 }, traits: ["support"] },
+        { text: "Start solving the problem myself and let others follow", cls: { Rogue: 2, Mage: 1 }, traits: ["aggressive"] },
+        { text: "Wait — the situation usually clarifies who should lead", cls: { Druid: 2, Hunter: 1 }, traits: ["versatile", "ranged"] }
+      ] },
+    { text: "What is your relationship with rules and constraints?",
+      answers: [
+        { text: "Rules exist for good reason; I work within them well", cls: { Paladin: 2, Warrior: 1 }, traits: ["support", "tanky"] },
+        { text: "Rules are a starting point — I bend them where it counts", cls: { Warlock: 2, Rogue: 1 }, traits: ["aggressive", "magic"] },
+        { text: "I prefer to keep every option open and decide case by case", cls: { Druid: 2, Shaman: 1 }, traits: ["versatile", "nature"] },
+        { text: "I do my best work where the rules are already clear", cls: { Mage: 2, Hunter: 1 }, traits: ["ranged", "magic"] }
+      ] },
+    { text: "When you look back on your proudest moment, it involved…",
+      answers: [
+        { text: "Outlasting something that should have beaten me", cls: { Warrior: 2, Paladin: 1, Warlock: 1 }, traits: ["tanky"] },
+        { text: "A plan coming together exactly as designed", cls: { Mage: 2, Hunter: 1 }, traits: ["ranged", "magic"] },
+        { text: "Helping someone through something hard", cls: { Priest: 2, Shaman: 2, Druid: 1 }, traits: ["support", "nature"] },
+        { text: "An improvised move nobody saw coming", cls: { Rogue: 2, Shaman: 1 }, traits: ["aggressive", "versatile"] }
+      ] },
+    { text: "How do you recharge after a demanding period?",
+      answers: [
+        { text: "Alone — silence and space restore me", cls: { Rogue: 2, Hunter: 2, Mage: 1 }, traits: ["ranged", "aggressive"] },
+        { text: "With a few close people I trust completely", cls: { Priest: 1, Paladin: 2, Shaman: 1 }, traits: ["support"] },
+        { text: "Out in the open, far from walls and noise", cls: { Hunter: 2, Druid: 2 }, traits: ["nature"] },
+        { text: "Absorbed in a project or fascination", cls: { Mage: 2, Warlock: 2 }, traits: ["magic", "versatile"] }
+      ] },
     { text: "When you learn something new, you most enjoy the moment when…",
       answers: [
         { text: "The fundamentals click and never waver", cls: { Warrior: 3, Rogue: 1 }, traits: ["melee"] },
@@ -319,7 +354,7 @@
       reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
       "</ul></div>" +
       '<div class="stats-block"><h3>Class Alignment</h3>' +
-      '<p class="stats-desc">Percentage of your 10 answers that match each class.</p>' +
+      '<p class="stats-desc">Percentage of your answers that match each class.</p>' +
       classStats + "</div>" +
       '<div class="stats-block"><h3>Race Alignment</h3>' +
       '<p class="stats-desc">How well every race matches the traits behind your answers. Dimmed races cannot play ' + cls.name + ".</p>" +
