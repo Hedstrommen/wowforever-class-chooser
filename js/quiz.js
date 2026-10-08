@@ -205,15 +205,29 @@
     return counted > 0 ? sum / counted : 0;
   }
 
-  function statBar(label, fraction, highlight) {
+  function statBar(label, fraction, highlight, color) {
     const percent = Math.round(fraction * 100);
+    const fillStyle = color
+      ? "width:" + percent + "%;background:linear-gradient(180deg," + color + "," + shade(color) + ")"
+      : "width:" + percent + "%";
+    const labelStyle = color ? "color:" + shade(color, -30) : "";
     return (
       '<div class="stat-row' + (highlight ? " stat-top" : "") + '">' +
-        '<span class="stat-label">' + label + "</span>" +
-        '<div class="stat-track"><div class="stat-fill" style="width:' + percent + '%"></div></div>' +
+        '<span class="stat-label"' + (labelStyle ? ' style="' + labelStyle + '"' : "") + ">" + label + "</span>" +
+        '<div class="stat-track"><div class="stat-fill" style="' + fillStyle + '"></div></div>' +
         '<span class="stat-value">' + percent + "%</span>" +
       "</div>"
     );
+  }
+
+  // lighten or darken a hex color by percent
+  function shade(hex, amount) {
+    amount = typeof amount === "undefined" ? -22 : amount;
+    const n = parseInt(hex.slice(1), 16);
+    const r = Math.max(0, Math.min(255, ((n >> 16) & 255) + amount * 2.55));
+    const g = Math.max(0, Math.min(255, ((n >> 8) & 255) + amount * 2.55));
+    const b = Math.max(0, Math.min(255, (n & 255) + amount * 2.55));
+    return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
   }
 
   function showResult() {
@@ -233,13 +247,14 @@
       const alignPct = Math.round(classAlignment(r.c.name) * 100);
       const barPct = alignPct;
       const winner = i === 0;
+      const barFill = "width:" + barPct + "%;background:linear-gradient(180deg," + r.c.color + "," + shade(r.c.color) + ")";
       return (
         '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
           (winner ? '<span class="podium-crown">👑</span>' : "") +
           '<span class="podium-rank">#' + (i + 1) + "</span>" +
           '<span class="podium-icon">' + r.c.icon + "</span>" +
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
-          '<div class="podium-bar-track"><div class="podium-bar-fill" style="width:' + barPct + '%"></div></div>' +
+          '<div class="podium-bar-track"><div class="podium-bar-fill" style="' + barFill + '"></div></div>' +
           '<span class="podium-score">' + alignPct + "% aligned</span>" +
         "</div>"
       );
@@ -262,7 +277,7 @@
 
     // ---- class stats: ALL classes ----
     const classStats = ranked.map(function (r, i) {
-      return statBar(r.c.name, r.align, i === 0);
+      return statBar(r.c.name, r.align, i === 0, r.c.color);
     }).join("");
 
     // ---- race stats: ALL races playable by the winning class ----
@@ -273,7 +288,7 @@
     }).sort(function (a, b) { return b.align - a.align; });
 
     const raceStats = raceCandidates.map(function (rc, i) {
-      return statBar(rc.r.name, rc.align, i === 0);
+      return statBar(rc.r.name, rc.align, i === 0, rc.r.color);
     }).join("");
 
     document.getElementById("resultBox").innerHTML =

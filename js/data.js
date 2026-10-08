@@ -228,6 +228,7 @@ const WOW_DATA = {
   races: [
     {
       name: "Human",
+      color: "#9fa4ff",
       faction: "Alliance",
       matchTraits: ["aggressive", "melee", "ranged"],
       icon: "🛡",
@@ -237,6 +238,7 @@ const WOW_DATA = {
     },
     {
       name: "Dwarf",
+      color: "#a8785a",
       faction: "Alliance",
       matchTraits: ["tanky", "support", "nature"],
       icon: "⛏",
@@ -246,6 +248,7 @@ const WOW_DATA = {
     },
     {
       name: "Night Elf",
+      color: "#7a8bff",
       faction: "Alliance",
       matchTraits: ["melee", "aggressive", "nature"],
       icon: "🌙",
@@ -255,6 +258,7 @@ const WOW_DATA = {
     },
     {
       name: "Gnome",
+      color: "#8ee63f",
       faction: "Alliance",
       matchTraits: ["magic", "support", "ranged"],
       icon: "⚙",
@@ -264,6 +268,7 @@ const WOW_DATA = {
     },
     {
       name: "Orc",
+      color: "#68a02c",
       faction: "Horde",
       matchTraits: ["aggressive", "melee", "magic"],
       icon: "🪓",
@@ -273,6 +278,7 @@ const WOW_DATA = {
     },
     {
       name: "Undead",
+      color: "#93a29a",
       faction: "Horde",
       matchTraits: ["magic", "aggressive", "support"],
       icon: "💀",
@@ -282,6 +288,7 @@ const WOW_DATA = {
     },
     {
       name: "Tauren",
+      color: "#a52a2a",
       faction: "Horde",
       matchTraits: ["tanky", "nature", "support"],
       icon: "🐄",
@@ -291,6 +298,7 @@ const WOW_DATA = {
     },
     {
       name: "Troll",
+      color: "#38b53f",
       faction: "Horde",
       matchTraits: ["aggressive", "ranged", "magic"],
       icon: "🔱",
@@ -300,6 +308,7 @@ const WOW_DATA = {
     },
     {
       name: "Skyborne",
+      color: "#59c3e8",
       faction: "Both",
       matchTraits: ["versatile", "ranged", "nature"],
       icon: "🌪",
