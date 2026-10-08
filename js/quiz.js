@@ -156,6 +156,42 @@
     return cls.roles.filter(function (r) { return r !== "Tank"; })[0] || cls.roles[0];
   }
 
+  function pct(n) { return Math.round(n * 100) + "%"; }
+
+  function classAlignment(name) {
+    // share of all class points awarded that went to this class
+    let total = 0;
+    Object.keys(classScores).forEach(function (k) { total += classScores[k]; });
+    const score = classScores[name] || 0;
+    return total > 0 ? score / total : 0;
+  }
+
+  function answerSupport(name) {
+    // how many of the user's answers gave any points to this class
+    const supported = history.filter(function (a) {
+      return a.cls && (a.cls[name] || 0) > 0;
+    }).length;
+    return supported / TOTAL;
+  }
+
+  function raceAlignment(race) {
+    // share of the user's trait picks covered by this race's matchTraits
+    let traitTotal = 0, matched = 0;
+    Object.keys(traitScores).forEach(function (t) { traitTotal += traitScores[t]; });
+    (race.matchTraits || []).forEach(function (t) { matched += traitScores[t] || 0; });
+    return traitTotal > 0 ? matched / traitTotal : 0;
+  }
+
+  function statBar(label, percent, highlight) {
+    return (
+      '<div class="stat-row' + (highlight ? " stat-top" : "") + '">' +
+        '<span class="stat-label">' + label + "</span>" +
+        '<div class="stat-track"><div class="stat-fill" style="width:' + percent + '%"></div></div>' +
+        '<span class="stat-value">' + percent + "%</span>" +
+      "</div>"
+    );
+  }
+
   function showResult() {
     progressFill.style.width = "100%";
     quizContainer.classList.add("hidden");
@@ -163,10 +199,24 @@
 
     const ranked = topClasses();
     const cls = ranked[0].c;
-    const runnerUp = ranked[1].c;
+    const runnerUp = ranked[1] ? ranked[1].c : null;
+    const third = ranked[2] ? ranked[2].c : null;
     const race = pickRace(cls);
     const role = roleOf(cls);
 
+    // ---- podium ----
+    const podium = ranked.slice(0, 3).map(function (r, i) {
+      return (
+        '<div class="podium-spot podium-' + (i + 1) + '">' +
+          '<span class="podium-rank">#' + (i + 1) + "</span>" +
+          '<span class="podium-icon">' + r.c.icon + "</span>" +
+          '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
+          '<span class="podium-score">' + r.score + " pts</span>" +
+        "</div>"
+      );
+    }).join("");
+
+    // ---- why ----
     const reasons = [];
     reasons.push("Your answers scored highest for <strong>" + cls.name + "</strong> — " + cls.summary);
     reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit" +
@@ -174,17 +224,45 @@
         ? " — and " + race.name + " " + cls.name + " is one of November's brand-new combinations." : "."));
     if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
     reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
-    if (runnerUp && ranked[1].score > 0) {
-      reasons.push("Close second: <strong>" + runnerUp.name + "</strong>, if you want a different flavor of the same playstyle.");
-    }
+
+    // ---- class stats ----
+    const classStats = ranked.slice(0, 5).map(function (r, i) {
+      return statBar(r.c.name, pct(classAlignment(r.c.name)), i === 0);
+    }).join("");
+
+    // ---- race stats ----
+    const raceCandidates = WOW_DATA.races.filter(function (r) {
+      return r.playableClasses.indexOf(cls.name) !== -1;
+    }).map(function (r) {
+      return { r: r, align: raceAlignment(r) };
+    }).sort(function (a, b) { return b.align - a.align; });
+
+    const raceStats = raceCandidates.slice(0, 5).map(function (rc, i) {
+      return statBar(rc.r.name, pct(rc.align), i === 0);
+    }).join("");
+
+    // ---- answer support ----
+    const supportStats = ranked.slice(0, 5).map(function (r, i) {
+      return statBar(r.c.name, pct(answerSupport(r.c.name)), i === 0);
+    }).join("");
 
     document.getElementById("resultBox").innerHTML =
       '<p class="result-icons">' + (race ? race.icon + " " : "") + cls.icon + "</p>" +
       '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
       '<p class="result-sub">Recommended role: ' + role + "</p>" +
+      '<div class="podium">' + podium + "</div>" +
       '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
       reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
-      "</ul></div>";
+      "</ul></div>" +
+      '<div class="stats-block"><h3>Class Alignment</h3>' +
+      '<p class="stats-desc">Share of all your class points that went to each class.</p>' +
+      classStats + "</div>" +
+      '<div class="stats-block"><h3>Race Alignment</h3>' +
+      '<p class="stats-desc">How well each playable race for ' + cls.name + " matches the traits behind your answers.</p>" +
+      raceStats + "</div>" +
+      '<div class="stats-block"><h3>Answer Support</h3>' +
+      '<p class="stats-desc">Percentage of your 10 answers that supported each class.</p>' +
+      supportStats + "</div>";
 
     document.getElementById("restartBtn").addEventListener("click", function () {
       location.reload();

@@ -9,6 +9,7 @@
 const WOW_DATA = {
 
   globalChanges: [
+    "Datamined from the beta vs Classic Era: 113 brand-new talents, 300 changed talents and 264 changed spells across the nine classes.",
     "Hit is now one stat for spells, melee and ranged attacks; critical strike is merged the same way.",
     "Healing power adds a third of its value as damage, so healer gear works while soloing.",
     "Talent trees keep 7 rows and add a key talent at 16 points; 141 of 466 talents are new.",
@@ -44,7 +45,13 @@ const WOW_DATA = {
         { ability: "Battle Shout", note: "Its boosting talent is gone; the improved version is baseline for every Warrior." },
         { ability: "Enrage", note: "Now any damaging hit has a 30% chance to trigger it, not just critical strikes against you." },
         { ability: "Victory Rush", note: "Baseline for every Warrior." },
-        { ability: "Shield Block", note: "Two charges over 7 sec baseline (Classic had one 5 sec block)." }
+        { ability: "Shield Block", note: "Two charges over 7 sec baseline (Classic had one 5 sec block)." },
+        { ability: "Tactical Mastery", note: "Now a trainer spell, not a talent: keep up to 10 Rage when changing stances. Improved Tactical Mastery adds up to 15 more." },
+        { ability: "Victory Rush (detail)", note: "Learned at 20: instant strike dealing 15% of Attack Power, heals you for 10% of max health, usable within 20 sec of a kill, 30 sec cooldown." },
+        { ability: "Slam", note: "Now has an 18 sec cooldown; rank 3 arrives at level 38 (Classic waited until 46)." },
+        { ability: "Thunder Clap", note: "Usable in Battle or Defensive Stance; rank 4 slows enemy attack speed by 20% (Classic: 10%) and hits up to 4 targets." },
+        { ability: "Shield Wall", note: "15 min cooldown and 60% less damage for 12 sec (Classic: 30 min and 75% for 10 sec); shared cooldown with Retaliation/Recklessness appears gone." },
+        { ability: "Intercept", note: "Three ranks trained at 30, 42 and 52." }
       ],
       summary: "One of the lightest reworks: the big attacks stay, clutter is cleared, tanks open pulls in Defensive Stance."
     },
@@ -62,7 +69,10 @@ const WOW_DATA = {
         { ability: "Twist of Light", note: "New Retribution capstone: swap Seals mid-fight and your next swing still applies the old one." },
         { ability: "Holy Shock", note: "Moved to 20 points in Holy (was 30) with a shorter cooldown." },
         { ability: "Templar's Bulwark", note: "New Protection talent: shield for 100% of max health for 8 sec on a 5 min cooldown." },
-        { ability: "Blessing of Kings", note: "No longer a talent — learned from the trainer." }
+        { ability: "Blessing of Kings", note: "No longer a talent — learned from the trainer." },
+        { ability: "Judgement (detail)", note: "10 yd range, 10 sec cooldown; judging Seal of Fury taunts for 4 sec." },
+        { ability: "Seal of Fury ranks", note: "Seven ranks from level 10 to 58." },
+        { ability: "Holy Strike ranks", note: "Eight ranks from level 6 to 60; several talents build on it." }
       ],
       summary: "The biggest rework of any class: Paladins can actually tank now, with a real taunt. Undead can be Paladins — the headline new combo."
     },
@@ -79,7 +89,10 @@ const WOW_DATA = {
         { ability: "Survival rework", note: "Survival is now a melee tree: full-weapon-damage kick on 8 sec cooldown, Mongoose Bite bleed, 50% more off-hand damage." },
         { ability: "Summon Hawk", note: "New Beast Mastery talent: hawk dive-bombs the target for 18 sec (shares cooldown with Arcane Shot)." },
         { ability: "Traps", note: "Cheaper, faster cooldowns, and they now root everything they catch." },
-        { ability: "Human Hunters", note: "NEW: Humans can be Hunters — a strong pick with Sword Specialization." }
+        { ability: "Human Hunters", note: "NEW: Humans can be Hunters — a strong pick with Sword Specialization." },
+        { ability: "Aimed Shot (detail)", note: "Six ranks, first trained at 20; 2 sec cast (Classic: 3 sec), 6 sec cooldown shared with Multi-Shot." },
+        { ability: "Aspect of the Beast", note: "Rank 1 now also adds 50 melee attack power (Classic only made you untrackable)." },
+        { ability: "Call Pet", note: "Uses the generic name rather than pet-specific titles like Call Owl." }
       ],
       summary: "Three distinct playstyles: pet master, petless sniper, or melee trapper. Humans join the hunt."
     },
@@ -96,7 +109,8 @@ const WOW_DATA = {
         { ability: "Hemorrhage", note: "Now boosts only your own Rupture instead of everyone's damage." },
         { ability: "Thousand Cuts", note: "New Subtlety capstone replacing Premeditation: Hemorrhage and Backstab cost less each time Rupture ticks." },
         { ability: "Kidney Shot synergy", note: "Stunned targets take 10% more damage from your poisons and attacks." },
-        { ability: "Cold Blood", note: "Earlier in the tree and now works with Mutilate." }
+        { ability: "Cold Blood", note: "Earlier in the tree and now works with Mutilate." },
+        { ability: "One-handed axes", note: "NEW: Rogues can equip one-handed axes; Hack and Slash treats axe and sword as one weapon group." }
       ],
       summary: "Fewest new talents of any class, but Assassination becomes a real poison tree with Mutilate at its heart."
     },
@@ -113,7 +127,10 @@ const WOW_DATA = {
         { ability: "Shadow Word: Death", note: "Baseline for all Priests at level 32; backlash is 10% of your max health." },
         { ability: "Racial spells refreshed", note: "Every race has its own pair of racial Priest spells — Gnome's Confounding Flash confuses up to 5 enemies for 3 sec. Fear Ward is open to every Priest." },
         { ability: "Divine Aegis", note: "Critical heals leave a shield worth 15% of the heal." },
-        { ability: "Shadowform lifesteal", note: "Your Shadow damage now heals your party — the spec trades raid utility for staying power." }
+        { ability: "Shadowform lifesteal", note: "Your Shadow damage now heals your party — the spec trades raid utility for staying power." },
+        { ability: "Devouring Plague", note: "No longer an Undead racial — a regular Shadow spell for every Priest, rank 3 by level 38, 1 min cooldown." },
+        { ability: "Fear Ward", note: "Baseline for every Priest with a 3 min cooldown. In Classic it was a Dwarf racial spell." },
+        { ability: "Shadow Word: Death (detail)", note: "30 yd, instant, 15 sec cooldown; four ranks, first trained at 32." }
       ],
       summary: "Each tree gets a clear job: Discipline damages and heals, Holy gets a smart group heal, Shadow gets cheap self-sufficient damage."
     },
@@ -131,7 +148,13 @@ const WOW_DATA = {
         { ability: "Totem management", note: "Totems can be recalled for part of their Mana or moved without recasting." },
         { ability: "Enhancement tanking", note: "Parry returns as a talent with raised threat while Rockbiter Weapon is on; Stormstrike resets on dodge or parry." },
         { ability: "Ghost Wolf", note: "Improved Ghost Wolf lets you use it indoors." },
-        { ability: "Dwarf Shamans", note: "NEW: Dwarves can be Shamans — the Alliance finally gets the class." }
+        { ability: "Dwarf Shamans", note: "NEW: Dwarves can be Shamans — the Alliance finally gets the class." },
+        { ability: "Lightning Bolt", note: "Ranks 4-10 cast in 2.5 sec, half a second faster than Classic." },
+        { ability: "Chain Lightning", note: "Also half a second faster: rank 1 is a 2 sec cast, 6 sec cooldown, 3 targets with 30% weaker jumps." },
+        { ability: "Totemic Projection", note: "NEW: place your totems at a spot up to 30 yd away instead of at your feet. Totemic Recall is also in the spellbook." },
+        { ability: "Call of the Elements", note: "NEW: drops up to four totems from your Totem Bar in a single 3 sec cast." },
+        { ability: "Fire Nova", note: "Now a spell instead of a totem: instant, 10 sec cooldown, damages everything within 10 yd of your active Fire totem." },
+        { ability: "Ghost Wolf (detail)", note: "3 sec outdoor cast at level 20, +40% speed; Improved Ghost Wolf rank 1 allows indoor use." }
       ],
       summary: "Four new headline abilities and totems you can actually manage. Dwarves bring Shaman to the Alliance."
     },
@@ -148,7 +171,9 @@ const WOW_DATA = {
         { ability: "Fingers of Frost", note: "New Frost talent: your slows can make your next 2 spells treat the target as frozen (Ice Lance hits frozen targets 300% harder)." },
         { ability: "Ice Lance", note: "Joins the Frost tree as a key ability." },
         { ability: "Improved Counterspell", note: "First point is now a guaranteed 2 sec silence instead of a 50% chance at 4 sec." },
-        { ability: "Orc Mages", note: "NEW: Orcs can be Mages — Blood Fury on a caster is a serious cooldown." }
+        { ability: "Orc Mages", note: "NEW: Orcs can be Mages — Blood Fury on a caster is a serious cooldown." },
+        { ability: "Frostfire Bolt (detail)", note: "A 3 sec bolt that counts as both Fire and Frost: 40% slow and a 9 sec Frostfire DoT; three ranks, first trained at 40." },
+        { ability: "Comprehend Scroll", note: "NEW utility spell at level 6 that deciphers an untranslated scroll." }
       ],
       summary: "The fewest removed talents of any class; each tree gains a proc to react to and a fresh rotation anchor."
     },
@@ -166,7 +191,10 @@ const WOW_DATA = {
         { ability: "Incinerate", note: "New Destruction capstone; Fire and Shadow spells now feed each other 10% more damage for 20 sec." },
         { ability: "Bane of Havoc", note: "Copies 15% of your damage on other targets onto one marked enemy." },
         { ability: "Decimation", note: "Below 35% health, Shadow Bolt and Searing Pain make your next Soul Fire 40% faster and Soul Shard-free." },
-        { ability: "Troll Warlocks", note: "NEW: Trolls can be Warlocks — Berserking plus demons is a dark new path." }
+        { ability: "Troll Warlocks", note: "NEW: Trolls can be Warlocks — Berserking plus demons is a dark new path." },
+        { ability: "Subjugate Demon", note: "Enslave Demon under a new name; three ranks, first trained at 30." },
+        { ability: "Summon Incubus", note: "NEW in the Demonology book at 20: a 10 sec cast costing a Soul Shard." },
+        { ability: "Bane of Doom", note: "Also renamed from Curse of Doom to a Bane." }
       ],
       summary: "The deepest rework: 22 new talents, 20 removed, and a Bane system that doubles your curse uptime."
     },
@@ -184,7 +212,10 @@ const WOW_DATA = {
         { ability: "Tiger's Fury", note: "New talent turns it into an instant 60 Energy — burst instead of powershifting." },
         { ability: "Revive", note: "Every Druid gets an out-of-combat resurrection; Rebirth stays as the combat brez." },
         { ability: "Snake form", note: "Hidden in beta: the Wailing Caverns Embrace of the Viper set transforms a Druid into a serpent." },
-        { ability: "Skyborne Druids", note: "NEW race option with unique sky-blue shapeshift forms built around an owlbear fantasy." }
+        { ability: "Skyborne Druids", note: "NEW race option with unique sky-blue shapeshift forms built around an owlbear fantasy." },
+        { ability: "Lacerate", note: "NEW baseline bear bleed: 15 Rage in Bear or Dire Bear Form, three ranks trained at 42, 50 and 58." },
+        { ability: "Revive (detail)", note: "10 sec out-of-combat cast; Rebirth keeps its 30 min cooldown." },
+        { ability: "Nature's Grasp & Omen of Clarity", note: "Both now trainer spells: Nature's Grasp at level 10, Omen of Clarity at 20." }
       ],
       summary: "Powershifting is dead; real cat burst, a Wrath/Starfire rhythm, and a third druid race with its own forms."
     }
