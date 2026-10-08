@@ -412,10 +412,50 @@ main { padding: 24px 28px 0; }
 .podium-spot { margin-bottom: 30px; }
 
 /* explicit 2-1-3 DOM order; 1st place elevated in the middle */
-.podium-1 { padding: 26px 32px 12px; background: linear-gradient(180deg, #e3cd9e, #a98f5d); border-color: #9a804f; box-shadow: inset 0 1px 0 rgba(255,244,214,.6), 0 6px 14px rgba(60,45,20,.4); }
 .podium-2 { margin-right: 10px; }
 .podium-1 { margin: 0 10px; }
 .podium-3 { margin-left: 10px; }
+
+/* ---- Winner: unmistakably bigger ---- */
+.podium-winner {
+  min-width: 220px;
+  padding: 20px 40px 16px;
+  background: linear-gradient(180deg, #eed9a8, #a98f5d);
+  border-color: #8a7040;
+  box-shadow:
+    inset 0 1px 0 rgba(255,248,220,.7),
+    0 0 0 3px rgba(138,112,64,.45),
+    0 8px 20px rgba(50,38,16,.5);
+  transform: translateY(-14px) scale(1.12);
+  z-index: 2;
+}
+
+.podium-winner .podium-rank { font-size: 1.7rem; color: #5a3f10; }
+.podium-winner .podium-icon { font-size: 3.6rem; }
+.podium-winner .podium-name { font-size: 1.7rem; }
+.podium-winner .podium-bar-track { height: 16px; }
+.podium-winner .podium-score { font-size: 1.15rem; }
+
+.podium-crown {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  filter: drop-shadow(0 2px 3px rgba(50,38,16,.5));
+}
+
+.podium-winner-label {
+  font-family: 'Cinzel', serif;
+  font-weight: 800;
+  font-size: .8rem;
+  letter-spacing: 3px;
+  color: #fff;
+  background: linear-gradient(180deg, #9a742f, #6b4f1e);
+  padding: 3px 14px;
+  border: 1px solid #4a3512;
+  box-shadow: 0 1px 3px rgba(50,38,16,.5);
+}
 
 .podium-rank {
   font-family: 'Cinzel', serif;
@@ -509,7 +549,17 @@ main { padding: 24px 28px 0; }
 
 .stat-top .stat-fill { background: linear-gradient(180deg, #b08a3e, #8a6d3b); }
 
-.stat-value { width: 52px; font-size: 1rem; font-weight: bold; flex-shrink: 0; color: #4a3512; }
+.stat-value {
+  width: 64px;
+  font-size: 1.15rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  color: #1f1508;
+  font-family: 'Cinzel', serif;
+  text-shadow: 0 1px 0 rgba(255,248,220,.5);
+}
+
+.stat-top .stat-value { font-size: 1.3rem; color: #6b4210; }
 
 .btn {
   font-family: 'Cinzel', serif;

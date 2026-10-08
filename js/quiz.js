@@ -90,6 +90,20 @@
   const progressFill = document.getElementById("progressFill");
   const progressText = document.getElementById("progressText");
 
+  // which playstyle traits each class embodies — alignment is
+  // measured against these, over ALL answers
+  const CLASS_TRAITS = {
+    Warrior: ["melee", "tanky", "aggressive"],
+    Paladin: ["support", "tanky", "melee"],
+    Hunter: ["ranged", "nature", "versatile"],
+    Rogue: ["aggressive", "melee", "ranged"],
+    Priest: ["support", "magic", "ranged"],
+    Shaman: ["nature", "support", "versatile"],
+    Mage: ["magic", "ranged", "aggressive"],
+    Warlock: ["magic", "aggressive", "ranged"],
+    Druid: ["versatile", "nature", "tanky", "support"]
+  };
+
   function record(answer) {
     if (answer.cls) {
       Object.keys(answer.cls).forEach(function (name) {
@@ -124,9 +138,15 @@
   }
 
   function topClasses() {
+    // rank by the same alignment metric the user sees, so the
+    // podium order always matches the percentages
     return WOW_DATA.classes.map(function (c) {
-      return { c: c, score: classScores[c.name] || 0 };
-    }).sort(function (a, b) { return b.score - a.score; });
+      const points = classScores[c.name] || 0;
+      return { c: c, score: points, align: classAlignment(c.name) };
+    }).sort(function (a, b) {
+      if (b.align !== a.align) return b.align - a.align;
+      return b.score - a.score;
+    });
   }
 
   function pickRace(cls) {
@@ -159,27 +179,32 @@
   function pct(n) { return Math.round(n * 100) + "%"; }
 
   function classAlignment(name) {
-    // share of all class points awarded that went to this class
-    let total = 0;
-    Object.keys(classScores).forEach(function (k) { total += classScores[k]; });
-    const score = classScores[name] || 0;
-    return total > 0 ? score / total : 0;
-  }
-
-  function answerSupport(name) {
-    // how many of the user's answers gave any points to this class
-    const supported = history.filter(function (a) {
-      return a.cls && (a.cls[name] || 0) > 0;
+    // percentage of ALL answers this class matches: it either scored
+    // points in the answer or embodies one of the answer's traits
+    const matched = history.filter(function (a) {
+      if (a.cls && (a.cls[name] || 0) > 0) return true;
+      const traits = a.traits || [];
+      const classTraits = CLASS_TRAITS[name] || [];
+      return traits.some(function (t) { return classTraits.indexOf(t) !== -1; });
     }).length;
-    return supported / TOTAL;
+    return matched / TOTAL;
   }
 
   function raceAlignment(race) {
-    // share of the user's trait picks covered by this race's matchTraits
-    let traitTotal = 0, matched = 0;
-    Object.keys(traitScores).forEach(function (t) { traitTotal += traitScores[t]; });
-    (race.matchTraits || []).forEach(function (t) { matched += traitScores[t] || 0; });
-    return traitTotal > 0 ? matched / traitTotal : 0;
+    // average across all answers: how much of each answer's trait
+    // picks this race's matchTraits cover (1 = full match)
+    let sum = 0, counted = 0;
+    history.forEach(function (a) {
+      const traits = a.traits || [];
+      if (!traits.length) return;
+      let matched = 0;
+      traits.forEach(function (t) {
+        if ((race.matchTraits || []).indexOf(t) !== -1) matched++;
+      });
+      sum += matched / traits.length;
+      counted++;
+    });
+    return counted > 0 ? sum / counted : 0;
   }
 
   function statBar(label, fraction, highlight) {
@@ -210,13 +235,16 @@
     function podiumSpot(r, i) {
       const alignPct = Math.round(classAlignment(r.c.name) * 100);
       const barPct = Math.max(8, Math.round((r.score / maxScore) * 100));
+      const winner = i === 0;
       return (
-        '<div class="podium-spot podium-' + (i + 1) + '">' +
+        '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
+          (winner ? '<span class="podium-crown">👑</span>' : "") +
           '<span class="podium-rank">#' + (i + 1) + "</span>" +
           '<span class="podium-icon">' + r.c.icon + "</span>" +
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
           '<div class="podium-bar-track"><div class="podium-bar-fill" style="width:' + barPct + '%"></div></div>' +
           '<span class="podium-score">' + alignPct + "% aligned</span>" +
+          (winner ? '<span class="podium-winner-label">WINNER</span>' : "") +
         "</div>"
       );
     }
@@ -252,9 +280,10 @@
       return statBar(rc.r.name, pct(rc.align), i === 0);
     }).join("");
 
-    // ---- answer support ----
+    // ---- class points ----
+    const maxPoints = ranked[0].score || 1;
     const supportStats = ranked.slice(0, 5).map(function (r, i) {
-      return statBar(r.c.name, pct(answerSupport(r.c.name)), i === 0);
+      return statBar(r.c.name, r.score / maxPoints, i === 0);
     }).join("");
 
     document.getElementById("resultBox").innerHTML =
@@ -266,13 +295,13 @@
       reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
       "</ul></div>" +
       '<div class="stats-block"><h3>Class Alignment</h3>' +
-      '<p class="stats-desc">Share of all your class points that went to each class.</p>' +
+      '<p class="stats-desc">Percentage of your 10 answers that match each class.</p>' +
       classStats + "</div>" +
       '<div class="stats-block"><h3>Race Alignment</h3>' +
       '<p class="stats-desc">How well each playable race for ' + cls.name + " matches the traits behind your answers.</p>" +
       raceStats + "</div>" +
-      '<div class="stats-block"><h3>Answer Support</h3>' +
-      '<p class="stats-desc">Percentage of your 10 answers that supported each class.</p>' +
+      '<div class="stats-block"><h3>Class Points</h3>' +
+      '<p class="stats-desc">Raw points earned by each class, scaled against the winner.</p>' +
       supportStats + "</div>";
 
     document.getElementById("restartBtn").addEventListener("click", function () {
