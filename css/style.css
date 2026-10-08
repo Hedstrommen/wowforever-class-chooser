@@ -338,19 +338,56 @@ main { padding: 24px 28px 0; }
 .result-container { max-width: 720px; margin: 0 auto; text-align: center; }
 .result-container.hidden, .quiz-container.hidden, .hidden { display: none; }
 
+/* ---- Verdict hero panel ---- */
+.result-hero {
+  margin: 8px 0 4px;
+  padding: 26px 20px 22px;
+  border: 3px solid #9a804f;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(240,216,120,.28), transparent 65%),
+    linear-gradient(180deg, #442f14, #33220e);
+  box-shadow: inset 0 1px 0 rgba(255,248,220,.25), 0 6px 16px rgba(30,20,8,.6);
+}
+
+.result-icons {
+  font-size: 3.4rem;
+  margin: 0 0 10px;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,.5));
+  display: block;
+  text-align: center;
+}
+
 .result-verdict {
   font-family: 'Cinzel', serif;
   font-weight: 800;
-  font-size: clamp(1.6rem, 5vw, 2.4rem);
-  color: #7a5210;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: #ffe98a;
+  letter-spacing: 3px;
+  text-align: center;
+  text-shadow: 0 1px 0 #5a4420, 0 3px 8px rgba(0,0,0,.8), 0 0 24px rgba(240,216,120,.4);
+  margin-bottom: 12px;
+}
+
+.result-role-line {
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  letter-spacing: 2.5px;
+  color: #d8c393;
+}
+
+.result-role-tag {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 22px;
+  border: 2px solid #9a804f;
+  background: linear-gradient(180deg, #6b5326, #4a3b1f);
+  color: #ffe98a;
   letter-spacing: 2px;
-  text-shadow: 0 1px 0 rgba(255,255,255,.4);
-  margin-bottom: 6px;
+  box-shadow: inset 0 1px 0 rgba(240,216,120,.3);
 }
 
 .result-sub { color: #5a4a28; margin-bottom: 18px; font-size: 1.1rem; }
-
-.result-icons { font-size: 3.2rem; margin: 10px 0 18px; filter: drop-shadow(0 3px 5px rgba(0,0,0,.4)); }
 
 .result-why {
   text-align: left;
@@ -409,7 +446,7 @@ main { padding: 24px 28px 0; }
 .podium-3::after { height: 10px; }
 .podium-1::after { height: 26px; }
 
-.podium-spot { margin-bottom: 30px; }
+.podium-spot { margin-top: 22px; }
 
 /* explicit 2-1-3 DOM order; 1st place elevated in the middle */
 .podium-2 { margin-right: 10px; }
@@ -426,8 +463,9 @@ main { padding: 24px 28px 0; }
     inset 0 1px 0 rgba(255,248,220,.7),
     0 0 0 3px rgba(138,112,64,.45),
     0 8px 20px rgba(50,38,16,.5);
-  transform: translateY(-14px) scale(1.12);
+  transform: translateY(-16px) scale(1.13);
   z-index: 2;
+  margin-bottom: 22px;
 }
 
 .podium-winner .podium-rank { font-size: 1.7rem; color: #5a3f10; }
@@ -476,9 +514,10 @@ main { padding: 24px 28px 0; }
 
 .podium-bar-track {
   width: 100%;
-  height: 12px;
-  background: rgba(90,70,40,.3);
-  border: 1px solid #7a643e;
+  height: 14px;
+  background: rgba(90,70,40,.28);
+  border: 2px solid #7a643e;
+  box-shadow: inset 0 1px 3px rgba(60,45,20,.3);
 }
 
 .podium-bar-fill {
@@ -486,7 +525,7 @@ main { padding: 24px 28px 0; }
   background: linear-gradient(180deg, #8a6d3b, #6b5426);
 }
 
-.podium-1 .podium-bar-fill { background: linear-gradient(180deg, #b08a3e, #8a6d3b); }
+.podium-winner .podium-bar-fill { background: linear-gradient(180deg, #b08a3e, #8a6d3b); }
 
 .podium-score { font-size: .95rem; font-weight: bold; color: #5a4212; }
 

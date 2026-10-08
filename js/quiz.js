@@ -176,8 +176,6 @@
     return cls.roles.filter(function (r) { return r !== "Tank"; })[0] || cls.roles[0];
   }
 
-  function pct(n) { return Math.round(n * 100) + "%"; }
-
   function classAlignment(name) {
     // percentage of ALL answers this class matches: it either scored
     // points in the answer or embodies one of the answer's traits
@@ -231,10 +229,9 @@
     const role = roleOf(cls);
 
     // ---- podium: 2nd left, 1st center, 3rd right ----
-    const maxScore = ranked[0].score || 1;
     function podiumSpot(r, i) {
       const alignPct = Math.round(classAlignment(r.c.name) * 100);
-      const barPct = Math.max(8, Math.round((r.score / maxScore) * 100));
+      const barPct = alignPct;
       const winner = i === 0;
       return (
         '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
@@ -244,7 +241,6 @@
           '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
           '<div class="podium-bar-track"><div class="podium-bar-fill" style="width:' + barPct + '%"></div></div>' +
           '<span class="podium-score">' + alignPct + "% aligned</span>" +
-          (winner ? '<span class="podium-winner-label">WINNER</span>' : "") +
         "</div>"
       );
     }
@@ -264,32 +260,29 @@
     if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
     reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
 
-    // ---- class stats ----
-    const classStats = ranked.slice(0, 5).map(function (r, i) {
-      return statBar(r.c.name, pct(classAlignment(r.c.name)), i === 0);
+    // ---- class stats: ALL classes ----
+    const classStats = ranked.map(function (r, i) {
+      return statBar(r.c.name, r.align, i === 0);
     }).join("");
 
-    // ---- race stats ----
+    // ---- race stats: ALL races playable by the winning class ----
     const raceCandidates = WOW_DATA.races.filter(function (r) {
       return r.playableClasses.indexOf(cls.name) !== -1;
     }).map(function (r) {
       return { r: r, align: raceAlignment(r) };
     }).sort(function (a, b) { return b.align - a.align; });
 
-    const raceStats = raceCandidates.slice(0, 5).map(function (rc, i) {
-      return statBar(rc.r.name, pct(rc.align), i === 0);
-    }).join("");
-
-    // ---- class points ----
-    const maxPoints = ranked[0].score || 1;
-    const supportStats = ranked.slice(0, 5).map(function (r, i) {
-      return statBar(r.c.name, r.score / maxPoints, i === 0);
+    const raceStats = raceCandidates.map(function (rc, i) {
+      return statBar(rc.r.name, rc.align, i === 0);
     }).join("");
 
     document.getElementById("resultBox").innerHTML =
-      '<p class="result-icons">' + (race ? race.icon + " " : "") + cls.icon + "</p>" +
-      '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
-      '<p class="result-sub">Recommended role: ' + role + "</p>" +
+      '<div class="result-hero">' +
+        '<span class="result-icons">' + (race ? race.icon + " " : "") + cls.icon + "</span>" +
+        '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
+        '<p class="result-role-line">RECOMMENDED ROLE</p>' +
+        '<span class="result-role-tag">' + role + "</span>" +
+      "</div>" +
       '<div class="podium">' + podium + "</div>" +
       '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
       reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
@@ -299,10 +292,7 @@
       classStats + "</div>" +
       '<div class="stats-block"><h3>Race Alignment</h3>' +
       '<p class="stats-desc">How well each playable race for ' + cls.name + " matches the traits behind your answers.</p>" +
-      raceStats + "</div>" +
-      '<div class="stats-block"><h3>Class Points</h3>' +
-      '<p class="stats-desc">Raw points earned by each class, scaled against the winner.</p>' +
-      supportStats + "</div>";
+      raceStats + "</div>";
 
     document.getElementById("restartBtn").addEventListener("click", function () {
       location.reload();
