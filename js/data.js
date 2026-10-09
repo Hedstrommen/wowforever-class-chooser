@@ -125,14 +125,22 @@ const WOW_DATA = {
         { ability: "Prayer of Mending", note: "New Holy capstone: a heal that waits on the target until they take damage, then bounces up to 5 times." },
         { ability: "Shadowform", note: "Halves Mana cost of Shadow spells, cuts Physical damage taken by 15%, blocks only healing spells." },
         { ability: "Shadow Word: Death", note: "Baseline for all Priests at level 32; backlash is 10% of your max health." },
-        { ability: "Racial spells refreshed", note: "Every race has its own pair of racial Priest spells — Gnome's Confounding Flash confuses up to 5 enemies for 3 sec. Fear Ward is open to every Priest." },
+        { ability: "Divine Spirit", note: "Baseline for every Priest at level 30; rank 4 still grants +40 Spirit and its duration is up to 60 min." },
         { ability: "Divine Aegis", note: "Critical heals leave a shield worth 15% of the heal." },
         { ability: "Shadowform lifesteal", note: "Your Shadow damage now heals your party — the spec trades raid utility for staying power." },
         { ability: "Devouring Plague", note: "No longer an Undead racial — a regular Shadow spell for every Priest, rank 3 by level 38, 1 min cooldown." },
         { ability: "Fear Ward", note: "Baseline for every Priest with a 3 min cooldown. In Classic it was a Dwarf racial spell." },
         { ability: "Shadow Word: Death (detail)", note: "30 yd, instant, 15 sec cooldown; four ranks, first trained at 32." }
       ],
-      summary: "Each tree gets a clear job: Discipline damages and heals, Holy gets a smart group heal, Shadow gets cheap self-sufficient damage."
+      racialSpells: [
+        { race: "Human", spells: ["Divine Grace — instant heal usable only on a target below 50% health, and it clears Weakened Soul; trained at level 10.", "Feedback — mana-burn attack that drains the enemy's mana on hit."] },
+        { race: "Dwarf", spells: ["Desperate Prayer — self-heal emergency, trained at level 10.", "Chastise — instant Holy damage that roots Humanoids for 2 sec on a 2 min cooldown, trained at level 20."] },
+        { race: "Night Elf", spells: ["Starshards — channelled Arcane rain of star fragments, 30 sec cooldown, trained at level 10; its damage was nearly doubled in Forever.", "Elune's Grace — 15 sec aura cutting ranged hit chance against you by 50%, trained at level 20."] },
+        { race: "Gnome", spells: ["Confounding Flash — confuses up to 5 enemies for 3 sec, trained at level 10.", "Contingency Plan — absorb ward trained at level 20 that acts like a cheat-death effect against a killing blow."] },
+        { race: "Undead", spells: ["Touch of Weakness — self-buff; melee attackers deal less damage and take Shadow damage in return.", "Dark Sacrifice — converts 1600 health into 1600 mana over 15 sec on a 10 min cooldown at max rank."] },
+        { race: "Troll", spells: ["Hex of Weakness — enemy curse lowering their damage and healing received.", "Shadowguard — self-buff that zaps melee attackers with Shadow damage."] }
+      ],
+      summary: "Each tree gets a clear job: Discipline damages and heals, Holy gets a smart group heal, Shadow gets cheap self-sufficient damage — and every race keeps its own pair of racial Priest spells on top."
     },
     {
       name: "Shaman",
@@ -343,18 +351,86 @@ const WOW_DATA = {
       { name: "Artisan", level: 35, skill: "200–300" }
     ],
     list: [
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_alchemy.jpg", name: "Alchemy", type: "Primary", newRecipes: 72, note: "Overhauled low-level recipes; Healing Potions moved out to First Aid." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_blacksmithing.jpg", name: "Blacksmithing", type: "Primary", newRecipes: 203, note: "The biggest recipe addition of any profession; meaningful gear from the earliest levels." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engraving.jpg", name: "Enchanting", type: "Primary", newRecipes: 63, note: "Reworked enchants that support the merged hit and crit stats." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engineering.jpg", name: "Engineering", type: "Primary", newRecipes: 80, note: "Specializations return; campsite gadgets and Blueprint drops." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_leatherworking.jpg", name: "Leatherworking", type: "Primary", newRecipes: 289, note: "The second-largest recipe pool; profession-specific campsite objects." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_tailoring.jpg", name: "Tailoring", type: "Primary", newRecipes: 186, note: "Cloth crafting expanded; reagent bags are crafted by tailors." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_herbalism.jpg", name: "Herbalism", type: "Primary (gathering)", newRecipes: 3, note: "Feeds the Alchemy and Cooking rework; gathering perks in the Legacy Professions tree." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_mining.jpg", name: "Mining", type: "Primary (gathering)", newRecipes: 5, note: "Mining for Dummies manual available from starting-zone quests." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_armorkit_17.jpg", name: "Skinning", type: "Primary (gathering)", newRecipes: 3, note: "Pelt Collecting for Beginners manual; feeds the huge Leatherworking rework." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_food_15.jpg", name: "Cooking", type: "Secondary", newRecipes: 44, note: "Now very useful while leveling; upgraded campfires allow more campsite objects." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_sealofsacrifice.jpg", name: "First Aid", type: "Secondary", newRecipes: 17, note: "Healing Potions moved here from Alchemy; bandages reworked." },
-      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_fishing.jpg", name: "Fishing", type: "Secondary", newRecipes: 3, note: "Tackle reworked; feeds the expanded Cooking recipe list." }
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_alchemy.jpg", name: "Alchemy", type: "Primary", newRecipes: 72, note: "Overhauled low-level recipes; Healing Potions moved out to First Aid.", changes: [
+        "Elixirs and flasks last longer and hit harder than their Classic versions.",
+        "The Philosopher's Stone is now upgradable instead of a fixed alchemist trinket.",
+        "Healing Potions moved out of Alchemy into First Aid — alchemists keep the transmutes and consumable rework.",
+        "Contributes a Laboratory campsite object that acts as a crafting workstation for the camp."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_blacksmithing.jpg", name: "Blacksmithing", type: "Primary", newRecipes: 203, note: "The biggest recipe addition of any profession; meaningful gear from the earliest levels.", changes: [
+        "Sharpening stones and new weapon/armor plans arrive from the earliest skill levels, so the profession matters while leveling.",
+        "New recipes include belt buckles and a repair utility so blacksmiths can fix gear in the field.",
+        "Plans include armor sets and weapon lines spanning every level bracket, not just endgame.",
+        "Contributes a Whetstone campsite object granting attack power to everyone at the camp."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engraving.jpg", name: "Enchanting", type: "Primary", newRecipes: 63, note: "Reworked enchants that support the merged hit and crit stats.", changes: [
+        "New ring enchants — a slot Classic never allowed enchanters to touch.",
+        "Shard conversion lets enchanters turn materials between types instead of farming specific disenchant results.",
+        "New staff-crafting recipes pair with the reworked weapon lines.",
+        "Reworked enchants support the merged Hit and Crit stats from the global stat changes."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_engineering.jpg", name: "Engineering", type: "Primary", newRecipes: 80, note: "Specializations return; campsite gadgets and Blueprint drops.", changes: [
+        "Gnomish and Goblin specializations return with distinct gadget lines.",
+        "New devices, bombs and trinkets — more toys that matter while leveling, not just at 60.",
+        "Advanced campsite gadget recipes drop from dungeon bosses as Blueprints.",
+        "One of the three profession campsite objects is trainable from skill 20."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_leatherworking.jpg", name: "Leatherworking", type: "Primary", newRecipes: 289, note: "The second-largest recipe pool; profession-specific campsite objects.", changes: [
+        "Armor kits and armor enhancement recipes expanded across all skill brackets.",
+        "New recipes increase mounted speed — a first for the profession.",
+        "289 new recipes in the beta datamine, the second-largest pool after Blacksmithing's gear push.",
+        "Contributes a Tanning Rack campsite object that unlocks advanced recipes at the camp."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_tailoring.jpg", name: "Tailoring", type: "Primary", newRecipes: 186, note: "Cloth crafting expanded; reagent bags are crafted by tailors.", changes: [
+        "Profession-specific embroideries — new cloak and garment crafting lines.",
+        "Extra cloth drops for tailors, feeding the 186-recipe expansion.",
+        "Reagent bags are crafted by tailors and use a dedicated bag slot; combined bag support is built in.",
+        "Contributes a Faction Banner campsite object granting Spirit to everyone at the camp."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_herbalism.jpg", name: "Herbalism", type: "Primary (gathering)", newRecipes: 3, note: "Feeds the Alchemy and Cooking rework; gathering perks in the Legacy Professions tree.", changes: [
+        "Herbalists gain a magic-resistance bonus while gathering.",
+        "Additional herb types feed the reworked Alchemy and Cooking recipe lists.",
+        "Improved chances at rare herb finds, including the rare Lotus used by top-tier recipes.",
+        "Gathering perks also live in the Legacy system's Professions tree."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_mining.jpg", name: "Mining", type: "Primary (gathering)", newRecipes: 5, note: "Mining for Dummies manual available from starting-zone quests.", changes: [
+        "Miners gain +5% maximum health as a profession perk.",
+        "Additional ore types and veins feed Blacksmithing, Engineering and Jewelcraft-style recipes.",
+        "The Mining for Dummies Gathering Manual is available from starting-zone quests: teaches the profession and grants +2 skill, up to 15.",
+        "Gathering perks also live in the Legacy system's Professions tree."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_armorkit_17.jpg", name: "Skinning", type: "Primary (gathering)", newRecipes: 3, note: "Pelt Collecting for Beginners manual; feeds the huge Leatherworking rework.", changes: [
+        "Skinners deal +5% damage against Beasts and Dragonkin — a combat perk, not just a gathering one.",
+        "Rare hide finds feed the 289-recipe Leatherworking expansion.",
+        "The Pelt Collecting for Beginners Gathering Manual is available from starting-zone quests: teaches the profession and grants +2 skill, up to 15.",
+        "Gathering perks also live in the Legacy system's Professions tree."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/inv_misc_food_15.jpg", name: "Cooking", type: "Secondary", newRecipes: 44, note: "Now very useful while leveling; upgraded campfires allow more campsite objects.", changes: [
+        "Cooked food now improves stats AND the experience gained from defeating enemies.",
+        "Upgraded campfires allow more campsite objects: basic fires take three, upgraded fires five or ten.",
+        "44 new recipes in the beta datamine, focused on the leveling journey.",
+        "Contributes a Larger Fire campsite object that adds more camp slots for everyone."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_sealofsacrifice.jpg", name: "First Aid", type: "Secondary", newRecipes: 17, note: "Healing Potions moved here from Alchemy; bandages reworked.", changes: [
+        "Healing Potions moved here from Alchemy — the potion heal belongs to the bandage profession now.",
+        "Bandages reworked to stay relevant while leveling.",
+        "17 new recipes in the beta datamine, including the relocated potion line.",
+        "No rank or skill cap change — still the cheap secondary everyone picks up."
+      ] },
+      { icon: "https://wow.zamimg.com/images/wow/icons/large/trade_fishing.jpg", name: "Fishing", type: "Secondary", newRecipes: 3, note: "Tackle reworked; feeds the expanded Cooking recipe list.", changes: [
+        "Tackle reworked — new baits and gear replace the Classic rod-and-bait routine.",
+        "Catches feed the expanded 44-recipe Cooking list.",
+        "Fishing pools remain, with new catch types across both continents.",
+        "Still a secondary: no rank gate beyond the Classic skill ladder."
+      ] }
+    ],
+    campsiteObjects: [
+      { prof: "Blacksmithing", object: "Whetstone", benefit: "Attack power" },
+      { prof: "Tailoring", object: "Faction banner", benefit: "Spirit" },
+      { prof: "Herbalism", object: "Incense", benefit: "Intellect" },
+      { prof: "Alchemy", object: "Laboratory", benefit: "Workstation (advanced recipes)" },
+      { prof: "Leatherworking", object: "Tanning rack", benefit: "Advanced recipes" },
+      { prof: "Cooking", object: "Larger fire", benefit: "More camp slots" }
     ]
   },
 

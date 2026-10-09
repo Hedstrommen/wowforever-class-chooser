@@ -28,6 +28,14 @@
       return "<li><span class='ability-name'>" + ch.ability + ":</span> " + ch.note + "</li>";
     }).join("");
 
+    const racialSpells = (c.racialSpells || []).map(function (rs) {
+      const spells = rs.spells.map(function (s) { return "<li>" + s + "</li>"; }).join("");
+      return (
+        '<li><span class="ability-name">' + rs.race + ":</span>" +
+        '<ul class="ability-list" style="margin:0.3em 0 0.6em 0">' + spells + "</ul></li>"
+      );
+    }).join("");
+
     const roles = (c.roles || []).map(function (r) {
       return '<span class="role-pill new">' + r + "</span>";
     }).join("");
@@ -42,6 +50,10 @@
         '<p class="class-summary">' + c.summary + "</p>" +
         (raceTags ? '<div class="role-row"><span class="ability-name">Playable by:</span> ' + raceTags + "</div>" : "") +
         '<ul class="ability-list">' + abilities + "</ul>" +
+        (racialSpells ?
+          '<h3 class="section-heading" style="font-size:1em;margin:0.8em 0 0.3em 0">Racial Priest Spells by Race</h3>' +
+          '<ul class="ability-list">' + racialSpells + "</ul>" :
+          "") +
       "</div>"
     );
   }
