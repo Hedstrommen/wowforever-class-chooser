@@ -1,143 +1,39 @@
 // ============================================================
-// WoW Forever — 10-question quiz + result engine
-// Questions describe playstyle mechanics; scoring maps answers
-// to the 9 real WoW Forever classes and their playable races.
+// WoW Forever — quiz engine
+// Runs any quiz defined in js/quizzes.js (?q=full|race|class|faction),
+// scores it, and renders a three-place podium plus full stats.
+// Results are styled after the 2004 box art: cool blue for the
+// Alliance, fiery red for the Horde.
 // ============================================================
 
 (function () {
-  const QUESTIONS = [
-    { text: "In a group activity, do you prefer to be the one doing, enabling, or protecting?",
-      answers: [
-        { text: "Doing — the outcome depends on my performance", cls: { Rogue: 2, Mage: 2, Hunter: 2, Warlock: 2 }, traits: ["aggressive"] },
-        { text: "Enabling — I multiply what others can achieve", cls: { Priest: 2, Shaman: 2 }, traits: ["support"] },
-        { text: "Protecting — I absorb pressure so others can work", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
-        { text: "Whatever the situation is missing at the moment", cls: { Druid: 3 }, traits: ["versatile"] }
-      ] },
-    { text: "How do you like your primary resource to behave?",
-      answers: [
-        { text: "Builds up through action — momentum rewarded", cls: { Warrior: 2, Rogue: 2 }, traits: ["melee"] },
-        { text: "A fixed pool that depletes and must be rationed", cls: { Mage: 2, Priest: 2 }, traits: ["magic"] },
-        { text: "Mostly cooldown-driven; the resource matters less", cls: { Hunter: 2, Paladin: 1 }, traits: ["ranged"] },
-        { text: "Several resources I convert between on the fly", cls: { Druid: 3, Shaman: 1 }, traits: ["versatile"] }
-      ] },
-    { text: "Something unexpected goes wrong mid-task. Your first instinct is to…",
-      answers: [
-        { text: "Take control of the situation yourself", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] },
-        { text: "Reduce the problem to a manageable size", cls: { Mage: 2, Rogue: 2 }, traits: ["ranged"] },
-        { text: "Stick to the plan and trust the structure", cls: { Rogue: 1, Hunter: 1, Warlock: 1 }, traits: ["ranged"] },
-        { text: "Patch the damage and keep everyone going", cls: { Priest: 3, Shaman: 2 }, traits: ["support"] }
-      ] },
-    { text: "Do you like managing a second entity alongside yourself?",
-      answers: [
-        { text: "Yes — a companion is central to how I operate", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Occasionally useful, but never required", cls: { Mage: 2, Priest: 1 }, traits: ["magic"] },
-        { text: "No — I want full personal control at all times", cls: { Rogue: 2, Warrior: 2 }, traits: ["aggressive", "melee"] },
-        { text: "Only if it's an extension of my own decisions", cls: { Shaman: 3 }, traits: ["nature"] }
-      ] },
-    { text: "Which feels better at the end of a long session?",
-      answers: [
-        { text: "A single decisive peak moment I created", cls: { Rogue: 2, Mage: 2, Warrior: 1 }, traits: ["aggressive"] },
-        { text: "A near-invisible intervention that saved everything", cls: { Priest: 3, Paladin: 1 }, traits: ["support"] },
-        { text: "Sustained high output, start to finish", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Being the reason nothing collapsed", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky"] }
-      ] },
-    { text: "Fixed routine or improvisation?",
-      answers: [
-        { text: "A fixed sequence I execute consistently", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee"] },
-        { text: "Random events I react to as they come", cls: { Mage: 3, Shaman: 2 }, traits: ["magic"] },
-        { text: "A priority list — structure with judgment calls", cls: { Hunter: 2, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Fully improvised; every situation is different", cls: { Druid: 3 }, traits: ["versatile"] }
-      ] },
-    { text: "How much do you value being able to operate completely alone?",
-      answers: [
-        { text: "Essential — I need to be self-sufficient by default", cls: { Hunter: 3, Warlock: 2 }, traits: ["ranged"] },
-        { text: "Nice, but groups are where I shine", cls: { Priest: 2, Paladin: 2 }, traits: ["support"] },
-        { text: "Rarely relevant to how I choose to play", cls: { Warrior: 1, Rogue: 1 }, traits: ["aggressive"] },
-        { text: "I want both, switchable at will", cls: { Druid: 3, Shaman: 2 }, traits: ["versatile"] }
-      ] },
-    { text: "How do you relate to attention and pressure on you?",
-      answers: [
-        { text: "I deliberately draw it toward myself", cls: { Warrior: 3, Paladin: 2 }, traits: ["tanky"] },
-        { text: "I stay under it and out of sight", cls: { Rogue: 3 }, traits: ["aggressive"] },
-        { text: "I shed it with the right tools when it comes", cls: { Priest: 2, Warlock: 1 }, traits: ["support"] },
-        { text: "I keep distance so it rarely reaches me", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] }
-      ] },
-    { text: "Against a difficult opponent, which approach do you trust?",
-      answers: [
-        { text: "Deny them options until they can't act", cls: { Rogue: 3 }, traits: ["aggressive", "melee"] },
-        { text: "Stay out of reach and win on attrition", cls: { Hunter: 2, Mage: 2 }, traits: ["ranged"] },
-        { text: "Simply last longer than they can", cls: { Paladin: 2, Priest: 1 }, traits: ["support", "tanky"] },
-        { text: "Slow, accumulating pressure that wins late", cls: { Warlock: 3 }, traits: ["magic"] }
-      ] },
-    { text: "How do you prefer to spend the quiet stretches between the exciting parts?",
-      answers: [
-        { text: "Preparing — organizing tools and resources for what's next", cls: { Paladin: 2, Shaman: 1 }, traits: ["support", "tanky"] },
-        { text: "Exploring — wandering off to see what else is out there", cls: { Hunter: 2, Druid: 2 }, traits: ["nature", "versatile"] },
-        { text: "Practicing — refining the skills I already have", cls: { Rogue: 2, Warrior: 2 }, traits: ["melee", "aggressive"] },
-        { text: "Studying — reading, researching, understanding the system", cls: { Mage: 2, Warlock: 1 }, traits: ["magic"] }
-      ] },
-    { text: "A group needs someone to step up, but nobody volunteers. You…",
-      answers: [
-        { text: "Take charge immediately — hesitation costs more than mistakes", cls: { Warrior: 2, Paladin: 2 }, traits: ["tanky", "melee"] },
-        { text: "Offer a quiet word to whoever looks most capable", cls: { Priest: 2, Shaman: 1 }, traits: ["support"] },
-        { text: "Start solving the problem myself and let others follow", cls: { Rogue: 2, Mage: 1 }, traits: ["aggressive"] },
-        { text: "Wait — the situation usually clarifies who should lead", cls: { Druid: 2, Hunter: 1 }, traits: ["versatile", "ranged"] }
-      ] },
-    { text: "What is your relationship with rules and constraints?",
-      answers: [
-        { text: "Rules exist for good reason; I work within them well", cls: { Paladin: 2, Warrior: 1 }, traits: ["support", "tanky"] },
-        { text: "Rules are a starting point — I bend them where it counts", cls: { Warlock: 2, Rogue: 1 }, traits: ["aggressive", "magic"] },
-        { text: "I prefer to keep every option open and decide case by case", cls: { Druid: 2, Shaman: 1 }, traits: ["versatile", "nature"] },
-        { text: "I do my best work where the rules are already clear", cls: { Mage: 2, Hunter: 1 }, traits: ["ranged", "magic"] }
-      ] },
-    { text: "When you look back on your proudest moment, it involved…",
-      answers: [
-        { text: "Outlasting something that should have beaten me", cls: { Warrior: 2, Paladin: 1, Warlock: 1 }, traits: ["tanky"] },
-        { text: "A plan coming together exactly as designed", cls: { Mage: 2, Hunter: 1 }, traits: ["ranged", "magic"] },
-        { text: "Helping someone through something hard", cls: { Priest: 2, Shaman: 2, Druid: 1 }, traits: ["support", "nature"] },
-        { text: "An improvised move nobody saw coming", cls: { Rogue: 2, Shaman: 1 }, traits: ["aggressive", "versatile"] }
-      ] },
-    { text: "How do you recharge after a demanding period?",
-      answers: [
-        { text: "Alone — silence and space restore me", cls: { Rogue: 2, Hunter: 2, Mage: 1 }, traits: ["ranged", "aggressive"] },
-        { text: "With a few close people I trust completely", cls: { Priest: 1, Paladin: 2, Shaman: 1 }, traits: ["support"] },
-        { text: "Out in the open, far from walls and noise", cls: { Hunter: 2, Druid: 2 }, traits: ["nature"] },
-        { text: "Absorbed in a project or fascination", cls: { Mage: 2, Warlock: 2 }, traits: ["magic", "versatile"] }
-      ] },
-    { text: "When you learn something new, you most enjoy the moment when…",
-      answers: [
-        { text: "The fundamentals click and never waver", cls: { Warrior: 3, Rogue: 1 }, traits: ["melee"] },
-        { text: "The rules bend and I find the exception", cls: { Mage: 2, Warlock: 1 }, traits: ["magic"] },
-        { text: "The pieces connect into a bigger system", cls: { Shaman: 3, Druid: 2 }, traits: ["nature", "versatile"] },
-        { text: "I can protect what I'm building", cls: { Paladin: 3, Priest: 1 }, traits: ["support"] }
-      ] }
+  var params = new URLSearchParams(location.search);
+  var QUIZ_ID = params.get("q") || "full";
+  var QUIZ = QUIZ_DEFS[QUIZ_ID] || QUIZ_DEFS.full;
+  var QUESTIONS = QUIZ.questions;
+
+  var TOTAL = QUESTIONS.length;
+  var step = 0;
+  var classScores = {};
+  var traitScores = {};
+  var factionScores = {};
+  var history = [];
+
+  var quizContainer = document.getElementById("quizContainer");
+  var resultContainer = document.getElementById("resultContainer");
+  var questionBox = document.getElementById("questionBox");
+  var progressFill = document.getElementById("progressFill");
+  var progressText = document.getElementById("progressText");
+
+  var FACTIONS = [
+    { id: "Alliance", name: "The Alliance", color: "#4a7ec4", crest: "achievement_pvp_a_a", theme: "alliance", why: "Duty, honor and the enduring light of kings — you fight for something bigger and older than yourself." },
+    { id: "Horde", name: "The Horde", color: "#c43a2e", crest: "achievement_pvp_h_h", theme: "horde", why: "Strength, survival and the unbreakable will of outcasts — you fight beside the people who earned your trust." },
+    { id: "Both", name: "The Skyborne", color: "#6fa8c4", crest: "spell_nature_cyclone", theme: "both", why: "The open sky and every door left unbarred — you answer to no banner but your own course." }
   ];
 
-  const TOTAL = QUESTIONS.length;
-  let step = 0;
-  const classScores = {};
-  const traitScores = {};
-  const history = [];
-
-  const quizContainer = document.getElementById("quizContainer");
-  const resultContainer = document.getElementById("resultContainer");
-  const questionBox = document.getElementById("questionBox");
-  const progressFill = document.getElementById("progressFill");
-  const progressText = document.getElementById("progressText");
-
-  // which playstyle traits each class embodies — alignment is
-  // measured against these, over ALL answers
-  const CLASS_TRAITS = {
-    Warrior: ["melee", "tanky", "aggressive"],
-    Paladin: ["support", "tanky", "melee"],
-    Hunter: ["ranged", "nature", "versatile"],
-    Rogue: ["aggressive", "melee", "ranged"],
-    Priest: ["support", "magic", "ranged"],
-    Shaman: ["nature", "support", "versatile"],
-    Mage: ["magic", "ranged", "aggressive"],
-    Warlock: ["magic", "aggressive", "ranged"],
-    Druid: ["versatile", "nature", "tanky", "support"]
-  };
+  function factionOf(race) {
+    return race.faction === "Both" ? "Both" : race.faction;
+  }
 
   function record(answer) {
     if (answer.cls) {
@@ -148,11 +44,16 @@
     (answer.traits || []).forEach(function (t) {
       traitScores[t] = (traitScores[t] || 0) + 1;
     });
+    if (answer.faction) {
+      Object.keys(answer.faction).forEach(function (f) {
+        factionScores[f] = (factionScores[f] || 0) + answer.faction[f];
+      });
+    }
     history.push(answer);
   }
 
   function renderQuestion() {
-    const q = QUESTIONS[step];
+    var q = QUESTIONS[step];
     progressFill.style.width = (step / TOTAL * 100) + "%";
     progressText.textContent = "Question " + (step + 1) + " of " + TOTAL;
 
@@ -172,62 +73,37 @@
     });
   }
 
-  function topClasses() {
-    // rank by the same alignment metric the user sees, so the
-    // podium order always matches the percentages
+  // ---- shared alignment metrics (full & class quizzes) ----
+
+  function classAlignment(name) {
+    var matched = history.filter(function (a) {
+      if (a.cls && (a.cls[name] || 0) > 0) return true;
+      var traits = a.traits || [];
+      var classTraits = CLASS_TRAITS[name] || [];
+      return traits.some(function (t) { return classTraits.indexOf(t) !== -1; });
+    }).length;
+    return matched / TOTAL;
+  }
+
+  function classScore(name) { return classScores[name] || 0; }
+
+  function rankedClasses() {
     return WOW_DATA.classes.map(function (c) {
-      const points = classScores[c.name] || 0;
-      return { c: c, score: points, align: classAlignment(c.name) };
+      return { name: c.name, obj: c, score: classScore(c.name), align: classAlignment(c.name) };
     }).sort(function (a, b) {
       if (b.align !== a.align) return b.align - a.align;
       return b.score - a.score;
     });
   }
 
-  function pickRace(cls) {
-    // pick by the same raceAlignment metric shown in the stats,
-    // so the recommended race is always the top of the race chart
-    const candidates = WOW_DATA.races.filter(function (r) {
-      return r.playableClasses.indexOf(cls.name) !== -1;
-    });
-    let best = null, bestAlign = -1;
-    candidates.forEach(function (r) {
-      const a = raceAlignment(r);
-      if (a > bestAlign) { bestAlign = a; best = r; }
-    });
-    if (!best && candidates.length) best = candidates[0];
-    return best;
-  }
-
-  function roleOf(cls) {
-    const t = traitScores;
-    if ((t["support"] || 0) > (t["tanky"] || 0) && (t["support"] || 0) > (t["aggressive"] || 0)) {
-      return (cls.roles.indexOf("Healer") !== -1) ? "Healer" : cls.roles[0];
-    }
-    if ((t["tanky"] || 0) >= (t["aggressive"] || 0) && cls.roles.indexOf("Tank") !== -1) return "Tank";
-    return cls.roles.filter(function (r) { return r !== "Tank"; })[0] || cls.roles[0];
-  }
-
-  function classAlignment(name) {
-    // percentage of ALL answers this class matches: it either scored
-    // points in the answer or embodies one of the answer's traits
-    const matched = history.filter(function (a) {
-      if (a.cls && (a.cls[name] || 0) > 0) return true;
-      const traits = a.traits || [];
-      const classTraits = CLASS_TRAITS[name] || [];
-      return traits.some(function (t) { return classTraits.indexOf(t) !== -1; });
-    }).length;
-    return matched / TOTAL;
-  }
+  // ---- race metric (full & race quizzes) ----
 
   function raceAlignment(race) {
-    // purely how well the race's identity matches the traits behind
-    // the answers — no class synergy or stat reasoning involved
-    let sum = 0, counted = 0;
+    var sum = 0, counted = 0;
     history.forEach(function (a) {
-      const traits = a.traits || [];
+      var traits = a.traits || [];
       if (!traits.length) return;
-      let matched = 0;
+      var matched = 0;
       traits.forEach(function (t) {
         if ((race.matchTraits || []).indexOf(t) !== -1) matched++;
       });
@@ -237,12 +113,78 @@
     return counted > 0 ? sum / counted : 0;
   }
 
+  function rankedRaces() {
+    return WOW_DATA.races.map(function (r) {
+      return { name: r.name, obj: r, score: 0, align: raceAlignment(r) };
+    }).sort(function (a, b) { return b.align - a.align; });
+  }
+
+  // ---- faction metric (faction quiz + race-based fallback) ----
+
+  function factionAlignmentFromTraits(factionId) {
+    // average of its member races' identity alignment
+    var members = WOW_DATA.races.filter(function (r) { return factionOf(r) === factionId; });
+    if (!members.length) return 0;
+    var sum = 0;
+    members.forEach(function (r) { sum += raceAlignment(r); });
+    return sum / members.length;
+  }
+
+  function rankedFactions() {
+    if (QUIZ.id === "faction") {
+      var total = 0;
+      FACTIONS.forEach(function (f) { total += factionScores[f.id] || 0; });
+      return FACTIONS.map(function (f) {
+        var pts = factionScores[f.id] || 0;
+        return { name: f.name, obj: f, score: pts, align: total > 0 ? pts / total : 0 };
+      }).sort(function (a, b) { return b.score - a.score; });
+    }
+    return FACTIONS.map(function (f) {
+      return { name: f.name, obj: f, score: 0, align: factionAlignmentFromTraits(f.id) };
+    }).sort(function (a, b) { return b.align - a.align; });
+  }
+
+  // ---- race pick for a class (full quiz) ----
+
+  function pickRace(cls) {
+    var candidates = WOW_DATA.races.filter(function (r) {
+      return r.playableClasses.indexOf(cls.name) !== -1;
+    });
+    var best = null, bestAlign = -1;
+    candidates.forEach(function (r) {
+      var a = raceAlignment(r);
+      if (a > bestAlign) { bestAlign = a; best = r; }
+    });
+    if (!best && candidates.length) best = candidates[0];
+    return best;
+  }
+
+  function roleOf(cls) {
+    var t = traitScores;
+    if ((t["support"] || 0) > (t["tanky"] || 0) && (t["support"] || 0) > (t["aggressive"] || 0)) {
+      return (cls.roles.indexOf("Healer") !== -1) ? "Healer" : cls.roles[0];
+    }
+    if ((t["tanky"] || 0) >= (t["aggressive"] || 0) && cls.roles.indexOf("Tank") !== -1) return "Tank";
+    return cls.roles.filter(function (r) { return r !== "Tank"; })[0] || cls.roles[0];
+  }
+
+  // ---- rendering helpers ----
+
+  function shade(hex, amount) {
+    amount = typeof amount === "undefined" ? -22 : amount;
+    var n = parseInt(hex.slice(1), 16);
+    var r = Math.max(0, Math.min(255, ((n >> 16) & 255) + amount * 2.55));
+    var g = Math.max(0, Math.min(255, ((n >> 8) & 255) + amount * 2.55));
+    var b = Math.max(0, Math.min(255, (n & 255) + amount * 2.55));
+    return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
+  }
+
   function statBar(label, fraction, highlight, color, dimmed) {
-    const percent = Math.round(fraction * 100);
-    const fillStyle = color
+    var percent = Math.round(fraction * 100);
+    var fillStyle = color
       ? "width:" + percent + "%;background:linear-gradient(180deg," + color + "," + shade(color) + ")"
       : "width:" + percent + "%";
-    const labelStyle = color ? "color:" + shade(color, -30) : "";
+    var labelStyle = color ? "color:" + shade(color, -30) : "";
     return (
       '<div class="stat-row' + (highlight ? " stat-top" : "") + (dimmed ? " stat-dimmed" : "") + '">' +
         '<span class="stat-label"' + (labelStyle ? ' style="' + labelStyle + '"' : "") + ">" + label +
@@ -253,117 +195,190 @@
     );
   }
 
-  // lighten or darken a hex color by percent
-  function shade(hex, amount) {
-    amount = typeof amount === "undefined" ? -22 : amount;
-    const n = parseInt(hex.slice(1), 16);
-    const r = Math.max(0, Math.min(255, ((n >> 16) & 255) + amount * 2.55));
-    const g = Math.max(0, Math.min(255, ((n >> 8) & 255) + amount * 2.55));
-    const b = Math.max(0, Math.min(255, (n & 255) + amount * 2.55));
-    return "rgb(" + Math.round(r) + "," + Math.round(g) + "," + Math.round(b) + ")";
+  function podiumSpot(entry, i, iconName, iconSrc, nameColor, subLabel, alignPct, theme) {
+    var winner = i === 0;
+    var barFill = "width:" + alignPct + "%;background:linear-gradient(180deg," + nameColor + "," + shade(nameColor) + ")";
+    return (
+      '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + (theme ? " podium-" + theme : "") + '">' +
+        (winner ? '<span class="podium-crown">👑</span>' : "") +
+        '<span class="podium-rank">#' + (i + 1) + "</span>" +
+        '<span class="podium-icon">' + WowIcon.icon(iconSrc, 44) + "</span>" +
+        '<span class="podium-name" style="color:' + nameColor + '">' + iconName + "</span>" +
+        (subLabel ? '<span class="podium-race" style="color:' + shade(nameColor, -25) + '">' + subLabel + "</span>" : "") +
+        '<div class="podium-bar-track"><div class="podium-bar-fill" style="' + barFill + '"></div></div>' +
+        '<span class="podium-score">' + alignPct + "% aligned</span>" +
+      "</div>"
+    );
   }
+
+  function podiumHTML(ranked, spotFn) {
+    // DOM order 2-1-3; the winner is elevated in the middle
+    return '<div class="podium">' +
+      (ranked[1] ? spotFn(ranked[1], 1) : "") +
+      spotFn(ranked[0], 0) +
+      (ranked[2] ? spotFn(ranked[2], 2) : "") +
+    "</div>";
+  }
+
+  // ---- result screens ----
 
   function showResult() {
     progressFill.style.width = "100%";
     quizContainer.classList.add("hidden");
     resultContainer.classList.remove("hidden");
 
-    const ranked = topClasses();
-    const cls = ranked[0].c;
-    const runnerUp = ranked[1] ? ranked[1].c : null;
-    const third = ranked[2] ? ranked[2].c : null;
-    const race = pickRace(cls);
-    const role = roleOf(cls);
+    var html = "";
+    var themeClass = "";
 
-    // ---- podium: 2nd left, 1st center, 3rd right ----
-    function bestRaceFor(className) {
-      const candidates = WOW_DATA.races.filter(function (r) {
-        return r.playableClasses.indexOf(className) !== -1;
-      });
-      let best = null, bestAlign = -1;
-      candidates.forEach(function (r) {
-        const a = raceAlignment(r);
-        if (a > bestAlign) { bestAlign = a; best = r; }
-      });
-      return best;
-    }
+    if (QUIZ.id === "full") {
+      var ranked = rankedClasses();
+      var cls = ranked[0].obj;
+      var race = pickRace(cls);
+      var role = roleOf(cls);
+      themeClass = race ? (factionOf(race) === "Both" ? "result-both" : factionOf(race) === "Horde" ? "result-horde" : "result-alliance") : "";
 
-    function podiumSpot(r, i) {
-      const alignPct = Math.round(classAlignment(r.c.name) * 100);
-      const barPct = alignPct;
-      const spotRace = bestRaceFor(r.c.name);
-      const winner = i === 0;
-      const barFill = "width:" + barPct + "%;background:linear-gradient(180deg," + r.c.color + "," + shade(r.c.color) + ")";
-      return (
-        '<div class="podium-spot podium-' + (i + 1) + (winner ? " podium-winner" : "") + '">' +
-          (winner ? '<span class="podium-crown">👑</span>' : "") +
-          '<span class="podium-rank">#' + (i + 1) + "</span>" +
-          '<span class="podium-icon">' + (spotRace ? WowIcon.icon(spotRace.icon, 34) + " " : "") + WowIcon.icon(r.c.icon, 44) + "</span>" +
-          '<span class="podium-name" style="color:' + r.c.color + '">' + r.c.name + "</span>" +
-          (spotRace ? '<span class="podium-race" style="color:' + spotRace.color + '">' + spotRace.name + " " + r.c.name + "</span>" : "") +
-          '<div class="podium-bar-track"><div class="podium-bar-fill" style="' + barFill + '"></div></div>' +
-          '<span class="podium-score">' + alignPct + "% aligned</span>" +
-        "</div>"
-      );
-    }
-    const podium =
-      '<div class="podium">' +
-        podiumSpot(ranked[1], 1) +
-        podiumSpot(ranked[0], 0) +
-        podiumSpot(ranked[2], 2) +
-      "</div>";
-
-    // ---- why ----
-    const reasons = [];
-    reasons.push("Your answers scored highest for <strong>" + cls.name + "</strong> — " + cls.summary);
-    reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit.");
-    if (race && (race.newCombos || []).indexOf(cls.name) !== -1) {
-      reasons.push("<strong>" + race.name + " " + cls.name + "</strong> is one of November's brand-new combinations.");
-    }
-    if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
-    reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
-
-    // ---- class stats: ALL classes ----
-    const classStats = ranked.map(function (r, i) {
-      return statBar(r.c.name, r.align, i === 0, r.c.color);
-    }).join("");
-
-    // ---- race stats: ALL races, playable ones first, the rest dimmed ----
-    const raceCandidates = WOW_DATA.races.map(function (r) {
-      const playable = r.playableClasses.indexOf(cls.name) !== -1;
-      return { r: r, playable: playable, align: raceAlignment(r) };
-    }).sort(function (a, b) {
-      if (a.playable !== b.playable) return a.playable ? -1 : 1;
-      return b.align - a.align;
-    });
-
-    const raceStats = raceCandidates.map(function (rc, i) {
-      const top = rc.playable && i === 0;
-      return statBar(rc.r.name, rc.align, top, rc.r.color, !rc.playable);
-    }).join("");
-
-    document.getElementById("resultBox").innerHTML =
-      '<div class="result-hero">' +
+      html += '<div class="result-hero">' +
         '<span class="result-icons">' + (race ? WowIcon.icon(race.icon, 52) + " " : "") + WowIcon.icon(cls.icon, 64) + "</span>" +
         '<p class="result-verdict">' + (race ? race.name + " " : "") + cls.name + "</p>" +
         '<p class="result-role-line">RECOMMENDED ROLE</p>' +
         '<span class="result-role-tag">' + role + "</span>" +
-      "</div>" +
-      '<div class="podium">' + podium + "</div>" +
-      '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
-      reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") +
-      "</ul></div>" +
-      '<div class="stats-block"><h3>Class Alignment</h3>' +
-      '<p class="stats-desc">Percentage of your answers that match each class.</p>' +
-      classStats + "</div>" +
-      '<div class="stats-block"><h3>Race Alignment</h3>' +
-      '<p class="stats-desc">How well every race matches the traits behind your answers. Dimmed races cannot play ' + cls.name + ".</p>" +
-      raceStats + "</div>";
+      "</div>";
 
+      html += podiumHTML(ranked, function (r, i) {
+        var spotRace = pickRace(r.obj);
+        return podiumSpot(r, i, r.obj.name, r.obj.icon, r.obj.color,
+          spotRace ? spotRace.name + " " + r.obj.name : "",
+          Math.round(r.align * 100));
+      });
+
+      var reasons = [];
+      reasons.push("Your answers scored highest for <strong>" + cls.name + "</strong> — " + cls.summary);
+      reasons.push("You leaned toward a <strong>" + role + "</strong> playstyle, which " + cls.name + " delivers with its Forever toolkit.");
+      if (race && (race.newCombos || []).indexOf(cls.name) !== -1) {
+        reasons.push("<strong>" + race.name + " " + cls.name + "</strong> is one of November's brand-new combinations.");
+      }
+      if (race) reasons.push("As a <strong>" + race.name + "</strong>: " + race.why);
+      reasons.push("Forever change to build around: <strong>" + cls.changes[0].ability + "</strong> — " + cls.changes[0].note);
+
+      html += '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
+        reasons.map(function (r) { return "<li>" + r + "</li>"; }).join("") + "</ul></div>";
+
+      html += '<div class="stats-block"><h3>Class Alignment</h3>' +
+        '<p class="stats-desc">Percentage of your answers that match each class.</p>' +
+        ranked.map(function (r, i) { return statBar(r.obj.name, r.align, i === 0, r.obj.color); }).join("") + "</div>";
+
+      var raceCandidates = WOW_DATA.races.map(function (r) {
+        var playable = r.playableClasses.indexOf(cls.name) !== -1;
+        return { r: r, playable: playable, align: raceAlignment(r) };
+      }).sort(function (a, b) {
+        if (a.playable !== b.playable) return a.playable ? -1 : 1;
+        return b.align - a.align;
+      });
+      html += '<div class="stats-block"><h3>Race Alignment</h3>' +
+        '<p class="stats-desc">How well every race matches the traits behind your answers. Dimmed races cannot play ' + cls.name + ".</p>" +
+        raceCandidates.map(function (rc, i) {
+          var top = rc.playable && i === 0;
+          return statBar(rc.r.name, rc.align, top, rc.r.color, !rc.playable);
+        }).join("") + "</div>";
+
+    } else if (QUIZ.id === "race") {
+      var rr = rankedRaces();
+      var winner = rr[0].obj;
+      themeClass = factionOf(winner) === "Both" ? "result-both" : factionOf(winner) === "Horde" ? "result-horde" : "result-alliance";
+
+      html += '<div class="result-hero">' +
+        '<span class="result-icons">' + WowIcon.icon(winner.icon, 64) + "</span>" +
+        '<p class="result-verdict">' + winner.name + "</p>" +
+        '<p class="result-role-line">' + winner.faction.toUpperCase() + "</p>" +
+      "</div>";
+
+      html += podiumHTML(rr, function (r, i) {
+        var fac = FACTIONS.filter(function (f) { return f.id === factionOf(r.obj); })[0];
+        return podiumSpot(r, i, r.obj.name, r.obj.icon, r.obj.color,
+          factionOf(r.obj) === "Both" ? "either faction" : fac ? fac.name : "",
+          Math.round(r.align * 100), fac ? fac.theme : "");
+      });
+
+      html += '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
+        "<li>" + winner.why + "</li>" +
+        "<li><strong>" + winner.name + "</strong> can play: " + winner.playableClasses.join(", ") + ".</li>" +
+        ((winner.newCombos || []).length ? "<li><strong>New in Forever:</strong> " + winner.newCombos.join(", ") + ".</li>" : "") +
+        "</ul></div>";
+
+      html += '<div class="stats-block"><h3>Race Alignment</h3>' +
+        '<p class="stats-desc">How well every race\'s identity matches the traits behind your answers.</p>' +
+        rr.map(function (r, i) { return statBar(r.obj.name, r.align, i === 0, r.obj.color); }).join("") + "</div>";
+
+    } else if (QUIZ.id === "class") {
+      var cr = rankedClasses();
+      var wcls = cr[0].obj;
+      themeClass = "";
+
+      html += '<div class="result-hero">' +
+        '<span class="result-icons">' + WowIcon.icon(wcls.icon, 64) + "</span>" +
+        '<p class="result-verdict">' + wcls.name + "</p>" +
+        '<p class="result-role-line">ROLES</p>' +
+        '<span class="result-role-tag">' + wcls.roles.join(" · ") + "</span>" +
+      "</div>";
+
+      html += podiumHTML(cr, function (r, i) {
+        return podiumSpot(r, i, r.obj.name, r.obj.icon, r.obj.color, "", Math.round(r.align * 100));
+      });
+
+      html += '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
+        "<li><strong>" + wcls.name + "</strong> — " + wcls.summary + "</li>" +
+        "<li>Forever change to build around: <strong>" + wcls.changes[0].ability + "</strong> — " + wcls.changes[0].note + "</li>" +
+        "</ul></div>";
+
+      html += '<div class="stats-block"><h3>Class Alignment</h3>' +
+        '<p class="stats-desc">Percentage of your answers that match each class.</p>' +
+        cr.map(function (r, i) { return statBar(r.obj.name, r.align, i === 0, r.obj.color); }).join("") + "</div>";
+
+    } else if (QUIZ.id === "faction") {
+      var fr = rankedFactions();
+      var wf = fr[0].obj;
+      themeClass = wf.theme === "both" ? "result-both" : wf.theme === "horde" ? "result-horde" : "result-alliance";
+
+      var crestIcon = {
+        Alliance: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_a_a.jpg",
+        Horde: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_h_h.jpg",
+        Both: WOW_DATA.races.filter(function (r) { return r.name === "Skyborne"; })[0].icon
+      };
+
+      html += '<div class="result-hero">' +
+        '<span class="result-icons">' + WowIcon.icon(crestIcon[wf.id], 64) + "</span>" +
+        '<p class="result-verdict">' + wf.name + "</p>" +
+        (wf.id === "Alliance" ? '<p class="result-role-line">FOR THE ALLIANCE</p>' : wf.id === "Horde" ? '<p class="result-role-line">FOR THE HORDE</p>' : '<p class="result-role-line">CHOOSE YOUR OWN PATH</p>') +
+      "</div>";
+
+      html += podiumHTML(fr, function (r, i) {
+        return podiumSpot(r, i, r.obj.name, crestIcon[r.obj.id], r.obj.color, "", Math.round(r.align * 100), r.obj.theme);
+      });
+
+      var members = WOW_DATA.races.filter(function (r) { return factionOf(r) === wf.id; });
+      html += '<div class="result-why"><h3>Why</h3><ul class="ability-list">' +
+        "<li>" + wf.why + "</li>" +
+        "<li><strong>" + wf.name + "</strong> races: " + members.map(function (m) { return m.name; }).join(", ") + ".</li>" +
+        "</ul></div>";
+
+      html += '<div class="stats-block"><h3>Faction Alignment</h3>' +
+        '<p class="stats-desc">Share of your answers that point to each banner.</p>' +
+        fr.map(function (r, i) { return statBar(r.obj.name, r.align, i === 0, r.obj.color); }).join("") + "</div>";
+    }
+
+    resultContainer.classList.add(themeClass);
+    document.getElementById("resultBox").innerHTML = html;
     document.getElementById("restartBtn").addEventListener("click", function () {
       location.reload();
     });
   }
 
-  renderQuestion();
+  var chooser = document.getElementById("quizChooser");
+  if (params.get("q")) {
+    chooser.classList.add("hidden");
+    document.querySelector(".result-container .section-heading").textContent = QUIZ.heading;
+    renderQuestion();
+  } else {
+    quizContainer.classList.add("hidden");
+  }
 })();

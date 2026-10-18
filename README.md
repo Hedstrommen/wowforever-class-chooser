@@ -8,7 +8,13 @@ A fan-made tool for **World of Warcraft: Forever** (launching November 4). Style
 - **Races** (`races.html`) — every race's playable classes, the 6 new race/class combinations and the new Skyborne race.
 - **Professions** (`professions.html`) — all 12 professions, 600+ new recipes, Waylaid Supplies, campsite tools, titles and rank requirements.
 - **World** (`world.html`) — new zones, dungeons, raids, Camping, the Legacy system, rulesets and transmog.
-- **Quiz** (`quiz.html`) — 10 playstyle questions that determine which race and class you should play, with podium and percentage stats.
+- **Quizzes** (`quiz.html`) — four quizzes, each with a three-place podium and full percentage stats:
+  - **The Full Destiny Quiz** — the original 15-question journey that finds your race and class together.
+  - **Race Quiz** — 10 questions about who you are.
+  - **Faction Quiz** — 10 questions; Alliance, Horde, or the Skyborne's open road.
+  - **Class Quiz** — 10 questions about how you play.
+
+Styled after the 2004 box art: gold logo lettering, cool blue Alliance themes and fiery red Horde themes.
 
 ## Try it yourself here
     https://hedstrommen.github.io/wowforever-class-chooser/index.html
