@@ -377,6 +377,7 @@
   if (params.get("q")) {
     chooser.classList.add("hidden");
     document.querySelector(".result-container .section-heading").textContent = QUIZ.heading;
+    quizContainer.classList.remove("hidden");
     renderQuestion();
   } else {
     quizContainer.classList.add("hidden");
