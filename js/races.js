@@ -18,8 +18,10 @@
 
     const factionClass = r.faction === "Both" ? "both" : r.faction.toLowerCase();
 
+    var factionTheme = r.faction === "Both" ? "faction-both" : "faction-" + r.faction.toLowerCase();
+
     return (
-      '<div class="race-card parchment">' +
+      '<div class="race-card parchment ' + factionTheme + '">' +
         '<div class="card-header">' +
           '<span class="race-icon">' + WowIcon.icon(r.icon, 36) + "</span>" +
           '<span class="card-title" style="color:#4a3512">' + r.name + "</span>" +

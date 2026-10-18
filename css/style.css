@@ -1,8 +1,10 @@
 /* ============================================================
-   WoW Forever — 2004 WoW / Warcraft 2 theme
+   WoW Forever — 2004 WoW box-art theme
+   Gold FRIZQD logo styling, cool blue Alliance, fiery red Horde
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@600;800&display=swap');
+@import url('https://fonts.cdnfonts.com/css/friz-quadrata-std');
 
 :root {
   --gold: #c8a951;
@@ -13,6 +15,8 @@
   --stone-light: #3d3632;
   --ink: #2a1f10;
   --border: #6e5a36;
+  --alliance: #4a7ec4;
+  --horde: #c43a2e;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,7 +53,7 @@ body {
 }
 
 .game-title {
-  font-family: 'Cinzel', serif;
+  font-family: 'Friz Quadrata STD', 'FRIZQD', 'Cinzel', serif;
   font-weight: 800;
   font-size: clamp(2rem, 6vw, 3.4rem);
   color: var(--gold-bright);
@@ -58,6 +62,11 @@ body {
     0 1px 0 #5a4420,
     0 3px 6px rgba(0,0,0,.9),
     0 0 20px rgba(200,169,81,.35);
+  background: linear-gradient(180deg, #ffe98a 0%, #f0d878 40%, #a4762a 70%, #f0d878 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,.7));
 }
 
 .subtitle {
@@ -681,4 +690,257 @@ main { padding: 24px 28px 0; }
 @media (max-width: 600px) {
   main { padding: 16px 14px 0; }
   .card-header { flex-wrap: wrap; }
+}
+
+/* ============================================================
+   2004 box-art faction themes
+   Alliance: cool blues and steel. Horde: fiery reds and ember.
+   ============================================================ */
+
+/* ---------- Quiz chooser ---------- */
+.quiz-chooser { max-width: 860px; margin: 0 auto; }
+.chooser-desc { margin-bottom: 16px; color: #5a4a28; }
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.quiz-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  padding: 18px 16px 16px;
+  border: 3px solid var(--border);
+  color: var(--parchment);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.quiz-card-title {
+  font-family: 'Friz Quadrata STD', 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  color: var(--gold-bright);
+  text-shadow: 0 2px 3px rgba(0,0,0,.6);
+}
+
+.quiz-card-length {
+  font-size: .8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #d8c393;
+}
+
+.quiz-card-desc { font-size: .9rem; line-height: 1.45; color: #e6d5a5; }
+
+.quiz-card-full {
+  grid-column: 1 / -1;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(74,126,196,.35), transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(196,58,46,.35), transparent 55%),
+    linear-gradient(180deg, #4a3b22, #332813);
+}
+.quiz-card-race {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(74,126,196,.35), transparent 65%),
+    linear-gradient(180deg, #4a3b22, #332813);
+}
+.quiz-card-faction {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(74,126,196,.35), transparent 60%),
+    radial-gradient(ellipse at 80% 0%, rgba(196,58,46,.35), transparent 60%),
+    linear-gradient(180deg, #4a3b22, #332813);
+}
+.quiz-card-class {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(240,216,120,.25), transparent 65%),
+    linear-gradient(180deg, #4a3b22, #332813);
+}
+
+.quiz-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.6);
+}
+
+/* ---------- Prominent quiz CTA on the home page ---------- */
+.home-quiz-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  text-decoration: none;
+  margin: 26px 0 6px;
+  padding: 30px 24px 26px;
+  border: 4px solid var(--gold);
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(74,126,196,.4), transparent 55%),
+    radial-gradient(ellipse at 85% 100%, rgba(196,58,46,.4), transparent 55%),
+    linear-gradient(180deg, #4a3519, #2a1e0e);
+  box-shadow:
+    inset 0 1px 0 rgba(240,216,120,.35),
+    0 0 24px rgba(200,169,81,.25),
+    0 6px 16px rgba(0,0,0,.6);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.home-quiz-cta:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    inset 0 1px 0 rgba(240,216,120,.5),
+    0 0 36px rgba(200,169,81,.45),
+    0 8px 20px rgba(0,0,0,.7);
+}
+
+.home-quiz-cta .quiz-cta-title {
+  font-family: 'Friz Quadrata STD', 'Cinzel', serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  letter-spacing: 2px;
+  color: var(--gold-bright);
+  text-shadow: 0 2px 4px rgba(0,0,0,.8);
+}
+
+.home-quiz-cta .quiz-cta-desc { color: #d8c393; font-size: 1rem; max-width: 560px; line-height: 1.45; }
+
+.home-quiz-cta .quiz-cta-btn {
+  font-family: 'Friz Quadrata STD', 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: #2a1c08;
+  background: linear-gradient(180deg, #f0d878, #b8933e);
+  border: 2px solid #8a6d2b;
+  padding: 12px 40px;
+  margin-top: 6px;
+  box-shadow: 0 0 18px rgba(240,216,120,.5), inset 0 1px 0 rgba(255,248,220,.6);
+}
+
+.home-quiz-cta:hover .quiz-cta-btn { background: linear-gradient(180deg, #ffe98a, #c8a951); }
+
+/* ---------- Alliance / Horde race-card theming ---------- */
+.race-card.faction-alliance {
+  border-color: #33507f;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(74,126,196,.22), transparent 60%),
+    linear-gradient(180deg, #e4eef8, #d8e4f2 45%, var(--parchment));
+  box-shadow: inset 0 0 24px rgba(50,80,130,.3), 0 4px 12px rgba(0,0,0,.5);
+}
+
+.race-card.faction-horde {
+  border-color: #7f2733;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(196,58,46,.2), transparent 60%),
+    linear-gradient(180deg, #f4e0d0, #eccfb8 45%, var(--parchment));
+  box-shadow: inset 0 0 24px rgba(130,40,30,.3), 0 4px 12px rgba(0,0,0,.5);
+}
+
+.race-card.faction-both {
+  border-color: #4a5a2f;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(111,168,196,.2), transparent 60%),
+    radial-gradient(ellipse at 100% 0%, rgba(120,140,70,.18), transparent 60%),
+    linear-gradient(180deg, #e4f0e8, #d0e0d4 45%, var(--parchment));
+  box-shadow: inset 0 0 24px rgba(60,90,70,.25), 0 4px 12px rgba(0,0,0,.5);
+}
+
+.race-card.faction-alliance .card-title,
+.race-card.faction-horde .card-title,
+.race-card.faction-both .card-title { color: #3a2a10; }
+
+/* ---------- Faction-themed result screens ---------- */
+.result-alliance {
+  border-color: #33507f !important;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(74,126,196,.3), transparent 60%),
+    linear-gradient(180deg, #dce8f4, #c8d8ea 40%, var(--parchment)) !important;
+  box-shadow: inset 0 0 30px rgba(50,80,130,.35), 0 4px 12px rgba(0,0,0,.5) !important;
+}
+
+.result-horde {
+  border-color: #7f2733 !important;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(196,58,46,.3), transparent 60%),
+    linear-gradient(180deg, #f0dcc8, #e2c2a8 40%, var(--parchment)) !important;
+  box-shadow: inset 0 0 30px rgba(130,40,30,.35), 0 4px 12px rgba(0,0,0,.5) !important;
+}
+
+.result-both {
+  border-color: #4a5a2f !important;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(74,126,196,.22), transparent 55%),
+    radial-gradient(ellipse at 80% 0%, rgba(196,58,46,.22), transparent 55%),
+    linear-gradient(180deg, #e0ecdc, #ccdfd0 40%, var(--parchment)) !important;
+  box-shadow: inset 0 0 30px rgba(60,90,70,.3), 0 4px 12px rgba(0,0,0,.5) !important;
+}
+
+.result-alliance .result-hero {
+  border-color: #33507f;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(120,170,230,.35), transparent 65%),
+    linear-gradient(180deg, #1a3050, #12233d);
+}
+.result-alliance .result-verdict { color: #bcd4f2; text-shadow: 0 1px 0 #1a2c48, 0 3px 8px rgba(0,0,0,.8), 0 0 24px rgba(120,170,230,.5); }
+.result-alliance .result-role-tag { border-color: #33507f; background: linear-gradient(180deg, #33507f, #1f3557); color: #cfe0ff; }
+.result-alliance .result-role-line { color: #8fb0d8; }
+
+.result-horde .result-hero {
+  border-color: #7f2733;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(240,110,80,.35), transparent 65%),
+    linear-gradient(180deg, #54161a, #38100f);
+}
+.result-horde .result-verdict { color: #ffc4a8; text-shadow: 0 1px 0 #4a1410, 0 3px 8px rgba(0,0,0,.8), 0 0 24px rgba(240,110,60,.5); }
+.result-horde .result-role-tag { border-color: #7f2733; background: linear-gradient(180deg, #7f2733, #571a20); color: #ffd9ce; }
+.result-horde .result-role-line { color: #d89a80; }
+
+.result-both .result-hero {
+  border-color: #4a5a2f;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(120,170,230,.28), transparent 55%),
+    radial-gradient(ellipse at 80% 0%, rgba(240,110,80,.28), transparent 55%),
+    linear-gradient(180deg, #32421e, #22301a);
+}
+.result-both .result-verdict { color: #d4ecc8; text-shadow: 0 1px 0 #2a3418, 0 3px 8px rgba(0,0,0,.8), 0 0 24px rgba(150,210,130,.4); }
+.result-both .result-role-tag { border-color: #4a5a2f; background: linear-gradient(180deg, #4a5a2f, #33401f); color: #e4f0cf; }
+.result-both .result-role-line { color: #a0b888; }
+
+/* ---------- Faction-themed podium spots ---------- */
+.podium-spot.podium-alliance {
+  border-color: #33507f;
+  background: linear-gradient(180deg, #c8d8ee, #9db8d8);
+}
+.podium-spot.podium-alliance::after { background: linear-gradient(180deg, #7a98c4, #4a6a9a); border-color: #33507f; }
+.podium-spot.podium-alliance .podium-rank { color: #1f3a64; }
+.podium-spot.podium-alliance .podium-score { color: #1f3a64; }
+.podium-spot.podium-alliance .podium-bar-track { border-color: #33507f; }
+
+.podium-spot.podium-horde {
+  border-color: #7f2733;
+  background: linear-gradient(180deg, #e8c8b0, #c89878);
+}
+.podium-spot.podium-horde::after { background: linear-gradient(180deg, #a84838, #7a2a20); border-color: #6a2018; }
+.podium-spot.podium-horde .podium-rank { color: #6a1810; }
+.podium-spot.podium-horde .podium-score { color: #6a1810; }
+.podium-spot.podium-horde .podium-bar-track { border-color: #7f2733; }
+
+.podium-spot.podium-both {
+  border-color: #4a5a2f;
+  background: linear-gradient(180deg, #c8dcc0, #a0bc98);
+}
+.podium-spot.podium-both::after { background: linear-gradient(180deg, #7a905a, #55683a); border-color: #45522c; }
+.podium-spot.podium-both .podium-rank { color: #2a3a18; }
+.podium-spot.podium-both .podium-score { color: #2a3a18; }
+.podium-spot.podium-both .podium-bar-track { border-color: #4a5a2f; }
+
+/* ---------- Section-heading gold treatment (box-art style) ---------- */
+.game-title, .home-quiz-cta .quiz-cta-title, .quiz-card-title {
+  background: linear-gradient(180deg, #ffe98a 0%, #f0d878 40%, #a4762a 70%, #e8c860 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.6));
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WoW Forever — What Should You Play?</title>
+  <title>WoW Forever — Quizzes</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -19,7 +19,35 @@
         <a class="btn btn-home" href="index.html">← Back to Home</a>
       </div>
 
-      <section id="quizContainer" class="quiz-container parchment">
+      <!-- Quiz chooser: shown first, then replaced by the quiz itself -->
+      <section id="quizChooser" class="quiz-chooser parchment">
+        <h2 class="section-heading">Choose Your Path</h2>
+        <p class="chooser-desc">Four ways to find your answer — take them all if you can't decide.</p>
+        <div class="quiz-grid">
+          <a class="quiz-card quiz-card-full" href="quiz.html?q=full">
+            <span class="quiz-card-title">The Full Destiny Quiz</span>
+            <span class="quiz-card-length">15 questions · race &amp; class</span>
+            <span class="quiz-card-desc">The original journey. Fifteen playstyle questions that find both your race and your class, with the complete alignment stats.</span>
+          </a>
+          <a class="quiz-card quiz-card-race" href="quiz.html?q=race">
+            <span class="quiz-card-title">Race Quiz</span>
+            <span class="quiz-card-length">10 questions · race only</span>
+            <span class="quiz-card-desc">Ten questions about who you are. Which of the nine races shares your identity?</span>
+          </a>
+          <a class="quiz-card quiz-card-faction" href="quiz.html?q=faction">
+            <span class="quiz-card-title">Faction Quiz</span>
+            <span class="quiz-card-length">10 questions · Alliance or Horde</span>
+            <span class="quiz-card-desc">Ten questions about what you stand for. Blue banner, red banner — or the Skyborne's open road.</span>
+          </a>
+          <a class="quiz-card quiz-card-class" href="quiz.html?q=class">
+            <span class="quiz-card-title">Class Quiz</span>
+            <span class="quiz-card-length">10 questions · class only</span>
+            <span class="quiz-card-desc">Ten questions about how you play. Which of the nine classes fits your instincts?</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="quizContainer" class="quiz-container parchment hidden">
         <div id="progressWrap">
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
           <p id="progressText"></p>
@@ -32,6 +60,7 @@
         <div id="resultBox"></div>
         <div class="result-actions">
           <button class="btn" id="restartBtn">Take the Quiz Again</button>
+          <a class="btn" href="quiz.html">All Quizzes</a>
           <a class="btn btn-home" href="index.html">← Back to Home</a>
         </div>
       </section>
@@ -44,6 +73,7 @@
 
   <script src="js/data.js"></script>
   <script src="js/icon.js"></script>
+  <script src="js/quizzes.js"></script>
   <script src="js/quiz.js"></script>
 </body>
 </html>
