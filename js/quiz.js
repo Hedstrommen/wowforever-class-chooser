@@ -377,6 +377,15 @@
   if (params.get("q")) {
     chooser.classList.add("hidden");
     document.querySelector(".result-container .section-heading").textContent = QUIZ.heading;
+    var ctx = document.getElementById("quizContext");
+    if (ctx) {
+      ctx.innerHTML =
+        '<span class="quiz-context-icon">' + WowIcon.icon(QUIZ.icon, 32) + "</span>" +
+        '<span class="quiz-context-text">' +
+          '<span class="quiz-context-title">' + QUIZ.title + "</span>" +
+          '<span class="quiz-context-subject">Finding: ' + QUIZ.subject + "</span>" +
+        "</span>";
+    }
     quizContainer.classList.remove("hidden");
     renderQuestion();
   } else {

@@ -4,6 +4,7 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://fonts.cdnfonts.com/css/friz-quadrata-std');
 
 :root {
@@ -1077,3 +1078,225 @@ body {
 .faction-tag.alliance { border-color: #33507f; background: linear-gradient(180deg, #2a4a7f, #1a3050); }
 .faction-tag.horde { border-color: #7f2733; background: linear-gradient(180deg, #7f2733, #571a20); }
 .faction-tag.both { border-color: #4a5a2f; background: linear-gradient(180deg, #4a5a2f, #33401f); }
+
+/* ============================================================
+   Clean & smooth polish — worldofwarcraft.com inspired
+   ============================================================ */
+
+/* ---- Smooth global feel ---- */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Open Sans', 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+}
+
+.stone-frame {
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 2px rgba(240,216,120,.22),
+    0 30px 60px -20px rgba(0,0,0,.85),
+    0 0 90px rgba(200,169,81,.06);
+}
+
+.banner { padding: 44px 20px 28px; }
+
+.game-title { letter-spacing: 5px; }
+
+.subtitle {
+  font-size: 1rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #b89a5c;
+  margin-top: 10px;
+}
+
+/* ---- Nav: pill tabs, smooth hover ---- */
+.nav-links { gap: 8px; margin-top: 22px; }
+
+.nav-link {
+  border-radius: 999px;
+  padding: 9px 22px;
+  font-weight: 600;
+  font-size: .92rem;
+  border: 1px solid rgba(200,169,81,.35);
+  background: rgba(26,20,12,.55);
+  backdrop-filter: blur(6px);
+  transition: all .2s ease;
+}
+.nav-link:hover {
+  border-color: rgba(240,216,120,.7);
+  background: rgba(60,46,26,.7);
+  transform: translateY(-1px);
+}
+.nav-link.active {
+  border-color: #f0d878;
+  background: linear-gradient(180deg, rgba(240,216,120,.22), rgba(200,169,81,.1));
+  box-shadow: 0 0 16px rgba(240,216,120,.22);
+}
+
+/* ---- Buttons: rounded, smooth ---- */
+.btn {
+  border-radius: 999px;
+  border: 1px solid rgba(240,216,120,.5);
+  transition: all .2s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: inset 0 0 12px rgba(240,216,120,.4), 0 6px 16px rgba(0,0,0,.5); }
+
+/* ---- Rounded panels & cards everywhere ---- */
+.parchment {
+  border-radius: 12px;
+  border-width: 2px;
+  transition: box-shadow .2s ease;
+}
+
+.section-heading {
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  margin: 40px 0 18px;
+  padding-bottom: 12px;
+  position: relative;
+}
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 72px; height: 2px;
+  background: linear-gradient(90deg, #f0d878, transparent);
+}
+
+.home-grid { gap: 14px; }
+
+.home-card {
+  border-radius: 12px;
+  border-width: 2px;
+  padding: 24px 18px 20px;
+  gap: 10px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.home-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -12px rgba(0,0,0,.7), 0 0 24px rgba(200,169,81,.12);
+}
+.home-card .wow-icon { border-radius: 8px; }
+.home-title { font-size: 1.05rem; }
+.home-desc { line-height: 1.5; }
+
+/* ---- Home quiz CTA: clean hero ---- */
+.home-quiz-cta {
+  border-radius: 16px;
+  border-width: 2px;
+  padding: 36px 28px 32px;
+  gap: 12px;
+  margin: 28px 0 10px;
+}
+.home-quiz-cta .quiz-cta-title { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.home-quiz-cta .quiz-cta-desc { font-size: 1.02rem; }
+.home-quiz-cta .quiz-cta-btn {
+  border-radius: 999px;
+  padding: 13px 44px;
+  transition: transform .2s ease, box-shadow .2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.home-quiz-cta:hover .quiz-cta-btn { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,216,120,.35); }
+
+/* ---- Quiz chooser cards: rounded, icon-led ---- */
+.quiz-card {
+  border-radius: 12px;
+  border-width: 2px;
+  gap: 8px;
+  padding: 20px 18px 18px;
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.quiz-card:hover {
+  transform: translateY(-4px);
+  border-color: #b8933e;
+  box-shadow: 0 14px 30px -10px rgba(0,0,0,.65);
+}
+.quiz-card-icon .wow-icon { border-radius: 8px; }
+.quiz-card-title { font-size: 1.15rem; }
+.quiz-card-length { font-size: .74rem; }
+.quiz-card-desc { line-height: 1.5; }
+.quiz-card-full { flex-direction: row; align-items: center; text-align: left; gap: 18px; }
+.quiz-card-full .quiz-card-icon { flex-shrink: 0; }
+.quiz-card-full .quiz-card-icon .wow-icon { width: 56px; height: 56px; }
+.quiz-card-full > span:not(.quiz-card-icon) { display: block; }
+.quiz-card-full .quiz-card-title { font-size: 1.4rem; }
+
+/* ---- Quiz context badge: what am I quizzing about? ---- */
+.quiz-context {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(138,109,43,.5);
+  border-radius: 10px;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(240,216,120,.12), transparent 60%),
+    rgba(58,47,30,.25);
+}
+.quiz-context-icon { display: flex; align-items: center; }
+.quiz-context-icon .wow-icon { border-radius: 6px; }
+.quiz-context-text { display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.quiz-context-title {
+  font-family: 'Friz Quadrata Std', 'Cinzel', serif;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  color: #4a3008;
+  line-height: 1.2;
+}
+.quiz-context-subject {
+  font-size: .92rem;
+  color: #6a5426;
+  letter-spacing: .3px;
+}
+.quiz-context-subject::before {
+  content: "◈ ";
+  color: #a4822f;
+}
+
+/* ---- Progress & questions: smooth ---- */
+.progress-track { border-radius: 999px; height: 14px; overflow: hidden; }
+.progress-fill { border-radius: 999px; }
+#progressText { font-size: .88rem; letter-spacing: 1px; text-transform: uppercase; color: #6a5426; }
+
+.question-text { font-size: 1.28rem; line-height: 1.45; }
+
+.answer-btn {
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 13px 18px;
+  margin-bottom: 10px;
+  font-size: .98rem;
+  line-height: 1.5;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.answer-btn:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  border-color: #b8933e;
+}
+
+/* ---- Podium & stats: soft rounding ---- */
+.podium-spot { border-radius: 10px 10px 0 0; }
+.stat-track { border-radius: 999px; overflow: hidden; }
+.stat-fill { border-radius: 999px; }
+.stat-row { gap: 14px; }
+.stats-block {
+  border-radius: 10px;
+  border: 1px solid rgba(138,109,43,.5);
+}
+
+/* ---- Intro/why copy: cleaner reading ---- */
+.intro p, .race-why, .result-why li, .ability-list li { line-height: 1.65; }
+
+.footer { letter-spacing: .4px; }
+
+@media (max-width: 600px) {
+  .quiz-card-full { flex-direction: column; text-align: center; }
+}

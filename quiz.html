@@ -25,21 +25,25 @@
         <p class="chooser-desc">Four ways to find your answer — take them all if you can't decide.</p>
         <div class="quiz-grid">
           <a class="quiz-card quiz-card-full" href="quiz.html?q=full">
+            <span class="quiz-card-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/spell_arcane_focusedlight.jpg" alt="" width="44" height="44" loading="lazy"></span>
             <span class="quiz-card-title">The Full Destiny Quiz</span>
             <span class="quiz-card-length">15 questions · race &amp; class</span>
             <span class="quiz-card-desc">The original journey. Fifteen playstyle questions that find both your race and your class, with the complete alignment stats.</span>
           </a>
           <a class="quiz-card quiz-card-race" href="quiz.html?q=race">
+            <span class="quiz-card-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/achievement_character_human_male.jpg" alt="" width="44" height="44" loading="lazy"></span>
             <span class="quiz-card-title">Race Quiz</span>
             <span class="quiz-card-length">10 questions · race only</span>
             <span class="quiz-card-desc">Ten questions about who you are. Which of the nine races shares your identity?</span>
           </a>
           <a class="quiz-card quiz-card-faction" href="quiz.html?q=faction">
+            <span class="quiz-card-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_a_a.jpg" alt="" width="44" height="44" loading="lazy"></span>
             <span class="quiz-card-title">Faction Quiz</span>
             <span class="quiz-card-length">10 questions · Alliance or Horde</span>
             <span class="quiz-card-desc">Ten questions about what you stand for. Blue banner, red banner — or the Skyborne's open road.</span>
           </a>
           <a class="quiz-card quiz-card-class" href="quiz.html?q=class">
+            <span class="quiz-card-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg" alt="" width="44" height="44" loading="lazy"></span>
             <span class="quiz-card-title">Class Quiz</span>
             <span class="quiz-card-length">10 questions · class only</span>
             <span class="quiz-card-desc">Ten questions about how you play. Which of the nine classes fits your instincts?</span>
@@ -48,6 +52,7 @@
       </section>
 
       <section id="quizContainer" class="quiz-container parchment hidden">
+        <div class="quiz-context" id="quizContext"></div>
         <div id="progressWrap">
           <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
           <p id="progressText"></p>
