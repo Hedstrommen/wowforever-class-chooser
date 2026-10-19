@@ -25,6 +25,8 @@ var QUIZ_DEFS = {
   full: {
     id: "full",
     title: "The Full Destiny Quiz",
+    icon: "https://wow.zamimg.com/images/wow/icons/large/spell_arcane_focusedlight.jpg",
+    subject: "Your race + class together",
     desc: "The original 15-question journey \u2014 race and class together, with the complete alignment stats.",
     heading: "Your Destiny Awaits",
     questions: [
@@ -143,6 +145,8 @@ var QUIZ_DEFS = {
   race: {
     id: "race",
     title: "Race Quiz",
+    icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_character_human_male.jpg",
+    subject: "Your race",
     desc: "10 questions about who you are — which of the nine races shares your identity.",
     heading: "Your People, Your Bloodline",
     questions: [
@@ -226,6 +230,8 @@ var QUIZ_DEFS = {
   class: {
     id: "class",
     title: "Class Quiz",
+    icon: "https://wow.zamimg.com/images/wow/icons/large/classicon_warrior.jpg",
+    subject: "Your class",
     desc: "10 questions about how you play — which of the nine classes fits your instincts.",
     heading: "Your Calling Awaits",
     questions: [
@@ -309,6 +315,8 @@ var QUIZ_DEFS = {
   faction: {
     id: "faction",
     title: "Faction Quiz",
+    icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_a_a.jpg",
+    subject: "Your faction — Alliance, Horde, or the Skyborne's road",
     desc: "10 questions about what you stand for — Alliance, Horde, or the Skyborne's open road.",
     heading: "For the Alliance, or For the Horde?",
     questions: [
