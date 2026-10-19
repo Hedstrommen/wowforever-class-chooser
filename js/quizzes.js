@@ -25,7 +25,7 @@ var QUIZ_DEFS = {
   full: {
     id: "full",
     title: "The Full Destiny Quiz",
-    icon: "https://wow.zamimg.com/images/wow/icons/large/spell_arcane_focusedlight.jpg",
+    icon: "https://wow.zamimg.com/images/wow/icons/large/spell_holy_magicalsentry.jpg",
     subject: "Your race + class together",
     desc: "The original 15-question journey \u2014 race and class together, with the complete alignment stats.",
     heading: "Your Destiny Awaits",
@@ -310,77 +310,68 @@ var QUIZ_DEFS = {
 
   // ----------------------------------------------------------
   // FACTION QUIZ — 10 questions, Alliance vs Horde, with the
-  // Skyborne "choose your own path" as a third outcome.
+  // Strictly Alliance vs Horde.
   // ----------------------------------------------------------
   faction: {
     id: "faction",
     title: "Faction Quiz",
     icon: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_a_a.jpg",
-    subject: "Your faction — Alliance, Horde, or the Skyborne's road",
-    desc: "10 questions about what you stand for — Alliance, Horde, or the Skyborne's open road.",
+    subject: "Your faction — the Alliance or the Horde",
+    desc: "10 questions about what you stand for — the blue banner of the Alliance, or the red banner of the Horde.",
     heading: "For the Alliance, or For the Horde?",
     questions: [
       { text: "A stranger's cart is stuck in the mud on the road. You…",
         answers: [
           { text: "Help immediately — that's what decent folk do", faction: { Alliance: 2 } },
-          { text: "Help, but expect a favor owed in return", faction: { Horde: 2 } },
-          { text: "Help only if they ask — pride deserves respect", faction: { Both: 2 } }
+          { text: "Help, but expect a favor owed in return", faction: { Horde: 2 } }
         ] },
       { text: "Your people are strongest when they are…",
         answers: [
           { text: "Bound by shared ideals and law", faction: { Alliance: 2 } },
-          { text: "Bound by shared strength and survival", faction: { Horde: 2 } },
-          { text: "Bound by nothing — free to come and go", faction: { Both: 2 } }
+          { text: "Bound by shared strength and survival", faction: { Horde: 2 } }
         ] },
       { text: "Which would you rather be accused of?",
         answers: [
           { text: "Being too proud", faction: { Alliance: 1, Horde: 1 } },
           { text: "Being too stubborn", faction: { Alliance: 2 } },
-          { text: "Being too ambitious", faction: { Horde: 2 } },
-          { text: "Being too hard to pin down", faction: { Both: 2 } }
+          { text: "Being too ambitious", faction: { Horde: 2 } }
         ] },
       { text: "A city you're visiting bans one of your old customs. You…",
         answers: [
           { text: "Follow the law; my home customs stay at home", faction: { Alliance: 2 } },
-          { text: "Keep the custom anyway — no one forbids my heritage", faction: { Horde: 2 } },
-          { text: "Move on; there are other cities", faction: { Both: 2 } }
+          { text: "Keep the custom anyway — no one forbids my heritage", faction: { Horde: 2 } }
         ] },
       { text: "Victory is most satisfying when it's…",
         answers: [
           { text: "Won together, under one banner", faction: { Alliance: 1, Horde: 1 } },
           { text: "Earned through discipline and honor", faction: { Alliance: 2 } },
-          { text: "Taken from a stronger foe", faction: { Horde: 2 } },
-          { text: "Won on my own terms", faction: { Both: 2 } }
+          { text: "Taken from a stronger foe", faction: { Horde: 2 } }
         ] },
       { text: "Choose the oath that rings truest:",
         answers: [
           { text: "\u201cI will stand watch so others may sleep.\u201d", faction: { Alliance: 2 } },
-          { text: "\u201cNever again will we be broken.\u201d", faction: { Horde: 2 } },
-          { text: "\u201cThe sky belongs to no one.\u201d", faction: { Both: 2 } }
+          { text: "\u201cNever again will we be broken.\u201d", faction: { Horde: 2 } }
         ] },
       { text: "History books should remember your side for its…",
         answers: [
           { text: "Kings, laws and shining cities", faction: { Alliance: 2 } },
-          { text: "Survivors, warriors and unbreakable will", faction: { Horde: 2 } },
-          { text: "Wanderers who owed nothing to anyone", faction: { Both: 2 } }
+          { text: "Survivors, warriors and unbreakable will", faction: { Horde: 2 } }
         ] },
       { text: "Your leader gives an order you privately doubt. You…",
         answers: [
           { text: "Obey — the chain holds because we hold it", faction: { Alliance: 2 } },
-          { text: "Say so to their face, then decide", faction: { Horde: 2 } },
-          { text: "Bow out of the whole endeavor", faction: { Both: 2 } }
+          { text: "Say so to their face, then decide", faction: { Horde: 2 } }
         ] },
       { text: "A monument falls that your grandfather helped build. You…",
         answers: [
           { text: "Vow to rebuild it exactly as it was", faction: { Alliance: 2 } },
-          { text: "Build something new from the stones", faction: { Horde: 1, Both: 1 } },
-          { text: "Let the past be the past", faction: { Both: 1, Horde: 1 } }
+          { text: "Build something new from the stones", faction: { Horde: 2 } },
+          { text: "Let the past be the past", faction: { Horde: 2 } }
         ] },
       { text: "At the end of the story, your allegiance was…",
         answers: [
           { text: "To a kingdom that will outlive me", faction: { Alliance: 2 } },
-          { text: "To the people who fought beside me", faction: { Horde: 2 } },
-          { text: "To wherever the wind took me", faction: { Both: 2 } }
+          { text: "To the people who fought beside me", faction: { Horde: 2 } }
         ] }
     ]
   }

@@ -1300,3 +1300,89 @@ body {
 @media (max-width: 600px) {
   .quiz-card-full { flex-direction: column; text-align: center; }
 }
+
+/* ============================================================
+   Readability fixes: header, cards, quiz chooser
+   ============================================================ */
+
+/* ---- Header: clean gold lettering, no grainy gradient text ---- */
+.game-title,
+.home-quiz-cta .quiz-cta-title,
+.quiz-card-title {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: currentColor;
+  filter: none;
+  color: #f4dc82;
+  text-shadow:
+    0 1px 0 rgba(58,44,16,.8),
+    0 2px 4px rgba(0,0,0,.55),
+    0 0 28px rgba(240,216,120,.25);
+}
+
+/* ---- Home cards: neutral fantasy parchment ---- */
+.home-card {
+  background:
+    linear-gradient(180deg, rgba(90,60,20,.06), rgba(60,40,12,.1)),
+    linear-gradient(180deg, #efe0b8, #e2ce9c);
+  border: 2px solid #a4884f;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,246,222,.6),
+    inset 0 0 22px rgba(110,80,30,.18),
+    0 4px 12px rgba(0,0,0,.5);
+}
+.home-card:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,246,222,.6),
+    inset 0 0 22px rgba(110,80,30,.18),
+    0 14px 28px -10px rgba(0,0,0,.65);
+}
+.home-title { color: #4a3512; text-shadow: 0 1px 0 rgba(255,248,220,.5); }
+.home-desc { color: #6a5230; }
+
+/* ---- Big quiz CTA: parchment hero, dark readable text ---- */
+.home-quiz-cta {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(74,126,196,.16), transparent 55%),
+    radial-gradient(ellipse at 88% 100%, rgba(196,58,46,.16), transparent 55%),
+    linear-gradient(180deg, #f0e2bc, #ddc894);
+  border: 2px solid #a4884f;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,246,222,.6),
+    inset 0 0 30px rgba(110,80,30,.15),
+    0 6px 18px rgba(0,0,0,.55);
+}
+.home-quiz-cta .quiz-cta-title {
+  color: #4a3512;
+  text-shadow: 0 1px 0 rgba(255,248,220,.6);
+}
+.home-quiz-cta .quiz-cta-desc { color: #6a5230; }
+.home-quiz-cta .quiz-cta-btn {
+  color: #2a1c08;
+  background: linear-gradient(180deg, #f4dc82, #c8a24a);
+  border: 2px solid #8a6d2b;
+}
+.home-quiz-cta:hover .quiz-cta-btn { background: linear-gradient(180deg, #ffe98a, #d4ae52); }
+
+/* ---- Quiz chooser cards: parchment too, with dark text ---- */
+.quiz-card {
+  background:
+    linear-gradient(180deg, rgba(90,60,20,.05), rgba(60,40,12,.09)),
+    linear-gradient(180deg, #efe0b8, #e2ce9c);
+  border: 2px solid #a4884f;
+  color: #3a2a10;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,246,222,.55),
+    inset 0 0 20px rgba(110,80,30,.16),
+    0 4px 12px rgba(0,0,0,.5);
+}
+.quiz-card:hover {
+  border-color: #8a6d2b;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,246,222,.55),
+    0 14px 30px -10px rgba(0,0,0,.65);
+}
+.quiz-card-title { color: #4a3512; text-shadow: 0 1px 0 rgba(255,248,220,.5); }
+.quiz-card-length { color: #8a6d3b; }
+.quiz-card-desc { color: #6a5230; }
