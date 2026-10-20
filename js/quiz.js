@@ -28,7 +28,6 @@
   var FACTIONS = [
     { id: "Alliance", name: "The Alliance", color: "#4a7ec4", crest: "achievement_pvp_a_a", theme: "alliance", why: "Duty, honor and the enduring light of kings — you fight for something bigger and older than yourself." },
     { id: "Horde", name: "The Horde", color: "#c43a2e", crest: "achievement_pvp_h_h", theme: "horde", why: "Strength, survival and the unbreakable will of outcasts — you fight beside the people who earned your trust." },
-    { id: "Both", name: "The Skyborne", color: "#6fa8c4", crest: "spell_nature_cyclone", theme: "both", why: "The open sky and every door left unbarred — you answer to no banner but your own course." }
   ];
 
   function factionOf(race) {
@@ -337,18 +336,17 @@
     } else if (QUIZ.id === "faction") {
       var fr = rankedFactions();
       var wf = fr[0].obj;
-      themeClass = wf.theme === "both" ? "result-both" : wf.theme === "horde" ? "result-horde" : "result-alliance";
+      themeClass = wf.theme === "horde" ? "result-horde" : "result-alliance";
 
       var crestIcon = {
         Alliance: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_a_a.jpg",
-        Horde: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_h_h.jpg",
-        Both: WOW_DATA.races.filter(function (r) { return r.name === "Skyborne"; })[0].icon
+        Horde: "https://wow.zamimg.com/images/wow/icons/large/achievement_pvp_h_h.jpg"
       };
 
       html += '<div class="result-hero">' +
         '<span class="result-icons">' + WowIcon.icon(crestIcon[wf.id], 64) + "</span>" +
         '<p class="result-verdict">' + wf.name + "</p>" +
-        (wf.id === "Alliance" ? '<p class="result-role-line">FOR THE ALLIANCE</p>' : wf.id === "Horde" ? '<p class="result-role-line">FOR THE HORDE</p>' : '<p class="result-role-line">CHOOSE YOUR OWN PATH</p>') +
+        (wf.id === "Alliance" ? '<p class="result-role-line">FOR THE ALLIANCE</p>' : '<p class="result-role-line">FOR THE HORDE</p>') +
       "</div>";
 
       html += podiumHTML(fr, function (r, i) {
