@@ -3,7 +3,7 @@
    Gold FRIZQD logo styling, cool blue Alliance, fiery red Horde
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=MedievalSharp&family=Cinzel:wght@600;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 @import url('https://fonts.cdnfonts.com/css/friz-quadrata-std');
 
@@ -54,20 +54,15 @@ body {
 }
 
 .game-title {
-  font-family: 'Friz Quadrata Std', 'FRIZQD', 'Cinzel', serif;
-  font-weight: 800;
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
   font-size: clamp(2rem, 6vw, 3.4rem);
-  color: var(--gold-bright);
-  letter-spacing: 4px;
+  color: #f0d878;
+  letter-spacing: 3px;
   text-shadow:
     0 1px 0 #5a4420,
-    0 3px 6px rgba(0,0,0,.9),
-    0 0 20px rgba(200,169,81,.35);
-  background: linear-gradient(180deg, #ffe98a 0%, #f0d878 40%, #a4762a 70%, #f0d878 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 3px 4px rgba(0,0,0,.7));
+    0 2px 6px rgba(0,0,0,.85),
+    0 0 30px rgba(240,216,120,.22);
 }
 
 .subtitle {
@@ -1319,6 +1314,19 @@ body {
     0 1px 0 rgba(58,44,16,.8),
     0 2px 4px rgba(0,0,0,.55),
     0 0 28px rgba(240,216,120,.25);
+}
+
+/* Main title: engraved Cinzel Decorative — clean and elegant */
+.game-title,
+.game-title.game-title {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
+  font-weight: 900;
+  color: #f0d878;
+  letter-spacing: 3px;
+  text-shadow:
+    0 1px 0 #5a4420,
+    0 2px 6px rgba(0,0,0,.85),
+    0 0 30px rgba(240,216,120,.22);
 }
 
 /* ---- Home cards: neutral fantasy parchment ---- */

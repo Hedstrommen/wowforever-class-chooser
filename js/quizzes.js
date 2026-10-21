@@ -320,58 +320,75 @@ var QUIZ_DEFS = {
     desc: "10 questions about what you stand for — the blue banner of the Alliance, or the red banner of the Horde.",
     heading: "For the Alliance, or For the Horde?",
     questions: [
-      { text: "A stranger's cart is stuck in the mud on the road. You…",
+      { text: "A stranger's cart is stuck in the mud on the road. You\u2026",
         answers: [
-          { text: "Help immediately — that's what decent folk do", faction: { Alliance: 2 } },
-          { text: "Help, but expect a favor owed in return", faction: { Horde: 2 } }
+          { text: "Help immediately \u2014 that's what decent folk do", faction: { Alliance: 2 } },
+          { text: "Help, but expect a favor owed in return", faction: { Horde: 2 } },
+          { text: "Help only if they ask \u2014 pride deserves respect", faction: { Alliance: 1, Horde: 1 } },
+          { text: "Pass by; the road teaches its own lessons", faction: { Alliance: 1, Horde: 1 } }
         ] },
-      { text: "Your people are strongest when they are…",
+      { text: "Your people are strongest when they are\u2026",
         answers: [
           { text: "Bound by shared ideals and law", faction: { Alliance: 2 } },
-          { text: "Bound by shared strength and survival", faction: { Horde: 2 } }
+          { text: "Bound by shared strength and survival", faction: { Horde: 2 } },
+          { text: "Bound by tradition, whatever it costs", faction: { Alliance: 1, Horde: 1 } },
+          { text: "Bound by nothing at all \u2014 each stands alone", faction: { Alliance: 1, Horde: 1 } }
         ] },
       { text: "Which would you rather be accused of?",
         answers: [
           { text: "Being too proud", faction: { Alliance: 1, Horde: 1 } },
           { text: "Being too stubborn", faction: { Alliance: 2 } },
-          { text: "Being too ambitious", faction: { Horde: 2 } }
+          { text: "Being too ambitious", faction: { Horde: 2 } },
+          { text: "Being too loyal to the wrong cause", faction: { Alliance: 1, Horde: 1 } }
         ] },
-      { text: "A city you're visiting bans one of your old customs. You…",
+      { text: "A city you're visiting bans one of your old customs. You\u2026",
         answers: [
           { text: "Follow the law; my home customs stay at home", faction: { Alliance: 2 } },
-          { text: "Keep the custom anyway — no one forbids my heritage", faction: { Horde: 2 } }
+          { text: "Keep the custom anyway \u2014 no one forbids my heritage", faction: { Horde: 2 } },
+          { text: "Petition the council for an exception", faction: { Alliance: 2 } },
+          { text: "Make the custom too loud to police", faction: { Horde: 2 } }
         ] },
-      { text: "Victory is most satisfying when it's…",
+      { text: "Victory is most satisfying when it's\u2026",
         answers: [
           { text: "Won together, under one banner", faction: { Alliance: 1, Horde: 1 } },
           { text: "Earned through discipline and honor", faction: { Alliance: 2 } },
-          { text: "Taken from a stronger foe", faction: { Horde: 2 } }
+          { text: "Taken from a stronger foe", faction: { Horde: 2 } },
+          { text: "Won by outlasting everyone else", faction: { Alliance: 1, Horde: 1 } }
         ] },
       { text: "Choose the oath that rings truest:",
         answers: [
           { text: "\u201cI will stand watch so others may sleep.\u201d", faction: { Alliance: 2 } },
-          { text: "\u201cNever again will we be broken.\u201d", faction: { Horde: 2 } }
+          { text: "\u201cNever again will we be broken.\u201d", faction: { Horde: 2 } },
+          { text: "\u201cMy word, once given, is iron.\u201d", faction: { Alliance: 2 } },
+          { text: "\u201cLet them come. We will still be standing.\u201d", faction: { Horde: 2 } }
         ] },
-      { text: "History books should remember your side for its…",
+      { text: "History books should remember your side for its\u2026",
         answers: [
           { text: "Kings, laws and shining cities", faction: { Alliance: 2 } },
-          { text: "Survivors, warriors and unbreakable will", faction: { Horde: 2 } }
+          { text: "Survivors, warriors and unbreakable will", faction: { Horde: 2 } },
+          { text: "Builders who made the world richer", faction: { Alliance: 2 } },
+          { text: "Outcasts who refused to kneel", faction: { Horde: 2 } }
         ] },
-      { text: "Your leader gives an order you privately doubt. You…",
+      { text: "Your leader gives an order you privately doubt. You\u2026",
         answers: [
-          { text: "Obey — the chain holds because we hold it", faction: { Alliance: 2 } },
-          { text: "Say so to their face, then decide", faction: { Horde: 2 } }
+          { text: "Obey \u2014 the chain holds because we hold it", faction: { Alliance: 2 } },
+          { text: "Say so to their face, then decide", faction: { Horde: 2 } },
+          { text: "Obey, but quietly make sure there's a backup plan", faction: { Alliance: 1, Horde: 1 } },
+          { text: "Trust my own judgment over any order", faction: { Alliance: 1, Horde: 1 } }
         ] },
-      { text: "A monument falls that your grandfather helped build. You…",
+      { text: "A monument falls that your grandfather helped build. You\u2026",
         answers: [
           { text: "Vow to rebuild it exactly as it was", faction: { Alliance: 2 } },
           { text: "Build something new from the stones", faction: { Horde: 2 } },
-          { text: "Let the past be the past", faction: { Horde: 2 } }
+          { text: "Mourn it properly, then carry on the work", faction: { Alliance: 2 } },
+          { text: "Let the past be the past", faction: { Alliance: 1, Horde: 1 } }
         ] },
-      { text: "At the end of the story, your allegiance was…",
+      { text: "At the end of the story, your allegiance was\u2026",
         answers: [
           { text: "To a kingdom that will outlive me", faction: { Alliance: 2 } },
-          { text: "To the people who fought beside me", faction: { Horde: 2 } }
+          { text: "To the people who fought beside me", faction: { Horde: 2 } },
+          { text: "To the oath itself, whoever else breaks it", faction: { Alliance: 2 } },
+          { text: "To whoever kept their word to me", faction: { Horde: 2 } }
         ] }
     ]
   }

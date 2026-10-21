@@ -364,7 +364,7 @@
         fr.map(function (r, i) { return statBar(r.obj.name, r.align, i === 0, r.obj.color); }).join("") + "</div>";
     }
 
-    resultContainer.classList.add(themeClass);
+    if (themeClass) resultContainer.classList.add(themeClass);
     document.getElementById("resultBox").innerHTML = html;
     document.getElementById("restartBtn").addEventListener("click", function () {
       location.reload();
